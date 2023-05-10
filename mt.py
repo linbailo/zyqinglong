@@ -8,7 +8,7 @@ mt论坛自动签到
 export mtusername=""
 export mtpassword=""
 
-cron: 0 0,7, * * *
+cron: 0 0,7 * * *
 const $ = new Env("mt论坛");
 """
 import requests
