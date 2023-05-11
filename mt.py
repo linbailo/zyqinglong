@@ -2,11 +2,10 @@
 mt论坛自动签到
 
 暂不支持多个账号，我知道你们肯定没有这个需求
-
-账号变量 mtusername 
-密码变量 mtpassword
-export mtusername=""
-export mtpassword=""
+添加变量mtluntan
+账号密码用&隔开
+例如账号：10086 密码：1001 则变量为10086&1001
+export mtluntan=""
 
 cron: 0 0,7 * * *
 const $ = new Env("mt论坛");
@@ -21,6 +20,7 @@ import time
 #设置ua
 ua = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.45 Safari/537.36'
 session = requests.session()
+
 
 def main(username,password):
     headers={'User-Agent': ua}
@@ -56,16 +56,16 @@ if __name__ == '__main__':
     #username.encode("utf-8")
     #密码
     password = ''
-    if 'mtusername' in os.environ:
-        username = os.environ.get("mtusername")
+    if 'mtluntan' in os.environ:
+        mtluntan = os.environ.get("mtluntan").split("&")
+        username = mtluntan[0]
+        password = mtluntan[1]
     else:
         print('不存在青龙、github变量')
-        exit
-    if 'mtpassword' in os.environ:
-        password = os.environ.get("mtpassword")
-    
+        if username == '' or password == '':
+            print('本地账号密码为空')
+            exit()
     try:
         main(username,password)
     except Exception as e:
         raise e
-
