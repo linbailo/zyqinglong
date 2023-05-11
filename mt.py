@@ -60,6 +60,7 @@ if __name__ == '__main__':
         username = os.environ.get("mtusername")
     else:
         print('不存在青龙、github变量')
+        exit
     if 'mtpassword' in os.environ:
         password = os.environ.get("mtpassword")
     
