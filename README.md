@@ -4,6 +4,7 @@
 - [x] 目前有
 
   - [x] meituan: 美团领劵大额和一些领钱任务[大佬的库](https://raw.githubusercontent.com/leafTheFish/DeathNote/main/meituanV3.js)
+  - [x] elm: 饿了么领劵大额和一些领钱任务[大佬的库](https://raw.githubusercontent.com/leafTheFish/DeathNote/main/elmV3.js)
   - [x] mt：mt论坛自动签到
 
 ## 青龙订阅任务
