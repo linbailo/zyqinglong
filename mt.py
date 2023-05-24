@@ -2,8 +2,8 @@
 mt论坛自动签到
 
 暂不支持多个账号，我知道你们肯定没有这个需求
-添加变量mtluntan
-账号密码用&隔开
+添加变量mtlunt
+账号密码用&隔
 例如账号：10086 密码：1001 则变量为10086&1001
 export mtluntan=""
 
@@ -21,6 +21,20 @@ import time
 ua = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.45 Safari/537.36'
 session = requests.session()
 
+#获取ip
+ipdi = requests.get('http://ifconfig.me/ip', timeout=6).text.strip()
+print(ipdi)
+
+
+#判断国内外地址
+dizhi = f'http://ip-api.com/json/{ipdi}?lang=zh-CN'
+pdip = requests.get(url=dizhi, timeout=6).json()
+country = pdip['country']
+if '中国' == country:
+    print(country)
+else:
+    print(f'{country}无法访问论坛')
+    exit()
 
 def main(username,password):
     headers={'User-Agent': ua}
@@ -43,11 +57,25 @@ def main(username,password):
         #签到
         qdurl=f'https://bbs.binmt.cc/plugin.php?id=k_misign:sign&operation=qiandao&format=text&formhash={formhash}'
         qd = session.get(url=qdurl, headers=headers).text
-        qdyz = re.findall('<root><(.*?)</root>', qd)
-        print(qd)
+        qdyz = re.findall('<root><(.*?)</root>', qd)[0]
+        print(f'签到状态：{qdyz}')
+        if '已签' in qd:
+            huoqu(formhash)
     else:
         print('登录失败')
 
+
+
+
+def huoqu(formhash):
+    headers = {'User-Agent': ua}
+    huo = session.get('https://bbs.binmt.cc/k_misign-sign.html', headers=headers).text
+    pai = re.findall('您的签到排名：(.*?)</div>', huo)[0]
+    jiang = re.findall('id="lxreward" value="(.*?)">', huo)[0]
+    print(f'签到排名{pai}，奖励{jiang}金币')
+    #退出登录，想要多用户必须，执行退出
+    tuic = f'https://bbs.binmt.cc/member.php?mod=logging&action=logout&formhash={formhash}'
+    session.get(url=tuic, headers=headers)
 
 
 if __name__ == '__main__':
@@ -57,9 +85,7 @@ if __name__ == '__main__':
     #密码
     password = ''
     if 'mtluntan' in os.environ:
-        mtluntan = os.environ.get("mtluntan").split("&")
-        username = mtluntan[0]
-        password = mtluntan[1]
+        username,password = os.environ.get("mtluntan").split("&")
     else:
         print('不存在青龙、github变量')
         if username == '' or password == '':
