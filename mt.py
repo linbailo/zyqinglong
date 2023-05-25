@@ -1,10 +1,13 @@
 """
 mt论坛自动签到
 
-暂不支持多个账号，我知道你们肯定没有这个需求
-添加变量mtlunt
-账号密码用&隔
-例如账号：10086 密码：1001 则变量为10086&1001
+支持多用户运行
+添加变量mtluntan
+账号密码用&隔开
+多用户用@隔开
+例如账号1：10086 密码：1001 
+账号1：1234 密码：1234
+则变量为10086&1001@1234&1234
 export mtluntan=""
 
 cron: 0 0,7 * * *
@@ -23,6 +26,7 @@ session = requests.session()
 
 #获取ip
 ipdi = requests.get('http://ifconfig.me/ip', timeout=6).text.strip()
+print('============📣初始化📣============')
 print(ipdi)
 
 
@@ -35,6 +39,7 @@ if '中国' == country:
 else:
     print(f'{country}无法访问论坛')
     exit()
+print('==================================')
 
 def main(username,password):
     headers={'User-Agent': ua}
@@ -85,13 +90,23 @@ if __name__ == '__main__':
     #密码
     password = ''
     if 'mtluntan' in os.environ:
-        username,password = os.environ.get("mtluntan").split("&")
+        fen = os.environ.get("mtluntan").split("@")
+        print(f'查找到{len(fen)}个账号')
+        print('==================================')
+        for duo in fen:
+            username,password = duo.split("&")
+            try:
+                main(username,password)
+                print('============📣结束📣============')
+            except Exception as e:
+                raise e
     else:
         print('不存在青龙、github变量')
         if username == '' or password == '':
             print('本地账号密码为空')
             exit()
-    try:
-        main(username,password)
-    except Exception as e:
-        raise e
+        else:
+            try:
+                main(username,password)
+            except Exception as e:
+                raise e
