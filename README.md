@@ -1,6 +1,8 @@
 # zyqinglong
 青龙自用库
 
+每个脚本里面都有写有需要的具体东西和变量名
+
 - [x] 目前有
 
   - [x] meituan: 美团领劵大额和一些领钱任务[大佬的库](https://raw.githubusercontent.com/leafTheFish/DeathNote/main/meituanV3.js)
