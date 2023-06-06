@@ -18,7 +18,7 @@ import time
 
 #初始化
 print('============📣初始化📣============')
-appversion = '6.6.13'
+appversion = '6.6.18'
 print(f'小程序版本：{appversion}')
 lat = '39.852399823026097'  #纬度
 lng = '116.32055410011579'   #经度
@@ -39,11 +39,13 @@ ttfuli1 = 'https://ut.xiaojukeji.com/ut/janitor/api/action/sign/do'
 #token = '6_ivU3kCfjU8yfgZFdLIjgmedFhm8hPmiCNyWyFug4wkzDuOwlAMQNG93NqK7PeL7d3MJzPQPCQQVZS9I0h1urMzlaQuuijCNNKEWcjaVUOYlbS1hw8b1moLFWYj33QShK-Tb7JE6Fp7FPfe2hB-P91G7jxuz_vPRnZVjUP4I214L2VoM-GfxKqV2tzVV4TL2V5JPV4BAAD__w=='
 def main(uid,token):
     print(f'正在执行账号：{uid}')
+    chaxun(uid,token)
     try:
         diyi(uid,token)
     except Exception as e:
         print(e)
     guafen(uid,token)
+    
 
 def diyi(uid,token):
     print('--------领取优惠券--------')
@@ -116,7 +118,7 @@ def diyi(uid,token):
     #print(data)
     tijiao = requests.post(url=ttfuli1, json=data, headers=headers).json()
     if tijiao['errmsg'] == 'success':
-        print(tijiao)
+        print(f"天天领券签到：{tijiao['errmsg']}")
     else:
         print(tijiao['errmsg'])
         
@@ -239,7 +241,13 @@ def guafen(uid,token):
     print('------')
     
     
-    
+def chaxun(uid,token):
+    print('--------福利金查询--------')
+    cx = requests.get(url=f'https://rewards.xiaojukeji.com/loyalty_credit/bonus/getWelfareUsage4Wallet?token={token}&city_id=0').json()
+    if 'ok' == cx['errmsg']:
+        print(f"账号{uid}现在有福利金：{cx['data']['worth']}（可抵扣{cx['data']['worth']/100}元）\n{cx['data']['recent_expire_time']}过期福利金：{cx['data']['recent_expire_amount']}")
+    else:
+        print('查询失败')
 
 if __name__ == '__main__':
     uid = 1
