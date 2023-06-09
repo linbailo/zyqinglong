@@ -3,15 +3,15 @@
 
 下面维护参数需要更换，抓token时里面就有
 
-格式：export dewu="token=eyJhxxxxxxxx"  多账号@隔开
+格式：export dewu="token=eyJhxxxxxxxx"  多账号换行隔开
 
-cron 32 5,36 8,12,18,22 * * ? 每天跑6-8次
+const $ = new Env("得物心愿森林");
+cron: 32 5,36 8,12,18,22 * * ? 
 
 频道：https://t.me/+O6-uZI3t6uhhMmU1
 */
 
-const $ = new Env("得物心愿森林");
-let envSplitor = ['@']  //多账号隔开方式，默认换行可自定义
+let envSplitor = ['\n']  //多账号隔开方式，默认换行可自定义
 let dwHelp = 2
 ///////////////////////////////维护参数自行更换//////////////////////////////////
 let deviceTrait = 'xiaomi'                   //设备型号
