@@ -5,10 +5,12 @@
 
 格式：export dewu="token=eyJhxxxxxxxx"  多账号换行隔开
 
-const $ = new Env("得物心愿森林");
-cron: 32 5,36 8,12,18,22 * * ? 
 
 频道：https://t.me/+O6-uZI3t6uhhMmU1
+
+
+cron: 32 5,36 8,12,18,22 * * ?
+const $ = new Env("得物心愿森林");
 */
 
 let envSplitor = ['\n']  //多账号隔开方式，默认换行可自定义
