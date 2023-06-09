@@ -7,7 +7,7 @@ uid其实不重要，只是用来区分token所属的账号，方便重写。手
 多账号换行或者@隔开，重写多账号直接换号捉就行
 export ddgyToken='uid&token'
 
-cron: 0 0,7 * * *
+cron: 0 0,7,17 * * *
 const $ = new Env("滴滴打车");
 """
 import requests
@@ -18,7 +18,8 @@ import time
 
 #初始化
 print('============📣初始化📣============')
-appversion = '6.6.18'
+appversion = '6.6.20'
+channel = 1100000005
 print(f'小程序版本：{appversion}')
 lat = '39.852399823026097'  #纬度
 lng = '116.32055410011579'   #经度
@@ -34,9 +35,8 @@ guafen2 = 'https://ut.xiaojukeji.com/ut/welfare/api/action/joinDivide'
 guafen3 = 'https://ut.xiaojukeji.com/ut/welfare/api/action/event/report'
 ttfuli = 'https://ut.xiaojukeji.com/ut/janitor/api/home/sign/index'
 ttfuli1 = 'https://ut.xiaojukeji.com/ut/janitor/api/action/sign/do'
+yao = 'https://api.didi.cn/webx/chapter/product/init'
 
-#token = "LNwU4uQ942ozIte-b44TTBSs-Deh913XhEh7InatZtEkzDuOwkAMgOG7_LUV2Z54Hr7NPrILzSCBqKLcHUGqr_t2ppKURRdFmEaaMJ0soTqEWUhrMby2GEVXV2Gu5JsgQfg6-Sa929rCXNVjeBF-P91G7jxuz_vPRoaqjkP4I632sGq9q_BPYt1bG6NVrwiXs72SerwCAAD__w=="
-#token = '6_ivU3kCfjU8yfgZFdLIjgmedFhm8hPmiCNyWyFug4wkzDuOwlAMQNG93NqK7PeL7d3MJzPQPCQQVZS9I0h1urMzlaQuuijCNNKEWcjaVUOYlbS1hw8b1moLFWYj33QShK-Tb7JE6Fp7FPfe2hB-P91G7jxuz_vPRnZVjUP4I214L2VoM-GfxKqV2tzVV4TL2V5JPV4BAAD__w=='
 def main(uid,token):
     print(f'正在执行账号：{uid}')
     chaxun(uid,token)
@@ -56,6 +56,7 @@ def diyi(uid,token):
             print(f"获取到{yh['coupon']['max_benefit_capacity']['value']}{yh['coupon']['max_benefit_capacity']['unit']} {yh['coupon']['name']} {yh['coupon']['remark']}")
     else:
         print(tijiao['errmsg'])
+    yq(uid,token)
     print('--------福利中心签到------')
     data = {
     'lang' : 'zh-CN',
@@ -99,8 +100,6 @@ def diyi(uid,token):
         print(tijiao['errmsg'])
     
     #print(tijiao)
-    
-    
     data = {
     'lang' : 'zh-CN',
     'token' : token,
@@ -122,7 +121,22 @@ def diyi(uid,token):
     else:
         print(tijiao['errmsg'])
         
-    
+   #天天领券限时抢
+    print('----领点券使使----')
+    data = {"lang":"zh-CN","access_key_id":9,"appversion":appversion,"channel":1100000002,"_ds":"","xpsid":"28a361bf9f2e456f9867be3cad4877e4","xpsid_root":"0fa1ac9f38d24e43a4a2616319942c88","root_xpsid":"0fa1ac9f38d24e43a4a2616319942c88","f_xpsid":"41345c97bc744b27a30c0dda8fbdfcba","xbiz":"240000","prod_key":"ut-coupon-center","dchn":"wE7poOA","xoid":"26243a0a-b1b9-44d3-b2ed-046016031b38","xenv":"wxmp","xpsid_from":"2e5ded46d7114ac4b0cf490619f5592d","xpsid_share":"","xspm_from":"ut-aggre-homepage.none.c460.none","xpos_from":{"pk":"ut-aggre-homepage"},"args":[{"dchn":"kkXgpzO","prod_key":"ut-limited-seckill","runtime_args":{"token":token,"lat":lat,"lng":lng,"env":{"dchn":"wE7poOA","newTicket":token,"model":"2201122C","fromChannel":"2","newAppid":"35009","openId":"","openIdType":"1","sceneId":"1089","isHitButton":False,"isOpenWeb":False,"timeCost":70665,"latitude":lat,"longitude":lng,"cityId":"","fromPage":"ut-coupon-center/views/index/index","xAxes":"","yAxes":""},"content-type":"application/json","Didi-Ticket":token,"ptf":"mp","city_id":33,"platform":"mp","x_test_user":{"key":281475120025923}}},{"dchn":"gL3E8qZ","prod_key":"ut-support-coupon","runtime_args":{"token":token,"lat":lat,"lng":lng,"env":{"dchn":"wE7poOA","newTicket":token,"model":"2201122C","fromChannel":"2","newAppid":"35009","openId":"","openIdType":"1","sceneId":"1089","isHitButton":False,"isOpenWeb":False,"timeCost":70666,"latitude":lat,"longitude":lng,"cityId":"","fromPage":"ut-coupon-center/views/index/index","xAxes":"","yAxes":""},"content-type":"application/json","Didi-Ticket":token,"ptf":"mp","city_id":33,"platform":"mp","x_test_user":{"key": 281475120025923}}}]}
+    tijiao = requests.post(url="https://api.didi.cn/webx/chapter/page/batch/config", json=data, headers=headers).json()
+    if tijiao['errmsg'] == 'success':
+        for xuju in tijiao['data']['conf'][0]['strategy_data']['data']['seckill']:
+            for xu in xuju['coupons']:
+                activity_id = xu['activity_id']
+                group_id = xu['group_id']
+                group_date = xu['group_date']
+                coupon_conf_id = xu['coupon_conf_id']
+                data = {"lang":"zh-CN","token":token,"access_key_id":9,"appversion":appversion,"channel":1100000002,"_ds":"","xpsid":"d51af08a62ef4b43b1eb41deaae30379","xpsid_root":"0fa1ac9f38d24e43a4a2616319942c88","activity_id":activity_id,"group_id":group_id,"group_date":group_date,"coupon_conf_id":coupon_conf_id,"dchn":"wE7poOA","platform":"mp","city_id":33,"env":{"isHitButton":True,"newAppid":35009,"userAgent":"","openId":"","model":"2201122C","wifi":2,"timeCost":""}}
+                ju = requests.post(url="https://ut.xiaojukeji.com/ut/janitor/api/action/coupon/bind", json=data, headers=headers).json()
+                print(f"{xu['name']}（{xu['threshold_desc']}）：{ju['errmsg']}")
+                time.sleep(1)
+    print('------------------')
     
 def guafen(uid,token):
     print('--------瓜瓜乐打卡--------')
@@ -249,9 +263,15 @@ def chaxun(uid,token):
     else:
         print('查询失败')
 
+def yq(uid,token):
+    headers = {'content-type':'application/json'}
+    data = {"lang": "zh-CN","access_key_id": 9,"appversion": appversion,"channel": channel,"_ds": "","xpsid": "","xpsid_root": "","root_xpsid": "","f_xpsid": "","xbiz": "110105","prod_key": "wyc-cpc-v-three","dchn": "kaxm7er","xoid": "ddaf1498-d170-4f3b-bcc7-541d12ee782f","xenv": "wxmp","xpsid_share": "","xspm_from": "none.none.none.none","args": {"invoke_key": "default","key": 299073592885446,"runtime_args": {"scene": 1037,"token": token,"lat": lat,"lng": lng,"env": {"dchn": "kaxm7er","newTicket": token,"model": "2201122C","fromChannel": "2","newAppid": "35009","openId": "","openIdType": "1","sceneId": "1007","isHitButton": False,"isOpenWeb": False,"timeCost": 199,"latitude": lat,"longitude": lng,"cityId": "","fromPage": "wyc-cpc-v-three/views/index/index","xAxes": "","yAxes": ""},"dsi": "fb98de6169fea3440a3cd5208f899286923sekiu","ncc": True,"x_test_user": {"key": 299073592885446}}},"need_page_config": True,"need_share_config": True,"xpsid_from": ""}
+    yy = requests.post(url=yao, json=data, headers=headers).json()
+
 if __name__ == '__main__':
     uid = 1
     token = ""
+    
     if 'ddgyToken' in os.environ:
         fen = os.environ.get("ddgyToken").split("@")
         print(f'查找到{len(fen)}个账号')
