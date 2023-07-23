@@ -5,7 +5,7 @@
 多账号换行或&隔开
 export meituanCookie="AgGZIgsYHyxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 
-cron: 2 0,6,10,16,20 * * *
+cron: 0 0,6,10,16,20 * * *
 const $ = new Env("美团辅助");
 """
 import os
