@@ -10,7 +10,7 @@ https://linhua.lanzoup.com/iCOcD0yqavmj
 
 
   - [x] dwnc: 得物（星愿森林）变量后三个可以随便甜，最好按要求吧[大佬的库](https://raw.githubusercontent.com/smallfawn/QLScriptPublic/main/dwnc.js)
-  - [x] meituan: 美团领劵大额和一些领钱任务[大佬的库](https://raw.githubusercontent.com/leafTheFish/DeathNote/main/meituanV3.js)
+  - [x] meituanV3: 美团领劵大额和一些领钱任务[大佬的库](https://raw.githubusercontent.com/leafTheFish/DeathNote/main/meituanV3.js)
   - [x] elm: 饿了么领劵大额和一些领钱任务[大佬的库](https://raw.githubusercontent.com/leafTheFish/DeathNote/main/elmV3.js)
   - [x] ddgy: 滴滴果园[大佬的库](https://raw.githubusercontent.com/leafTheFish/DeathNote/main/ddgy.js)
   - [x] dddc: 滴滴签到打卡领券周末5折、福利金领取、瓜瓜乐活动参加
