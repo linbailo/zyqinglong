@@ -35,6 +35,10 @@ guafen3 = 'https://ut.xiaojukeji.com/ut/welfare/api/action/event/report'
 ttfuli = 'https://ut.xiaojukeji.com/ut/janitor/api/home/sign/index'
 ttfuli1 = 'https://ut.xiaojukeji.com/ut/janitor/api/action/sign/do'
 yao = 'https://api.didi.cn/webx/chapter/product/init'
+#查询未领取福利金
+fulijingchax = 'https://ut.xiaojukeji.com/ut/welfare/api/home/getBubble'
+#接上面领取
+liqu = 'https://ut.xiaojukeji.com/ut/welfare/api/action/clickBubble'
 
 def main(uid,token):
     print(f'正在执行账号：{uid}')
@@ -77,6 +81,10 @@ def diyi(uid,token):
     else:
         print(tijiao['errmsg'])
         
+    try:
+        fuliwei(uid,token)
+    except Exception as e:
+        print('小错误')
     print('--------天天领券签到------')
     headers = {'didi-ticket': token,'content-type':'application/json'}
     data = {
@@ -257,10 +265,58 @@ def guafen(uid,token):
 def chaxun(uid,token):
     print('--------福利金查询--------')
     cx = requests.get(url=f'https://rewards.xiaojukeji.com/loyalty_credit/bonus/getWelfareUsage4Wallet?token={token}&city_id=0').json()
-    if 'ok' == cx['errmsg']:
+    if '成功' == cx['errmsg']:
         print(f"账号{uid}现在有福利金：{cx['data']['worth']}（可抵扣{cx['data']['worth']/100}元）\n{cx['data']['recent_expire_time']}过期福利金：{cx['data']['recent_expire_amount']}")
     else:
         print('查询失败')
+
+def fuliwei(uid,token):
+    print('--------福利中心未领取查询------')
+    data = {
+    'xbiz' : 240000,
+    'prod_key': 'welfare-center',
+    'xpsid':'8eff1f6aa77a4f278d037f07f3634b35',
+    'dchn' : 'QXeobao',
+    'xoid':'4H3h1CefQlCEYWkpT4dzmg',
+    'xenv' : 'passenger',
+    'xpsid_root' : '73f433de772c402cc346621b3b5f86c5',
+    'xpsid_from':'',
+    'xpsid_share':'',
+    'token' : token,
+    'access_key_id' : 9,
+    'lat' : lat,
+    'lng' : lng,
+    'platform' : 'na',
+    'env' : r'{\"cityId\":\"33\",\"token\":\"\",\"longitude\":\"\",\"latitude\":\"\",\"appid\":\"30004\",\"fromChannel\":\"1\",\"deviceId\":\"\",\"ddfp\":\"\",\"appVersion\":\"6.7.4\",\"userAgent\":\"Mozilla/5.0 (Linux; Android 14; 2201122C Build/UKQ1.230804.001; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/117.0.0.0 Mobile Safari/537.36 didi.passenger/6.7.4 FusionKit/2.0.0  OffMode/0\"}'
+    }
+    #print(data)
+    tijiao = requests.post(url=fulijingchax, json=data).json()
+    print(f"存在{len(tijiao['data']['bubble_list'])}个未领取")
+    if len(tijiao['data']['bubble_list']) > 0:
+        print('进行领取')
+        for lin in tijiao['data']['bubble_list']:
+            data = {
+            'xbiz' : 240000,
+            'prod_key': 'welfare-center',
+            'xpsid':'8eff1f6aa77a4f278d037f07f3634b35',
+            'dchn' : 'QXeobao',
+            'xoid':'4H3h1CefQlCEYWkpT4dzmg',
+            'xenv' : 'passenger',
+            'xpsid_root' : '73f433de772c402cc346621b3b5f86c5',
+            'xpsid_from':'',
+            'xpsid_share':'',
+            'token' : token,
+            'lat' : lat,
+            'lng' : lng,
+            'platform' : 'na',
+            'env' : r'{\"cityId\":\"33\",\"token\":\"\",\"longitude\":\"\",\"latitude\":\"\",\"appid\":\"30004\",\"fromChannel\":\"1\",\"deviceId\":\"\",\"ddfp\":\"\",\"appVersion\":\"6.7.4\",\"userAgent\":\"Mozilla/5.0 (Linux; Android 14; 2201122C Build/UKQ1.230804.001; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/117.0.0.0 Mobile Safari/537.36 didi.passenger/6.7.4 FusionKit/2.0.0  OffMode/0\"}',
+            'cycle_id' : lin['cycle_id'],
+            'bubble_type' : 'yangliu_sign'}
+            tijiao1 = requests.post(url=liqu, json=data).json()
+            if tijiao1['errmsg'] == 'success':
+                print(f"领取{tijiao1['errmsg']}")
+            else:
+                print('领取失败')
 
 def yq(uid,token):
     headers = {'content-type':'application/json'}
