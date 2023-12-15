@@ -348,7 +348,7 @@ def yq(uid,token):
 
 if __name__ == '__main__':
     uid = 1
-    token = "LNwU4uQ942ozIte-b44TTBSs-Deh913XhEh7InatZtEkzDuOwkAMgOG7_LUV2Z54Hr7NPrILzSCBqKLcHUGqr_t2ppKURRdFmEaaMJ0soTqEWUhrMby2GEVXV2Gu5JsgQfg6-Sa929rCXNVjeBF-P91G7jxuz_vPRoaqjkP4I632sGq9q_BPYt1bG6NVrwiXs72SerwCAAD__w=="
+    token = ""
     if 'ddgyToken' in os.environ:
         fen = os.environ.get("ddgyToken").split("@")
         print(f'查找到{len(fen)}个账号')
