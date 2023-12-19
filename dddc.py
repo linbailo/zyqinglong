@@ -5,9 +5,13 @@ ddgyToken: 必填，账号token，多账号换行或者@隔开，格式uid&token
 青龙：捉任意game.xiaojukeji.com的包，把body里的uid和token用&连起来填到变量ddgyToken
 uid其实不重要，只是用来区分token所属的账号，方便重写。手动捉包的话uid随便填都可以
 多账号换行或者@隔开，重写多账号直接换号捉就行
+打开http://jingweidu.757dy.com/
+获取经纬度填到环境变量 经度在前&维度
+列 didijw = '104.66967&37.23668'
 export ddgyToken='uid&token'
+export didijw='经度&维度'
 
-cron: 0 0,7,17 * * *
+cron: 0 0,7,17,21 * * *
 const $ = new Env("滴滴打车");
 """
 import requests
@@ -16,12 +20,34 @@ import os
 import time
 
 
+
 #初始化
 print('============📣初始化📣============')
+#版本
+banappversion = '1.1.0'
+try:
+    m = requests.get('https://gitee.com/guadu6464/test/raw/master/banbeng.json').json()
+    if banappversion == m['didi']:
+        print(f"无版本更新：{banappversion}")
+    else:
+        print('📣📣📣📣📣📣📣📣📣📣📣📣📣')
+        print(f"📣📣📣最新版本：{m['didi']}📣📣📣📣")
+        print('📣📣📣请更新版本：📣📣📣📣📣📣')
+        print('📣https://raw.githubusercontent.com/linbailo/zyqinglong/main/dddc.py📣')
+        print('📣📣📣📣📣📣📣📣📣📣📣📣📣')
+
+except Exception as e:
+    print('无法检查版本更新')
+
 appversion = '6.6.20'
 print(f'小程序版本：{appversion}')
-lat = '39.852399823026097'  #纬度
-lng = '116.32055410011579'   #经度
+if 'didijw' in os.environ:
+    lng,lat = os.environ.get("didijw").split("&")
+    print('已经填写经纬度')
+else:
+    print('使用内置经纬度')
+    lat = '39.852399823026097'  #纬度
+    lng = '116.32055410011579'   #经度
 print(f'经纬度默认设置：{lat},{lng}')
 
 
@@ -40,6 +66,8 @@ fulijingchax = 'https://ut.xiaojukeji.com/ut/welfare/api/home/getBubble'
 #接上面领取
 liqu = 'https://ut.xiaojukeji.com/ut/welfare/api/action/clickBubble'
 
+
+
 def main(uid,token):
     print(f'正在执行账号：{uid}')
     chaxun(uid,token)
@@ -54,15 +82,23 @@ def diyi(uid,token):
     print('--------领取优惠券--------')
     yq(uid,token)
     #data = {"lang":"zh-CN","token":token,"access_key_id":9,"appversion":appversion,"channel":1100000009,"_ds":"","xpsid":"d04ccc4ce0c844e38c164ecc30711458","xpsid_root":"d04ccc4ce0c844e38c164ecc30711458","dsi":"877e066d7ce22ef07762fa42992227567393hvn1","source_id":"31806556232355840DT124787708487929856DT","product_type":"didi","city_id":33,"lng":"","lat":"","source_.from":"","env":{"dchn":"r2mda3z","newTicket":token,"latitude":"","longitude":"","model":"2201122C","fromChannel":"2","newAppid":"35009","openId":"","openIdType":"1","sceneId":"1037","isHitButton":True,"isOpenWeb":False,"timeCost":19908,"cityId":"33","xAxes":"167.60003662109375","yAxes":"480.0857849121094"},"req_env":"wx","dunion_callback":""}
-    data = {"xbiz":"240101","prod_key":"ut-dunion-wyc","xpsid":"6dc1173059e04e57ab5c51689827af8c","dchn":"Qm0wKR1","xoid":"c5f5aeb5-19a4-4e60-9305-d45c37e48a27","xenv":"wxmp","xspm_from":"none.none.none.none","xpsid_root":"6dc1173059e04e57ab5c51689827af8c","xpsid_from":"","xpsid_share":"","env":{"dchn":"Qm0wKR1","newTicket":token,"cityId":"33","userAgent":"","fromChannel":"2","newAppid":"30012","openId":"","openIdType":"1","isHitButton":False,"isOpenWeb":True,"timeCost":4667},"req_env":"wx","dsi":"e674ac10376e717aeac76c7510243b76410u18sh","source_id":"4a871f6eb9e4ee5568f0","product_type":"didi","lng":"","lat":"","token":token,"uid":281475120025923,"phone":"","city_id":33,"source_from":""}
+    data = {"xbiz":"240101","prod_key":"ut-dunion-wyc","xpsid":"6dc1173059e04e57ab5c51689827af8c","dchn":"Qm0wKR1","xoid":"c5f5aeb5-19a4-4e60-9305-d45c37e48a27","xenv":"wxmp","xspm_from":"none.none.none.none","xpsid_root":"6dc1173059e04e57ab5c51689827af8c","xpsid_from":"","xpsid_share":"","env":{"dchn":"Qm0wKR1","newTicket":token,"cityId":"33","userAgent":"","fromChannel":"2","newAppid":"30012","openId":"","openIdType":"1","isHitButton":False,"isOpenWeb":True,"timeCost":4667},"req_env":"wx","dsi":"e674ac10376e717aeac76c7510243b76410u18sh","source_id":"4a871f6eb9e4ee5568f0","product_type":"didi","lng":"","lat":"","token":token,"uid":"","phone":"","city_id":33,"source_from":""}
     tijiao = requests.post(url=youhui, json=data).json()
     if tijiao['errmsg'] == 'success':
         for yh in tijiao['data']['rewards']:
             print(f"获取到{yh['coupon']['max_benefit_capacity']['value']}{yh['coupon']['max_benefit_capacity']['unit']} {yh['coupon']['name']} {yh['coupon']['remark']}")
     else:
         print(tijiao['errmsg'])
+    try:
+        didiyouc(uid,token)
+    except Exception as e:
+        print('小错误')
+    
+    try:
+        didiqc(uid,token)
+    except Exception as e:
+        print('小错误')
 
-    didiyouc(uid,token)
     print('--------福利中心签到------')
     data = {
     'lang' : 'zh-CN',
@@ -340,6 +376,16 @@ def didiyouc(uid,token):
     else:
         print(tijiao['errmsg'])
 
+
+def didiqc(uid,token):
+    print('--------滴滴打车新城活动--------')
+    data = {"xbiz":"240101","prod_key":"ut-dunion-wyc","xpsid":"d0765ac98e624e28920d626e87a26fc6","dchn":"o2vw2nM","xoid":"c5f5aeb5-19a4-4e60-9305-d45c37e48a27","xenv":"wxmp","xspm_from":"none.none.none.none","xpsid_root":"d0765ac98e624e28920d626e87a26fc6","xpsid_from":"","xpsid_share":"","env":{"dchn":"o2vw2nM","newTicket":token,"latitude":lat,"longitude":lng,"userAgent":"","fromChannel":"2","newAppid":"30012","openId":"","openIdType":"1","isHitButton":False,"isOpenWeb":True,"timeCost":7047},"req_env":"wx","dsi":"a4ce24f7e82060f61cb3ea252e2a35e8919kd2r2","source_id":"b08d62bd22133278c810","product_type":"didi","lng":lng,"lat":lat,"token":token,"uid":"","phone":""}
+    tijiao = requests.post(url=youhui, json=data).json()
+    if tijiao['errmsg'] == 'success':
+        for yh in tijiao['data']['rewards']:
+            print(f"获取到{yh['coupon']['max_benefit_capacity']['value']}{yh['coupon']['max_benefit_capacity']['unit']} {yh['coupon']['name']} {yh['coupon']['remark']}")
+    else:
+        print(tijiao['errmsg'])
 
 def yq(uid,token):
     headers = {'content-type':'application/json'}
