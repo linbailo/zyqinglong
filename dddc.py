@@ -24,7 +24,7 @@ import time
 #初始化
 print('============📣初始化📣============')
 #版本
-banappversion = '1.1.0'
+banappversion = '1.1.1'
 try:
     m = requests.get('https://gitee.com/guadu6464/test/raw/master/banbeng.json').json()
     if banappversion == m['didi']:
@@ -65,6 +65,23 @@ yao = 'https://api.didi.cn/webx/chapter/product/init'
 fulijingchax = 'https://ut.xiaojukeji.com/ut/welfare/api/home/getBubble'
 #接上面领取
 liqu = 'https://ut.xiaojukeji.com/ut/welfare/api/action/clickBubble'
+#养券大师
+#判断过期
+yanquan1 = 'https://game.xiaojukeji.com/api/game/coaster/expireConfirm'
+#签到
+yanquan2 = 'https://game.xiaojukeji.com/api/game/coaster/sign'
+#任务
+yanquan3 = 'https://game.xiaojukeji.com/api/game/mission/get?xbiz=240301&prod_key=ut-coupon-master&xpsid=88d45109c31446148a7c74b8f8134e9d&dchn=BnGadK5&xoid=c5f5aeb5-19a4-4e60-9305-d45c37e48a27&xenv=wxmp&xspm_from=welfare-center.none.c1324.none&xpsid_root=660616ee6da44f2a83c6bad2b2e08f50&xpsid_from=42309777210645b393e252f4056e37ff&xpsid_share=&game_id=30&platform=1&token='
+#做任务
+yanquan4 = 'https://game.xiaojukeji.com/api/game/mission/update'
+#领取
+yanquan5 = 'https://game.xiaojukeji.com/api/game/mission/award'
+#抽奖
+yanquan6 = 'https://game.xiaojukeji.com/api/game/coaster/draw'
+#升级轮盘
+yanquan7 = 'https://game.xiaojukeji.com/api/game/coaster/wheelUpgrade'
+#详细
+yanquan8 = 'https://game.xiaojukeji.com/api/game/coaster/hall'
 
 
 
@@ -96,6 +113,11 @@ def diyi(uid,token):
     
     try:
         didiqc(uid,token)
+    except Exception as e:
+        print('小错误')
+
+    try:
+        yanquan(uid,token)
     except Exception as e:
         print('小错误')
 
@@ -391,6 +413,54 @@ def yq(uid,token):
     headers = {'content-type':'application/json'}
     data = {"lang": "zh-CN","access_key_id": 9,"appversion": appversion,"channel": 1100000005,"_ds": "","xpsid": "","xpsid_root": "","root_xpsid": "","f_xpsid": "","xbiz": "110105","prod_key": "wyc-cpc-v-three","dchn": "kaxm7er","xoid": "ddaf1498-d170-4f3b-bcc7-541d12ee782f","xenv": "wxmp","xpsid_share": "","xspm_from": "none.none.none.none","args": {"invoke_key": "default","key": 299073592885446,"runtime_args": {"scene": 1037,"token": token,"lat": lat,"lng": lng,"env": {"dchn": "kaxm7er","newTicket": token,"model": "2201122C","fromChannel": "2","newAppid": "35009","openId": "","openIdType": "1","sceneId": "1007","isHitButton": False,"isOpenWeb": False,"timeCost": 199,"latitude": lat,"longitude": lng,"cityId": "","fromPage": "wyc-cpc-v-three/views/index/index","xAxes": "","yAxes": ""},"dsi": "fb98de6169fea3440a3cd5208f899286923sekiu","ncc": True,"x_test_user": {"key": 299073592885446}}},"need_page_config": True,"need_share_config": True,"xpsid_from": ""}
     yy = requests.post(url=yao, json=data, headers=headers).json()
+
+#养券大师
+def yanquan(uid,token):
+    print('--------养券大师--------')
+    data = {"xbiz":"240301","prod_key":"ut-coupon-master","xpsid":"9996f669b85446069201ba6f066ac757","dchn":"BnGadK5","xoid":"c5f5aeb5-19a4-4e60-9305-d45c37e48a27","xenv":"wxmp","xspm_from":"welfare-center.none.c1324.none","xpsid_root":"660616ee6da44f2a83c6bad2b2e08f50","xpsid_from":"c4f1e647068a4f5d86c62f7327780548","xpsid_share":"","platform":1,"token":token}
+    tijiao = requests.post(url=yanquan1, json=data).json()
+    print(tijiao['errmsg'])
+    data = {"xbiz":"240301","prod_key":"ut-coupon-master","xpsid":"9996f669b85446069201ba6f066ac757","dchn":"BnGadK5","xoid":"c5f5aeb5-19a4-4e60-9305-d45c37e48a27","xenv":"wxmp","xspm_from":"welfare-center.none.c1324.none","xpsid_root":"660616ee6da44f2a83c6bad2b2e08f50","xpsid_from":"c4f1e647068a4f5d86c62f7327780548","xpsid_share":"","platform":1,"token":token}
+    tijiao = requests.post(url=yanquan2, json=data).json()
+    if tijiao['errmsg'] == 'success':
+        print(f"{tijiao['data']['rewards'][0]}")
+    else:
+        print(tijiao['errmsg'])
+    tijiao = requests.get(url=f'{yanquan3}{token}').json()
+    if tijiao['errmsg'] == 'success':
+        for rw in tijiao['data']['missions']:
+            data = {"xbiz":"240301","prod_key":"ut-coupon-master","xpsid":"88d45109c31446148a7c74b8f8134e9d","dchn":"BnGadK5","xoid":"c5f5aeb5-19a4-4e60-9305-d45c37e48a27","xenv":"wxmp","xspm_from":"welfare-center.none.c1324.none","xpsid_root":"660616ee6da44f2a83c6bad2b2e08f50","xpsid_from":"42309777210645b393e252f4056e37ff","xpsid_share":"","mission_id":rw['id'],"game_id":30,"platform":1,"token":token}
+            zuorw = requests.post(url=yanquan4, json=data).json()
+            linrw = requests.post(url=yanquan5, json=data).json()
+    else:
+        print(tijiao['errmsg'])
+    try:
+        yanquancj(uid,token)
+    except Exception as e:
+        print('--------抽奖结束--------')
+    data = {"xbiz":"240301","prod_key":"ut-coupon-master","xpsid":"23f60c5c42c2454cafc8edbb09f6c8ac","dchn":"BnGadK5","xoid":"c5f5aeb5-19a4-4e60-9305-d45c37e48a27","xenv":"wxmp","xspm_from":"welfare-center.none.c1324.none","xpsid_root":"4def26a78cd6460aab0d7268501c1ab8","xpsid_from":"e276b0683755450e851dbdc59e6ea927","xpsid_share":"","platform":1,"token":token}
+    tijiao = requests.post(url=yanquan7, json=data).json()
+    print(f"升级：{tijiao['errmsg']}")
+    data = {"xbiz":"240301","prod_key":"ut-coupon-master","xpsid":"5179b7a9bd884fe18a6988a1b176321e","dchn":"BnGadK5","xoid":"c5f5aeb5-19a4-4e60-9305-d45c37e48a27","xenv":"wxmp","xspm_from":"welfare-center.none.c1324.none","xpsid_root":"3d3b3b2ddf2f45c9ad3805805c5359f4","xpsid_from":"988f69329773413c98f3cae569a95483","xpsid_share":"","token":token,"platform":1}
+    tijiao = requests.post(url=yanquan8, json=data).json()
+    if tijiao['errmsg'] == 'success':
+        print(f"金币：{tijiao['data']['coin']}")
+        print(f"优惠券：满{tijiao['data']['coupon']['available']/100}抵扣{tijiao['data']['coupon']['amount']/100}元")
+    else:
+        print(tijiao['errmsg'])
+
+#养券大师
+def yanquancj(uid,token):
+    print('--------养券大师抽奖--------')
+    data = {"xbiz":"240301","prod_key":"ut-coupon-master","xpsid":"9996f669b85446069201ba6f066ac757","dchn":"BnGadK5","xoid":"c5f5aeb5-19a4-4e60-9305-d45c37e48a27","xenv":"wxmp","xspm_from":"welfare-center.none.c1324.none","xpsid_root":"660616ee6da44f2a83c6bad2b2e08f50","xpsid_from":"c4f1e647068a4f5d86c62f7327780548","xpsid_share":"","platform":1,"token":token}
+    tijiao = requests.post(url=yanquan6, json=data).json()
+    if tijiao['errmsg'] == 'success':
+        print(f"存在抽奖次数：{tijiao['data']['power']}")
+        for x in range(tijiao['data']['power']):
+            xx = x + 1
+            print(f"正在执行第{xx}次抽奖")
+            tijiao1 = requests.post(url=yanquan6, json=data).json()
+    print('--------抽奖结束--------')
 
 if __name__ == '__main__':
     uid = 1
