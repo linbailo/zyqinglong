@@ -35,7 +35,6 @@ try:
         print('📣📣📣请更新版本：📣📣📣📣📣📣')
         print('📣https://raw.githubusercontent.com/linbailo/zyqinglong/main/dddc.py📣')
         print('📣📣📣📣📣📣📣📣📣📣📣📣📣')
-
 except Exception as e:
     print('无法检查版本更新')
 
@@ -49,7 +48,8 @@ else:
     lat = '39.852399823026097'  #纬度
     lng = '116.32055410011579'   #经度
 print(f'经纬度默认设置：{lat},{lng}')
-
+print('==================================')
+print(m['didigg'])
 
 print('==================================')
 #设置api
@@ -462,6 +462,7 @@ def yanquancj(uid,token):
         for x in range(tijiao['data']['power']):
             xx = x + 1
             print(f"正在执行第{xx}次抽奖")
+            time.sleep(2)
             tijiao1 = requests.post(url=yanquan6, json=data).json()
     print('--------抽奖结束--------')
 
