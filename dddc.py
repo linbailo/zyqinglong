@@ -20,38 +20,67 @@ import os
 import time
 
 
+all_print_list = []  # 用于记录所有 myprint 输出的字符串
+
+
+# 用于记录所有 print 输出的字符串,暂时实现 print 函数的sep和end
+def myprint(*args, sep=' ', end='\n', **kwargs):
+    global all_print_list
+    output = ""
+    # 构建输出字符串
+    for index, arg in enumerate(args):
+        if index == len(args) - 1:
+            output += str(arg)
+            continue
+        output += str(arg) + sep
+    output = output + end
+    all_print_list.append(output)
+    # 调用内置的 print 函数打印字符串
+    print(*args, sep=sep, end=end, **kwargs)
+
+
+# 发送通知消息
+def send_notification_message(title):
+    try:
+        from sendNotify import send
+
+        send(title, ''.join(all_print_list))
+    except Exception as e:
+        if e:
+            print('发送通知消息失败！')
+
 
 #初始化
-print('============📣初始化📣============')
+myprint('============📣初始化📣============')
 #版本
 banappversion = '1.1.1'
 try:
     m = requests.get('https://gitee.com/guadu6464/test/raw/master/banbeng.json').json()
     if banappversion == m['didi']:
-        print(f"无版本更新：{banappversion}")
+        myprint(f"无版本更新：{banappversion}")
     else:
-        print('📣📣📣📣📣📣📣📣📣📣📣📣📣')
-        print(f"📣📣📣最新版本：{m['didi']}📣📣📣📣")
-        print('📣📣📣请更新版本：📣📣📣📣📣📣')
-        print('📣https://raw.githubusercontent.com/linbailo/zyqinglong/main/dddc.py📣')
-        print('📣📣📣📣📣📣📣📣📣📣📣📣📣')
+        myprint('📣📣📣📣📣📣📣📣📣📣📣📣📣')
+        myprint(f"📣📣📣最新版本：{m['didi']}📣📣📣📣")
+        myprint('📣📣📣请更新版本：📣📣📣📣📣📣')
+        myprint('📣https://raw.githubusercontent.com/linbailo/zyqinglong/main/dddc.py📣')
+        myprint('📣📣📣📣📣📣📣📣📣📣📣📣📣')
 except Exception as e:
-    print('无法检查版本更新')
+    myprint('无法检查版本更新')
 
 appversion = '6.6.20'
-print(f'小程序版本：{appversion}')
+myprint(f'小程序版本：{appversion}')
 if 'didijw' in os.environ:
     lng,lat = os.environ.get("didijw").split("&")
-    print('已经填写经纬度')
+    myprint('已经填写经纬度')
 else:
-    print('使用内置经纬度')
+    myprint('使用内置经纬度')
     lat = '39.852399823026097'  #纬度
     lng = '116.32055410011579'   #经度
-print(f'经纬度默认设置：{lat},{lng}')
-print('==================================')
-print(m['didigg'])
+myprint(f'经纬度默认设置：{lat},{lng}')
+myprint('==================================')
+myprint(m['didigg'])
 
-print('==================================')
+myprint('==================================')
 #设置api
 fuli ='https://ut.xiaojukeji.com/ut/welfare/api/action/dailySign'
 youhui = 'https://union.didi.cn/api/v1.0/reward/receive'
@@ -85,43 +114,46 @@ yanquan8 = 'https://game.xiaojukeji.com/api/game/coaster/hall'
 
 
 
+
+
+
 def main(uid,token):
-    print(f'正在执行账号：{uid}')
+    myprint(f'正在执行账号：{uid}')
     chaxun(uid,token)
     try:
         diyi(uid,token)
     except Exception as e:
-        print(e)
+        myprint(e)
     guafen(uid,token)
     
 
 def diyi(uid,token):
-    print('--------领取优惠券--------')
+    myprint('--------领取优惠券--------')
     yq(uid,token)
     #data = {"lang":"zh-CN","token":token,"access_key_id":9,"appversion":appversion,"channel":1100000009,"_ds":"","xpsid":"d04ccc4ce0c844e38c164ecc30711458","xpsid_root":"d04ccc4ce0c844e38c164ecc30711458","dsi":"877e066d7ce22ef07762fa42992227567393hvn1","source_id":"31806556232355840DT124787708487929856DT","product_type":"didi","city_id":33,"lng":"","lat":"","source_.from":"","env":{"dchn":"r2mda3z","newTicket":token,"latitude":"","longitude":"","model":"2201122C","fromChannel":"2","newAppid":"35009","openId":"","openIdType":"1","sceneId":"1037","isHitButton":True,"isOpenWeb":False,"timeCost":19908,"cityId":"33","xAxes":"167.60003662109375","yAxes":"480.0857849121094"},"req_env":"wx","dunion_callback":""}
     data = {"xbiz":"240101","prod_key":"ut-dunion-wyc","xpsid":"6dc1173059e04e57ab5c51689827af8c","dchn":"Qm0wKR1","xoid":"c5f5aeb5-19a4-4e60-9305-d45c37e48a27","xenv":"wxmp","xspm_from":"none.none.none.none","xpsid_root":"6dc1173059e04e57ab5c51689827af8c","xpsid_from":"","xpsid_share":"","env":{"dchn":"Qm0wKR1","newTicket":token,"cityId":"33","userAgent":"","fromChannel":"2","newAppid":"30012","openId":"","openIdType":"1","isHitButton":False,"isOpenWeb":True,"timeCost":4667},"req_env":"wx","dsi":"e674ac10376e717aeac76c7510243b76410u18sh","source_id":"4a871f6eb9e4ee5568f0","product_type":"didi","lng":"","lat":"","token":token,"uid":"","phone":"","city_id":33,"source_from":""}
     tijiao = requests.post(url=youhui, json=data).json()
     if tijiao['errmsg'] == 'success':
         for yh in tijiao['data']['rewards']:
-            print(f"获取到{yh['coupon']['max_benefit_capacity']['value']}{yh['coupon']['max_benefit_capacity']['unit']} {yh['coupon']['name']} {yh['coupon']['remark']}")
+            myprint(f"获取到{yh['coupon']['max_benefit_capacity']['value']}{yh['coupon']['max_benefit_capacity']['unit']} {yh['coupon']['name']} {yh['coupon']['remark']}")
     else:
-        print(tijiao['errmsg'])
+        myprint(tijiao['errmsg'])
     try:
         didiyouc(uid,token)
     except Exception as e:
-        print('小错误')
+        myprint('小错误')
     
     try:
         didiqc(uid,token)
     except Exception as e:
-        print('小错误')
+        myprint('小错误')
 
     try:
         yanquan(uid,token)
     except Exception as e:
-        print('小错误')
+        myprint('小错误')
 
-    print('--------福利中心签到------')
+    myprint('--------福利中心签到------')
     data = {
     'lang' : 'zh-CN',
     'token' : token,
@@ -135,18 +167,18 @@ def diyi(uid,token):
     'env' : r'{\"cityId\":\"33\",\"token\":\"\",\"longitude\":\"\",\"latitude\":\"\",\"appid\":\"30012\",\"fromChannel\":\"2\",\"wxScene\":1089,\"sceneId\":1089,\"openId\":\"\"}',
     'dchn' : 'W0dzOxO'
     }
-    #print(data)
+    #myprint(data)
     tijiao = requests.post(url=fuli, json=data).json()
     if tijiao['errmsg'] == 'success':
-        print(f"签到成功：获得 {tijiao['data']['subsidy_state']['subsidy_amount']} 福利金")
+        myprint(f"签到成功：获得 {tijiao['data']['subsidy_state']['subsidy_amount']} 福利金")
     else:
-        print(tijiao['errmsg'])
+        myprint(tijiao['errmsg'])
         
     try:
         fuliwei(uid,token)
     except Exception as e:
-        print('小错误')
-    print('--------天天领券签到------')
+        myprint('小错误')
+    myprint('--------天天领券签到------')
     headers = {'didi-ticket': token,'content-type':'application/json'}
     data = {
     'lang' : 'zh-CN',
@@ -160,14 +192,14 @@ def diyi(uid,token):
     'city_id': 33,
     'env': {'isHitButton': True,'newAppid': 35009,'userAgent': '','openId': '','model': '2201122C','wifi': 2,'timeCost': 222318}
     }
-    #print(data)
+    #myprint(data)
     tijiao = requests.post(url=ttfuli, json=data, headers=headers).json()
     if tijiao['errmsg'] == 'success':
-        print(f"获取id成功：{tijiao['data']['activity_id']}，{tijiao['data']['instance_id']}")
+        myprint(f"获取id成功：{tijiao['data']['activity_id']}，{tijiao['data']['instance_id']}")
     else:
-        print(tijiao['errmsg'])
+        myprint(tijiao['errmsg'])
     
-    #print(tijiao)
+    #myprint(tijiao)
     data = {
     'lang' : 'zh-CN',
     'token' : token,
@@ -182,15 +214,15 @@ def diyi(uid,token):
     'city_id': 33,
     'env': {'isHitButton': True,'newAppid': 35009,'userAgent': '','openId': '','model': '2201122C','wifi': 2}
     }
-    #print(data)
+    #myprint(data)
     tijiao = requests.post(url=ttfuli1, json=data, headers=headers).json()
     if tijiao['errmsg'] == 'success':
-        print(f"天天领券签到：{tijiao['errmsg']}")
+        myprint(f"天天领券签到：{tijiao['errmsg']}")
     else:
-        print(tijiao['errmsg'])
+        myprint(tijiao['errmsg'])
         
    #天天领券限时抢
-    print('----领点券使使----')
+    myprint('----领点券使使----')
     data = {"lang":"zh-CN","access_key_id":9,"appversion":appversion,"channel":1100000002,"_ds":"","xpsid":"28a361bf9f2e456f9867be3cad4877e4","xpsid_root":"0fa1ac9f38d24e43a4a2616319942c88","root_xpsid":"0fa1ac9f38d24e43a4a2616319942c88","f_xpsid":"41345c97bc744b27a30c0dda8fbdfcba","xbiz":"240000","prod_key":"ut-coupon-center","dchn":"wE7poOA","xoid":"26243a0a-b1b9-44d3-b2ed-046016031b38","xenv":"wxmp","xpsid_from":"2e5ded46d7114ac4b0cf490619f5592d","xpsid_share":"","xspm_from":"ut-aggre-homepage.none.c460.none","xpos_from":{"pk":"ut-aggre-homepage"},"args":[{"dchn":"kkXgpzO","prod_key":"ut-limited-seckill","runtime_args":{"token":token,"lat":lat,"lng":lng,"env":{"dchn":"wE7poOA","newTicket":token,"model":"2201122C","fromChannel":"2","newAppid":"35009","openId":"","openIdType":"1","sceneId":"1089","isHitButton":False,"isOpenWeb":False,"timeCost":70665,"latitude":lat,"longitude":lng,"cityId":"","fromPage":"ut-coupon-center/views/index/index","xAxes":"","yAxes":""},"content-type":"application/json","Didi-Ticket":token,"ptf":"mp","city_id":33,"platform":"mp","x_test_user":{"key":281475120025923}}},{"dchn":"gL3E8qZ","prod_key":"ut-support-coupon","runtime_args":{"token":token,"lat":lat,"lng":lng,"env":{"dchn":"wE7poOA","newTicket":token,"model":"2201122C","fromChannel":"2","newAppid":"35009","openId":"","openIdType":"1","sceneId":"1089","isHitButton":False,"isOpenWeb":False,"timeCost":70666,"latitude":lat,"longitude":lng,"cityId":"","fromPage":"ut-coupon-center/views/index/index","xAxes":"","yAxes":""},"content-type":"application/json","Didi-Ticket":token,"ptf":"mp","city_id":33,"platform":"mp","x_test_user":{"key": 281475120025923}}}]}
     tijiao = requests.post(url="https://api.didi.cn/webx/chapter/page/batch/config", json=data, headers=headers).json()
     if tijiao['errmsg'] == 'success':
@@ -202,12 +234,12 @@ def diyi(uid,token):
                 coupon_conf_id = xu['coupon_conf_id']
                 data = {"lang":"zh-CN","token":token,"access_key_id":9,"appversion":appversion,"channel":1100000002,"_ds":"","xpsid":"d51af08a62ef4b43b1eb41deaae30379","xpsid_root":"0fa1ac9f38d24e43a4a2616319942c88","activity_id":activity_id,"group_id":group_id,"group_date":group_date,"coupon_conf_id":coupon_conf_id,"dchn":"wE7poOA","platform":"mp","city_id":33,"env":{"isHitButton":True,"newAppid":35009,"userAgent":"","openId":"","model":"2201122C","wifi":2,"timeCost":""}}
                 ju = requests.post(url="https://ut.xiaojukeji.com/ut/janitor/api/action/coupon/bind", json=data, headers=headers).json()
-                print(f"{xu['name']}（{xu['threshold_desc']}）：{ju['errmsg']}")
+                myprint(f"{xu['name']}（{xu['threshold_desc']}）：{ju['errmsg']}")
                 time.sleep(1)
-    print('------------------')
+    myprint('------------------')
     
 def guafen(uid,token):
-    print('--------瓜瓜乐打卡--------')
+    myprint('--------瓜瓜乐打卡--------')
     headers = {'didi-ticket': token,'content-type':'application/json'}
     """
     #没用的
@@ -241,12 +273,12 @@ def guafen(uid,token):
     'env' : r'{\"cityId\":\"33\",\"token\":\"\",\"longitude\":\"\",\"latitude\":\"\",\"appid\":\"30012\",\"fromChannel\":\"2\",\"wxScene\":1089,\"sceneId\":1089,\"openId\":\"\"}'
     }
     shuju = requests.post(url=guafen1, json=data).json()
-    #print(shuju)
+    #myprint(shuju)
     rqi = list(shuju['data']['divide_data']['divide'])
     zs = len(rqi) - 1
     activity_id = shuju['data']['divide_data']['divide'][rqi[zs]]['activity_id']
     task_id = shuju['data']['divide_data']['divide'][rqi[zs]]['task_id']
-    print(f'获取到日期数据：{rqi}\n需要的日期：{rqi[zs]}\n报名瓜分activity_id数据：{activity_id}')
+    myprint(f'获取到日期数据：{rqi}\n需要的日期：{rqi[zs]}\n报名瓜分activity_id数据：{activity_id}')
     #报名瓜分
     data = {
     'lang' : 'zh-CN',
@@ -265,14 +297,14 @@ def guafen(uid,token):
     }
     tijiao = requests.post(url=guafen2, json=data).json()
     if tijiao['errmsg'] == 'success':
-        print(f"报名瓜分：{tijiao['errmsg']}")
+        myprint(f"报名瓜分：{tijiao['errmsg']}")
     else:
-        print(tijiao['errmsg'])
+        myprint(tijiao['errmsg'])
     #参加瓜分
     
     activity_id = shuju['data']['divide_data']['divide'][rqi[0]]['activity_id']
     task_id = shuju['data']['divide_data']['divide'][rqi[0]]['task_id']
-    print(f'获取到日期数据：{rqi}\n需要的日期：{rqi[0]}\n参加瓜分activity_id数据：{activity_id}')
+    myprint(f'获取到日期数据：{rqi}\n需要的日期：{rqi[0]}\n参加瓜分activity_id数据：{activity_id}')
     data = {
     'lang' : 'zh-CN',
     'token' : token,
@@ -289,10 +321,10 @@ def guafen(uid,token):
     }
     tijiao = requests.post(url='https://ut.xiaojukeji.com/ut/welfare/api/action/divideReward', json=data).json()
     if tijiao['errmsg'] == 'success':
-        print(f"参加瓜分：{tijiao['errmsg']}")
+        myprint(f"参加瓜分：{tijiao['errmsg']}")
     else:
-        print(tijiao['errmsg'])
-    #print(tijiao)
+        myprint(tijiao['errmsg'])
+    #myprint(tijiao)
     #获取数据
     data = {
     'lang' : 'zh-CN',
@@ -307,32 +339,32 @@ def guafen(uid,token):
     'env' : r'{\"cityId\":\"33\",\"token\":\"\",\"longitude\":\"\",\"latitude\":\"\",\"appid\":\"30012\",\"fromChannel\":\"2\",\"wxScene\":1089,\"sceneId\":1089,\"openId\":\"\"}'
     }
     shuju = requests.post(url=guafen1, json=data).json()
-    #print(shuju)
-    print('------')
+    #myprint(shuju)
+    myprint('------')
     if '14点自动开奖' == shuju['data']['divide_data']['divide'][rqi[0]]['button']['text']:
-        print(f"参加今日瓜分状态：成功-{shuju['data']['divide_data']['divide'][rqi[0]]['button']['text']}")
+        myprint(f"参加今日瓜分状态：成功-{shuju['data']['divide_data']['divide'][rqi[0]]['button']['text']}")
     elif '发奖了' == shuju['data']['divide_data']['divide'][rqi[0]]['button']['text']:
-        print(f"参加今日瓜分状态：成功-{shuju['data']['divide_data']['divide'][rqi[0]]['button']['text']}")
+        myprint(f"参加今日瓜分状态：成功-{shuju['data']['divide_data']['divide'][rqi[0]]['button']['text']}")
     else:
-        print(f"参加今日瓜分状态：失败")
+        myprint(f"参加今日瓜分状态：失败")
 
     if '明天14点前访问' == shuju['data']['divide_data']['divide'][rqi[zs]]['button']['text']:
-        print(f"参加今日瓜分状态：成功-{shuju['data']['divide_data']['divide'][rqi[zs]]['button']['text']}")
+        myprint(f"参加今日瓜分状态：成功-{shuju['data']['divide_data']['divide'][rqi[zs]]['button']['text']}")
     else:
-        print(f"参加明日瓜分状态：失败")
-    print('------')
+        myprint(f"参加明日瓜分状态：失败")
+    myprint('------')
     
     
 def chaxun(uid,token):
-    print('--------福利金查询--------')
+    myprint('--------福利金查询--------')
     cx = requests.get(url=f'https://rewards.xiaojukeji.com/loyalty_credit/bonus/getWelfareUsage4Wallet?token={token}&city_id=0').json()
     if '成功' == cx['errmsg']:
-        print(f"账号{uid}现在有福利金：{cx['data']['worth']}（可抵扣{cx['data']['worth']/100}元）\n{cx['data']['recent_expire_time']}过期福利金：{cx['data']['recent_expire_amount']}")
+        myprint(f"账号{uid}现在有福利金：{cx['data']['worth']}（可抵扣{cx['data']['worth']/100}元）\n{cx['data']['recent_expire_time']}过期福利金：{cx['data']['recent_expire_amount']}")
     else:
-        print('查询失败')
+        myprint('查询失败')
 
 def fuliwei(uid,token):
-    print('--------福利中心未领取查询------')
+    myprint('--------福利中心未领取查询------')
     data = {
     'xbiz' : 240000,
     'prod_key': 'welfare-center',
@@ -350,11 +382,11 @@ def fuliwei(uid,token):
     'platform' : 'na',
     'env' : r'{\"cityId\":\"33\",\"token\":\"\",\"longitude\":\"\",\"latitude\":\"\",\"appid\":\"30004\",\"fromChannel\":\"1\",\"deviceId\":\"\",\"ddfp\":\"\",\"appVersion\":\"6.7.4\",\"userAgent\":\"Mozilla/5.0 (Linux; Android 14; 2201122C Build/UKQ1.230804.001; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/117.0.0.0 Mobile Safari/537.36 didi.passenger/6.7.4 FusionKit/2.0.0  OffMode/0\"}'
     }
-    #print(data)
+    #myprint(data)
     tijiao = requests.post(url=fulijingchax, json=data).json()
-    print(f"存在{len(tijiao['data']['bubble_list'])}个未领取")
+    myprint(f"存在{len(tijiao['data']['bubble_list'])}个未领取")
     if len(tijiao['data']['bubble_list']) > 0:
-        print('进行领取')
+        myprint('进行领取')
         for lin in tijiao['data']['bubble_list']:
             data = {
             'xbiz' : 240000,
@@ -375,39 +407,39 @@ def fuliwei(uid,token):
             'bubble_type' : 'yangliu_sign'}
             tijiao1 = requests.post(url=liqu, json=data).json()
             if tijiao1['errmsg'] == 'success':
-                print(f"领取{tijiao1['errmsg']}")
+                myprint(f"领取{tijiao1['errmsg']}")
             else:
-                print('领取失败')
+                myprint('领取失败')
 
 
 def didiyouc(uid,token):
-    print('--------领取代驾、洗车优惠券--------')
+    myprint('--------领取代驾、洗车优惠券--------')
     data = {"lang":"zh-CN","token":token,"access_key_id":9,"appversion":appversion,"channel":1100000009,"_ds":"","xpsid":"d590d5aec0884e1e8b56ee04b1b3122e","xpsid_root":"d590d5aec0884e1e8b56ee04b1b3122e","dsi":"80dda490be5cfc6506bf4cbf7b01aa36410odlfg","source_id":"b08d62bd22133278c810","product_type":"didi","dchn":"DZdQqlE","city_id":33,"lng":lng,"lat":lat,"env":{"dchn":"DZdQqlE","newTicket":token,"latitude":lat,"longitude":lng,"model":"2201122C","fromChannel":"2","newAppid":"35009","openId":"","openIdType":"1","sceneId":"1037","isHitButton":True,"isOpenWeb":False,"timeCost":6851,"cityId":"33","xAxes":"275.02850341796875","yAxes":"387.0284729003906"},"req_env":"wx","dunion_callback":""}
     tijiao = requests.post(url=youhui, json=data).json()
     if tijiao['errmsg'] == 'success':
         for yh in tijiao['data']['rewards']:
-            print(f"获取到{yh['coupon']['max_benefit_capacity']['value']}{yh['coupon']['max_benefit_capacity']['unit']} {yh['coupon']['name']} {yh['coupon']['remark']}")
+            myprint(f"获取到{yh['coupon']['max_benefit_capacity']['value']}{yh['coupon']['max_benefit_capacity']['unit']} {yh['coupon']['name']} {yh['coupon']['remark']}")
     else:
-        print(tijiao['errmsg'])
-    print('--------------')
+        myprint(tijiao['errmsg'])
+    myprint('--------------')
     data = {"xbiz":"240101","prod_key":"ut-dunion-dj","xpsid":"8c6b4325867d42198a2fe78c5b037475","dchn":"aqj1Xk5","xoid":"c5f5aeb5-19a4-4e60-9305-d45c37e48a27","xenv":"wxmp","xspm_from":"none.none.none.none","xpsid_root":"8c6b4325867d42198a2fe78c5b037475","xpsid_from":"","xpsid_share":"","dsi":"622554f9d87e57040413526a116ac629410nk8lu","source_id":"b08d62bd22133278c810","product_type":"didi","token":token,"city_id":33,"env":{"dchn":"aqj1Xk5","newTicket":token,"userAgent":"","fromChannel":"2","newAppid":"30012","openId":"","openIdType":"1","isHitButton":True,"isOpenWeb":True,"timeCost":13722,"cityId":"33","xAxes":"260.6571044921875","yAxes":"455.3142395019531"},"req_env":"wx","dunion_callback":""}
     tijiao = requests.post(url=youhui, json=data).json()
     if tijiao['errmsg'] == 'success':
         for yh in tijiao['data']['rewards']:
-            print(f"获取到{yh['coupon']['max_benefit_capacity']['value']}{yh['coupon']['max_benefit_capacity']['unit']} {yh['coupon']['name']} {yh['coupon']['remark']}")
+            myprint(f"获取到{yh['coupon']['max_benefit_capacity']['value']}{yh['coupon']['max_benefit_capacity']['unit']} {yh['coupon']['name']} {yh['coupon']['remark']}")
     else:
-        print(tijiao['errmsg'])
+        myprint(tijiao['errmsg'])
 
 
 def didiqc(uid,token):
-    print('--------滴滴打车新城活动--------')
+    myprint('--------滴滴打车新城活动--------')
     data = {"xbiz":"240101","prod_key":"ut-dunion-wyc","xpsid":"d0765ac98e624e28920d626e87a26fc6","dchn":"o2vw2nM","xoid":"c5f5aeb5-19a4-4e60-9305-d45c37e48a27","xenv":"wxmp","xspm_from":"none.none.none.none","xpsid_root":"d0765ac98e624e28920d626e87a26fc6","xpsid_from":"","xpsid_share":"","env":{"dchn":"o2vw2nM","newTicket":token,"latitude":lat,"longitude":lng,"userAgent":"","fromChannel":"2","newAppid":"30012","openId":"","openIdType":"1","isHitButton":False,"isOpenWeb":True,"timeCost":7047},"req_env":"wx","dsi":"a4ce24f7e82060f61cb3ea252e2a35e8919kd2r2","source_id":"b08d62bd22133278c810","product_type":"didi","lng":lng,"lat":lat,"token":token,"uid":"","phone":""}
     tijiao = requests.post(url=youhui, json=data).json()
     if tijiao['errmsg'] == 'success':
         for yh in tijiao['data']['rewards']:
-            print(f"获取到{yh['coupon']['max_benefit_capacity']['value']}{yh['coupon']['max_benefit_capacity']['unit']} {yh['coupon']['name']} {yh['coupon']['remark']}")
+            myprint(f"获取到{yh['coupon']['max_benefit_capacity']['value']}{yh['coupon']['max_benefit_capacity']['unit']} {yh['coupon']['name']} {yh['coupon']['remark']}")
     else:
-        print(tijiao['errmsg'])
+        myprint(tijiao['errmsg'])
 
 def yq(uid,token):
     headers = {'content-type':'application/json'}
@@ -419,16 +451,16 @@ def yq(uid,token):
 
 #养券大师
 def yanquan(uid,token):
-    print('--------养券大师--------')
+    myprint('--------养券大师--------')
     data = {"xbiz":"240301","prod_key":"ut-coupon-master","xpsid":"9996f669b85446069201ba6f066ac757","dchn":"BnGadK5","xoid":"c5f5aeb5-19a4-4e60-9305-d45c37e48a27","xenv":"wxmp","xspm_from":"welfare-center.none.c1324.none","xpsid_root":"660616ee6da44f2a83c6bad2b2e08f50","xpsid_from":"c4f1e647068a4f5d86c62f7327780548","xpsid_share":"","platform":1,"token":token}
     tijiao = requests.post(url=yanquan1, json=data).json()
-    print(tijiao['errmsg'])
+    myprint(tijiao['errmsg'])
     data = {"xbiz":"240301","prod_key":"ut-coupon-master","xpsid":"9996f669b85446069201ba6f066ac757","dchn":"BnGadK5","xoid":"c5f5aeb5-19a4-4e60-9305-d45c37e48a27","xenv":"wxmp","xspm_from":"welfare-center.none.c1324.none","xpsid_root":"660616ee6da44f2a83c6bad2b2e08f50","xpsid_from":"c4f1e647068a4f5d86c62f7327780548","xpsid_share":"","platform":1,"token":token}
     tijiao = requests.post(url=yanquan2, json=data).json()
     if tijiao['errmsg'] == 'success':
-        print(f"{tijiao['data']['rewards'][0]}")
+        myprint(f"{tijiao['data']['rewards'][0]}")
     else:
-        print(tijiao['errmsg'])
+        myprint(tijiao['errmsg'])
     tijiao = requests.get(url=f'{yanquan3}{token}').json()
     if tijiao['errmsg'] == 'success':
         for rw in tijiao['data']['missions']:
@@ -436,57 +468,61 @@ def yanquan(uid,token):
             zuorw = requests.post(url=yanquan4, json=data).json()
             linrw = requests.post(url=yanquan5, json=data).json()
     else:
-        print(tijiao['errmsg'])
+        myprint(tijiao['errmsg'])
     try:
         yanquancj(uid,token)
     except Exception as e:
-        print('--------抽奖结束--------')
+        myprint('--------抽奖结束--------')
     data = {"xbiz":"240301","prod_key":"ut-coupon-master","xpsid":"23f60c5c42c2454cafc8edbb09f6c8ac","dchn":"BnGadK5","xoid":"c5f5aeb5-19a4-4e60-9305-d45c37e48a27","xenv":"wxmp","xspm_from":"welfare-center.none.c1324.none","xpsid_root":"4def26a78cd6460aab0d7268501c1ab8","xpsid_from":"e276b0683755450e851dbdc59e6ea927","xpsid_share":"","platform":1,"token":token}
     tijiao = requests.post(url=yanquan7, json=data).json()
-    print(f"升级：{tijiao['errmsg']}")
+    myprint(f"升级：{tijiao['errmsg']}")
     data = {"xbiz":"240301","prod_key":"ut-coupon-master","xpsid":"5179b7a9bd884fe18a6988a1b176321e","dchn":"BnGadK5","xoid":"c5f5aeb5-19a4-4e60-9305-d45c37e48a27","xenv":"wxmp","xspm_from":"welfare-center.none.c1324.none","xpsid_root":"3d3b3b2ddf2f45c9ad3805805c5359f4","xpsid_from":"988f69329773413c98f3cae569a95483","xpsid_share":"","token":token,"platform":1}
     tijiao = requests.post(url=yanquan8, json=data).json()
     if tijiao['errmsg'] == 'success':
-        print(f"金币：{tijiao['data']['coin']}")
-        print(f"优惠券：满{tijiao['data']['coupon']['available']/100}抵扣{tijiao['data']['coupon']['amount']/100}元")
+        myprint(f"金币：{tijiao['data']['coin']}")
+        myprint(f"优惠券：满{tijiao['data']['coupon']['available']/100}抵扣{tijiao['data']['coupon']['amount']/100}元")
     else:
-        print(tijiao['errmsg'])
+        myprint(tijiao['errmsg'])
 
 #养券大师
 def yanquancj(uid,token):
-    print('--------养券大师抽奖--------')
+    myprint('--------养券大师抽奖--------')
     data = {"xbiz":"240301","prod_key":"ut-coupon-master","xpsid":"9996f669b85446069201ba6f066ac757","dchn":"BnGadK5","xoid":"c5f5aeb5-19a4-4e60-9305-d45c37e48a27","xenv":"wxmp","xspm_from":"welfare-center.none.c1324.none","xpsid_root":"660616ee6da44f2a83c6bad2b2e08f50","xpsid_from":"c4f1e647068a4f5d86c62f7327780548","xpsid_share":"","platform":1,"token":token}
     tijiao = requests.post(url=yanquan6, json=data).json()
     if tijiao['errmsg'] == 'success':
-        print(f"存在抽奖次数：{tijiao['data']['power']}")
+        myprint(f"存在抽奖次数：{tijiao['data']['power']}")
         for x in range(tijiao['data']['power']):
             xx = x + 1
-            print(f"正在执行第{xx}次抽奖")
-            time.sleep(2)
+            myprint(f"正在执行第{xx}次抽奖")
+            time.sleep(3)
             tijiao1 = requests.post(url=yanquan6, json=data).json()
-    print('--------抽奖结束--------')
+    myprint('--------抽奖结束--------')
 
 if __name__ == '__main__':
     uid = 1
     token = ""
     if 'ddgyToken' in os.environ:
         fen = os.environ.get("ddgyToken").split("@")
-        print(f'查找到{len(fen)}个账号')
-        print('==================================')
+        myprint(f'查找到{len(fen)}个账号')
+        myprint('==================================')
         for duo in fen:
             uid,token = duo.split("&")
             try:
                 main(uid,token)
-                print('============📣结束📣============')
+                myprint('============📣结束📣============')
             except Exception as e:
-                print('小错误')
+                myprint('小错误')
     else:
-        print('不存在青龙变量，本地运行')
+        myprint('不存在青龙变量，本地运行')
         if uid == '' or token == '':
-            print('本地账号密码为空')
+            myprint('本地账号密码为空')
             exit()
         else:
             try:
                 main(uid,token)
             except Exception as e:
-                print('小错误')
+                myprint('小错误')
+    try:
+        send_notification_message(title='滴滴出行')  # 发送通知
+    except Exception as e:
+        print('小错误')
