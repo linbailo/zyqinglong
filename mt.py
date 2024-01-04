@@ -154,6 +154,6 @@ if __name__ == '__main__':
                     else:
                         pdcf = True
     try:
-        send_notification_message(title='滴滴出行')  # 发送通知
+        send_notification_message(title='mt论坛')  # 发送通知
     except Exception as e:
         print('小错误')
