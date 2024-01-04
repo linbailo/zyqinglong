@@ -116,10 +116,10 @@ def huoqu(formhash):
 
 if __name__ == '__main__':
     #账号
-    username = '林lin'
+    username = ''
     #username.encode("utf-8")
     #密码
-    password = '13977922831'
+    password = ''
     if 'mtluntan' in os.environ:
         fen = os.environ.get("mtluntan").split("@")
         myprint(f'查找到{len(fen)}个账号')
