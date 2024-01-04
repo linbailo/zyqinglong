@@ -41,6 +41,36 @@ else:
     exit()
 print('==================================')
 
+all_print_list = []  # 用于记录所有 myprint 输出的字符串
+
+
+# 用于记录所有 print 输出的字符串,暂时实现 print 函数的sep和end
+def myprint(*args, sep=' ', end='\n', **kwargs):
+    global all_print_list
+    output = ""
+    # 构建输出字符串
+    for index, arg in enumerate(args):
+        if index == len(args) - 1:
+            output += str(arg)
+            continue
+        output += str(arg) + sep
+    output = output + end
+    all_print_list.append(output)
+    # 调用内置的 print 函数打印字符串
+    print(*args, sep=sep, end=end, **kwargs)
+
+
+# 发送通知消息
+def send_notification_message(title):
+    try:
+        from sendNotify import send
+
+        send(title, ''.join(all_print_list))
+    except Exception as e:
+        if e:
+            print('发送通知消息失败！')
+
+
 def main(username,password):
     headers={'User-Agent': ua}
     session.get('https://bbs.binmt.cc/member.php?mod=logging&action=login&infloat=yes&handlekey=login&inajax=1&ajaxtarget=fwin_content_login',headers=headers)
@@ -55,7 +85,7 @@ def main(username,password):
     if '欢迎您回来' in denlu:
         #获取分组、名字
         fzmz = re.findall('欢迎您回来，(.*?)，现在', denlu)[0]
-        print(f'{fzmz}：登录成功')
+        myprint(f'{fzmz}：登录成功')
         #获取formhash
         zbqd = session.get('https://bbs.binmt.cc/k_misign-sign.html', headers=headers).text
         formhash = re.findall('formhash" value="(.*?)".*? />', zbqd)[0]
@@ -63,11 +93,12 @@ def main(username,password):
         qdurl=f'https://bbs.binmt.cc/plugin.php?id=k_misign:sign&operation=qiandao&format=text&formhash={formhash}'
         qd = session.get(url=qdurl, headers=headers).text
         qdyz = re.findall('<root><(.*?)</root>', qd)[0]
-        print(f'签到状态：{qdyz}')
+        myprint(f'签到状态：{qdyz}')
         if '已签' in qd:
             huoqu(formhash)
     else:
-        print('登录失败')
+        myprint('登录失败')
+    return True
 
 
 
@@ -77,7 +108,7 @@ def huoqu(formhash):
     huo = session.get('https://bbs.binmt.cc/k_misign-sign.html', headers=headers).text
     pai = re.findall('您的签到排名：(.*?)</div>', huo)[0]
     jiang = re.findall('id="lxreward" value="(.*?)">', huo)[0]
-    print(f'签到排名{pai}，奖励{jiang}金币')
+    myprint(f'签到排名{pai}，奖励{jiang}金币')
     #退出登录，想要多用户必须，执行退出
     tuic = f'https://bbs.binmt.cc/member.php?mod=logging&action=logout&formhash={formhash}'
     session.get(url=tuic, headers=headers)
@@ -85,28 +116,44 @@ def huoqu(formhash):
 
 if __name__ == '__main__':
     #账号
-    username = ''
+    username = '林lin'
     #username.encode("utf-8")
     #密码
-    password = ''
+    password = '13977922831'
     if 'mtluntan' in os.environ:
         fen = os.environ.get("mtluntan").split("@")
-        print(f'查找到{len(fen)}个账号')
-        print('==================================')
+        myprint(f'查找到{len(fen)}个账号')
+        myprint('==================================')
         for duo in fen:
             username,password = duo.split("&")
             try:
                 main(username,password)
-                print('============📣结束📣============')
+                myprint('============📣结束📣============')
             except Exception as e:
-                raise e
+                pdcf = False
+                pdcf1 = 1
+                while pdcf != True:
+                    if pdcf1 <=3:
+                        pdcf = main(username,password)
+                    else:
+                        pdcf = True
     else:
-        print('不存在青龙、github变量')
+        myprint('不存在青龙、github变量')
         if username == '' or password == '':
-            print('本地账号密码为空')
+            myprint('本地账号密码为空')
             exit()
         else:
             try:
                 main(username,password)
             except Exception as e:
-                raise e
+                pdcf = False
+                pdcf1 = 1
+                while pdcf != True:
+                    if pdcf1 <=3:
+                        pdcf = main(username,password)
+                    else:
+                        pdcf = True
+    try:
+        send_notification_message(title='滴滴出行')  # 发送通知
+    except Exception as e:
+        print('小错误')

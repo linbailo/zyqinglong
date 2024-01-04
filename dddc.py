@@ -51,36 +51,36 @@ def send_notification_message(title):
 
 
 #初始化
-myprint('============📣初始化📣============')
+print('============📣初始化📣============')
 #版本
 banappversion = '1.1.1'
 try:
     m = requests.get('https://gitee.com/guadu6464/test/raw/master/banbeng.json').json()
     if banappversion == m['didi']:
-        myprint(f"无版本更新：{banappversion}")
+        print(f"无版本更新：{banappversion}")
     else:
-        myprint('📣📣📣📣📣📣📣📣📣📣📣📣📣')
-        myprint(f"📣📣📣最新版本：{m['didi']}📣📣📣📣")
-        myprint('📣📣📣请更新版本：📣📣📣📣📣📣')
-        myprint('📣https://raw.githubusercontent.com/linbailo/zyqinglong/main/dddc.py📣')
-        myprint('📣📣📣📣📣📣📣📣📣📣📣📣📣')
+        print('📣📣📣📣📣📣📣📣📣📣📣📣📣')
+        print(f"📣📣📣最新版本：{m['didi']}📣📣📣📣")
+        print('📣📣📣请更新版本：📣📣📣📣📣📣')
+        print('📣https://raw.githubusercontent.com/linbailo/zyqinglong/main/dddc.py📣')
+        print('📣📣📣📣📣📣📣📣📣📣📣📣📣')
 except Exception as e:
-    myprint('无法检查版本更新')
+    print('无法检查版本更新')
 
 appversion = '6.6.20'
-myprint(f'小程序版本：{appversion}')
+print(f'小程序版本：{appversion}')
 if 'didijw' in os.environ:
     lng,lat = os.environ.get("didijw").split("&")
-    myprint('已经填写经纬度')
+    print('已经填写经纬度')
 else:
-    myprint('使用内置经纬度')
+    print('使用内置经纬度')
     lat = '39.852399823026097'  #纬度
     lng = '116.32055410011579'   #经度
-myprint(f'经纬度默认设置：{lat},{lng}')
-myprint('==================================')
-myprint(m['didigg'])
+print(f'经纬度默认设置：{lat},{lng}')
+print('==================================')
+print(m['didigg'])
 
-myprint('==================================')
+print('==================================')
 #设置api
 fuli ='https://ut.xiaojukeji.com/ut/welfare/api/action/dailySign'
 youhui = 'https://union.didi.cn/api/v1.0/reward/receive'
