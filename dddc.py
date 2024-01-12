@@ -11,7 +11,7 @@ uid其实不重要，只是用来区分token所属的账号，方便重写。手
 export ddgyToken='uid&token'
 export didijw='经度&维度'
 
-cron: 0 0,7,17,21 * * *
+cron: 0 0,7,12,17,21 * * *
 const $ = new Env("滴滴打车");
 """
 import requests
@@ -53,7 +53,7 @@ def send_notification_message(title):
 #初始化
 print('============📣初始化📣============')
 #版本
-banappversion = '1.1.1'
+banappversion = '1.2.0'
 try:
     m = requests.get('https://gitee.com/guadu6464/test/raw/master/banbeng.json').json()
     if banappversion == m['didi']:
@@ -111,7 +111,9 @@ yanquan6 = 'https://game.xiaojukeji.com/api/game/coaster/draw'
 yanquan7 = 'https://game.xiaojukeji.com/api/game/coaster/wheelUpgrade'
 #详细
 yanquan8 = 'https://game.xiaojukeji.com/api/game/coaster/hall'
-
+#学生优惠
+xuesyhui1 = 'https://ut.xiaojukeji.com/ut/active_brick/api/v1/wyc/identity/index'
+xuesyhui2 = 'https://ut.xiaojukeji.com/ut/active_brick/api/v1/wyc/identity/award/user_do_group_all'
 
 
 
@@ -137,21 +139,26 @@ def diyi(uid,token):
         for yh in tijiao['data']['rewards']:
             myprint(f"获取到{yh['coupon']['max_benefit_capacity']['value']}{yh['coupon']['max_benefit_capacity']['unit']} {yh['coupon']['name']} {yh['coupon']['remark']}")
     else:
-        myprint(tijiao['errmsg'])
+        print(tijiao['errmsg'])
     try:
         didiyouc(uid,token)
     except Exception as e:
-        myprint('小错误')
+        print('小错误')
     
     try:
         didiqc(uid,token)
     except Exception as e:
-        myprint('小错误')
+        print('小错误')
 
     try:
         yanquan(uid,token)
     except Exception as e:
-        myprint('小错误')
+        print('小错误')
+
+    try:
+        xuesyhui(uid,token)
+    except Exception as e:
+        print('小错误')
 
     myprint('--------福利中心签到------')
     data = {
@@ -177,7 +184,7 @@ def diyi(uid,token):
     try:
         fuliwei(uid,token)
     except Exception as e:
-        myprint('小错误')
+        print('小错误')
     myprint('--------天天领券签到------')
     headers = {'didi-ticket': token,'content-type':'application/json'}
     data = {
@@ -498,6 +505,21 @@ def yanquancj(uid,token):
             tijiao1 = requests.post(url=yanquan6, json=data).json()
     myprint('--------抽奖结束--------')
 
+def xuesyhui(uid,token):
+    myprint('--------这周学生优惠--------')
+    data = {"lang":"zh-CN","token":token,"access_key_id":"9","appversion":appversion,"channel":"1100000002","_ds":"","xpsid":"6a8936b32ea74e22a1e0f95cbcff95f3","xpsid_root":"0e8741afb52946609f8456d914f0cfe5","lat":lat,"lng":lng,"city_id":"33","platform":"wxmp"}
+    tijiao = requests.post(url=xuesyhui1, data=data).json()
+    if tijiao['errmsg'] == 'ok':
+        data = {'lang':'zh-CN','token':token,'access_key_id':9,'appversion':appversion,'channel':'1100000002','_ds':'','xpsid':'6a8936b32ea74e22a1e0f95cbcff95f3','xpsid_root':'0e8741afb52946609f8456d914f0cfe5','params':[{'group_id':tijiao['data']['week_award_data']['details'][0]['group_id'],'env':r'{\"dchn\":\"kjneo3J\",\"newTicket\":\"\",\"model\":\"2201122C\",\"fromChannel\":\"2\",\"newAppid\":\"35009\",\"openId\":\"\",\"openIdType\":\"\",\"sceneId\":\"1089\",\"isHitButton\":false,\"isOpenWeb\":false,\"timeCost\":1,\"latitude\":\"\",\"longitude\":\"\"}','prod_key':tijiao['data']['week_award_data']['base_info']['prod_key'],'xak':tijiao['data']['week_award_data']['base_info']['xak'],'xid':tijiao['data']['week_award_data']['base_info']['xid']}],'city_id':33,'lat':lat,'lng':lng,'platform':'wxmp'}
+        tijiao1 = requests.post(url=xuesyhui2, json=data).json()
+        if tijiao1['errmsg'] == 'ok':
+            if tijiao1['data']['reward_data'][0]['code_msg'] == 'ok':
+                for oo in tijiao1['data']['reward_data'][0]['base_info']['details'][0]['rewards']:
+                    myprint(f"{oo[0]['info'][0]['reward_name']}-{oo[0]['info'][0]['coupon_name']}-{oo[0]['info'][0]['status']}-{oo[0]['info'][0]['expire_time_desc']}")
+            else:
+                myprint(tijiao1['data']['reward_data'][0]['code_msg'])
+
+
 if __name__ == '__main__':
     uid = 1
     token = ""
@@ -523,6 +545,7 @@ if __name__ == '__main__':
             except Exception as e:
                 myprint('小错误')
     try:
+        print('==================================')
         send_notification_message(title='滴滴出行')  # 发送通知
     except Exception as e:
         print('小错误')
