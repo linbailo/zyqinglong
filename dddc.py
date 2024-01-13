@@ -5,11 +5,18 @@ ddgyToken: 必填，账号token，多账号换行或者@隔开，格式uid&token
 青龙：捉任意game.xiaojukeji.com的包，把body里的uid和token用&连起来填到变量ddgyToken
 uid其实不重要，只是用来区分token所属的账号，方便重写。手动捉包的话uid随便填都可以
 多账号换行或者@隔开，重写多账号直接换号捉就行
+列 ddgyToken='uid&token'
+
 打开http://jingweidu.757dy.com/
 获取经纬度填到环境变量 经度在前&维度
 列 didijw = '104.66967&37.23668'
+
+开启福利金低于500 自动抵扣打车费 默认开启
+关闭请填写变量didifl = false 或顺便填写除true外的一切字符
+
 export ddgyToken='uid&token'
 export didijw='经度&维度'
+export didifl='true'
 
 cron: 0 0,7,12,17,21 * * *
 const $ = new Env("滴滴打车");
@@ -53,7 +60,7 @@ def send_notification_message(title):
 #初始化
 print('============📣初始化📣============')
 #版本
-banappversion = '1.2.0'
+banappversion = '1.2.2'
 try:
     m = requests.get('https://gitee.com/guadu6464/test/raw/master/banbeng.json').json()
     if banappversion == m['didi']:
@@ -77,8 +84,28 @@ else:
     lat = '39.852399823026097'  #纬度
     lng = '116.32055410011579'   #经度
 print(f'经纬度默认设置：{lat},{lng}')
+
+if 'didifl' in os.environ:
+    if os.environ.get("didifl") == 'true':
+        didifl = 'true'
+        print('获取到青龙变量\n福利金抵扣： 已开启')
+    elif os.environ.get("didifl") == True:
+        didifl = 'true'
+        print('获取到青龙变量\n福利金抵扣： 已开启')
+    else:
+        didifl = 'false'
+        print('获取到青龙变量\n福利金抵扣： 已关闭')
+else:
+    didifl = 'true'
+    print('未设置青龙变量\n福利金抵扣： 默认开启')
+
+        
 print('==================================')
-print(m['didigg'])
+try:
+    print(m['didigg'])
+except Exception as e:
+    print('获取公告失败')
+
 
 print('==================================')
 #设置api
@@ -123,9 +150,14 @@ def main(uid,token):
     myprint(f'正在执行账号：{uid}')
     chaxun(uid,token)
     try:
+        if didifl == 'true':
+            bdfulijing(uid,token)
+    except Exception as e:
+        raise e
+    try:
         diyi(uid,token)
     except Exception as e:
-        myprint(e)
+        print(e)
     guafen(uid,token)
     
 
@@ -518,6 +550,18 @@ def xuesyhui(uid,token):
                     myprint(f"{oo[0]['info'][0]['reward_name']}-{oo[0]['info'][0]['coupon_name']}-{oo[0]['info'][0]['status']}-{oo[0]['info'][0]['expire_time_desc']}")
             else:
                 myprint(tijiao1['data']['reward_data'][0]['code_msg'])
+
+#判断福利金是否开启低于500抵扣
+def bdfulijing(uid,token):
+    url = f"https://pay.diditaxi.com.cn/phoenix_asset/common/app/query/auto/deduct?token={token}&asset_type=14"
+    tijiao = requests.get(url=url).json()
+    if tijiao['errmsg'] == '成功':
+        if tijiao['data']['status'] == 1:
+            myprint(f"福利金抵扣： 已开启")
+        else:
+            url = f"https://pay.diditaxi.com.cn/phoenix_asset/common/app/set/up/auto/deduct?token={token}&status=1&asset_type=14"
+            tijiao1 = requests.get(url=url).json()
+            myprint(f"福利金抵扣： 已开启")
 
 
 if __name__ == '__main__':
