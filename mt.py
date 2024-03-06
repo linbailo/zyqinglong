@@ -78,15 +78,18 @@ def send_notification_message(title):
 
 def main(username,password):
     headers={'User-Agent': ua}
-    session.get('https://bbs.binmt.cc/member.php?mod=logging&action=login&infloat=yes&handlekey=login&inajax=1&ajaxtarget=fwin_content_login',headers=headers)
+    session.get('https://bbs.binmt.cc',headers=headers)
     chusihua = session.get('https://bbs.binmt.cc/member.php?mod=logging&action=login&infloat=yes&handlekey=login&inajax=1&ajaxtarget=fwin_content_login',headers=headers)
     #print(re.findall('loginhash=(.*?)">', chusihua.text))
-    loginhash = re.findall('loginhash=(.*?)">', chusihua.text)[0]
-    formhash = re.findall('formhash" value="(.*?)".*? />', chusihua.text)[0]
+    try:
+        loginhash = re.findall('loginhash=(.*?)">', chusihua.text)[0]
+        formhash = re.findall('formhash" value="(.*?)".*? />', chusihua.text)[0]
+    except Exception as e:
+        print('loginhash、formhash获取失败')
     denurl = f'https://bbs.binmt.cc/member.php?mod=logging&action=login&loginsubmit=yes&handlekey=login&loginhash={loginhash}&inajax=1'
     data = {'formhash': formhash,'referer': 'https://bbs.binmt.cc/forum.php','loginfield': 'username','username': username,'password': password,'questionid': '0','answer': '',}
     denlu = session.post(headers=headers, url=denurl, data=data).text
-    #print(denlu)
+    
     if '欢迎您回来' in denlu:
         #获取分组、名字
         fzmz = re.findall('欢迎您回来，(.*?)，现在', denlu)[0]
@@ -103,6 +106,7 @@ def main(username,password):
             huoqu(formhash)
     else:
         myprint('登录失败')
+        print(re.findall("CDATA(.*?)<", denlu)[0])
     return True
 
 
