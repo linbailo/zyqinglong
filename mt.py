@@ -18,27 +18,32 @@ import re
 import os
 import time
 
-#qq:1628708538
+
 
 #设置ua
 ua = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.45 Safari/537.36'
 session = requests.session()
 
-#获取ip
-ipdi = requests.get('http://ifconfig.me/ip', timeout=6).text.strip()
+
+def pdwl():
+    #获取ip
+    ipdi = requests.get('http://ifconfig.me/ip', timeout=6).text.strip()
+    
+    print(ipdi)
+    #判断国内外地址
+    dizhi = f'http://ip-api.com/json/{ipdi}?lang=zh-CN'
+    pdip = requests.get(url=dizhi, timeout=6).json()
+    country = pdip['country']
+    if '中国' == country:
+        print(country)
+    else:
+        print(f'{country}无法访问论坛\n尝试进入论坛报错就是IP无法进入')
+        #exit()
 print('============📣初始化📣============')
-print(ipdi)
-
-
-#判断国内外地址
-dizhi = f'http://ip-api.com/json/{ipdi}?lang=zh-CN'
-pdip = requests.get(url=dizhi, timeout=6).json()
-country = pdip['country']
-if '中国' == country:
-    print(country)
-else:
-    print(f'{country}无法访问论坛')
-    exit()
+try:
+    pdwl()
+except Exception as e:
+    print('无法判断网络是否可以正常进入论坛\n尝试进入论坛报错就是无法进入')
 print('==================================')
 
 all_print_list = []  # 用于记录所有 myprint 输出的字符串
