@@ -60,7 +60,7 @@ def send_notification_message(title):
 #初始化
 print('============📣初始化📣============')
 #版本
-banappversion = '1.2.2'
+banappversion = '1.2.3'
 try:
     m = requests.get('https://gitee.com/guadu6464/test/raw/master/banbeng.json').json()
     if banappversion == m['didi']:
@@ -176,7 +176,10 @@ def diyi(uid,token):
         didiyouc(uid,token)
     except Exception as e:
         print('小错误')
-    
+    try:
+        didish(uid,token)
+    except Exception as e:
+        print('小错误')
     try:
         didiqc(uid,token)
     except Exception as e:
@@ -273,7 +276,13 @@ def diyi(uid,token):
                 coupon_conf_id = xu['coupon_conf_id']
                 data = {"lang":"zh-CN","token":token,"access_key_id":9,"appversion":appversion,"channel":1100000002,"_ds":"","xpsid":"d51af08a62ef4b43b1eb41deaae30379","xpsid_root":"0fa1ac9f38d24e43a4a2616319942c88","activity_id":activity_id,"group_id":group_id,"group_date":group_date,"coupon_conf_id":coupon_conf_id,"dchn":"wE7poOA","platform":"mp","city_id":33,"env":{"isHitButton":True,"newAppid":35009,"userAgent":"","openId":"","model":"2201122C","wifi":2,"timeCost":""}}
                 ju = requests.post(url="https://ut.xiaojukeji.com/ut/janitor/api/action/coupon/bind", json=data, headers=headers).json()
-                myprint(f"{xu['name']}（{xu['threshold_desc']}）：{ju['errmsg']}")
+                
+                if ju['errmsg'] == 'success':
+                    myprint(f"{xu['name']}（{xu['threshold_desc']}）：{ju['errmsg']}")
+                elif ju['errmsg'] == '领券失败请重试':
+                    pass
+                else:
+                    print(f"{xu['name']}（{xu['threshold_desc']}）：{ju['errmsg']}")
                 time.sleep(1)
     myprint('------------------')
     
@@ -461,7 +470,7 @@ def didiyouc(uid,token):
     else:
         myprint(tijiao['errmsg'])
     myprint('--------------')
-    data = {"xbiz":"240101","prod_key":"ut-dunion-dj","xpsid":"8c6b4325867d42198a2fe78c5b037475","dchn":"aqj1Xk5","xoid":"c5f5aeb5-19a4-4e60-9305-d45c37e48a27","xenv":"wxmp","xspm_from":"none.none.none.none","xpsid_root":"8c6b4325867d42198a2fe78c5b037475","xpsid_from":"","xpsid_share":"","dsi":"622554f9d87e57040413526a116ac629410nk8lu","source_id":"b08d62bd22133278c810","product_type":"didi","token":token,"city_id":33,"env":{"dchn":"aqj1Xk5","newTicket":token,"userAgent":"","fromChannel":"2","newAppid":"30012","openId":"","openIdType":"1","isHitButton":True,"isOpenWeb":True,"timeCost":13722,"cityId":"33","xAxes":"260.6571044921875","yAxes":"455.3142395019531"},"req_env":"wx","dunion_callback":""}
+    data = {"xbiz":"240101","prod_key":"ut-dunion-dj","xpsid":"1c7d655e5eb3436f8d2f2ce308398923","dchn":"E8g52z0","xoid":"a5e66d28-004a-4046-8b57-a88b360fb856","xenv":"h5","xspm_from":"","xpsid_root":"1c7d655e5eb3436f8d2f2ce308398923","xpsid_from":"","xpsid_share":"","dsi":"622554f9d87e57040413526a116ac629410nk8lu","source_id":"4a871f6eb9e4ee5568f0","product_type":"didi","token":token,"city_id":33,"lng":lng,"lat":lat,"env":{"dchn":"E8g52z0","newTicket":token,"latitude":lat,"longitude":lng,"userAgent":"","fromChannel":"8","newAppid":"30004","isHitButton":True,"isOpenWeb":True,"timeCost":36199,"cityId":"33","xAxes":"284.8856201171875","yAxes":"446.1429138183594"},"req_env":"h5","dunion_callback":""}
     tijiao = requests.post(url=youhui, json=data).json()
     if tijiao['errmsg'] == 'success':
         for yh in tijiao['data']['rewards']:
@@ -473,6 +482,16 @@ def didiyouc(uid,token):
 def didiqc(uid,token):
     myprint('--------滴滴打车新城活动--------')
     data = {"xbiz":"240101","prod_key":"ut-dunion-wyc","xpsid":"d0765ac98e624e28920d626e87a26fc6","dchn":"o2vw2nM","xoid":"c5f5aeb5-19a4-4e60-9305-d45c37e48a27","xenv":"wxmp","xspm_from":"none.none.none.none","xpsid_root":"d0765ac98e624e28920d626e87a26fc6","xpsid_from":"","xpsid_share":"","env":{"dchn":"o2vw2nM","newTicket":token,"latitude":lat,"longitude":lng,"userAgent":"","fromChannel":"2","newAppid":"30012","openId":"","openIdType":"1","isHitButton":False,"isOpenWeb":True,"timeCost":7047},"req_env":"wx","dsi":"a4ce24f7e82060f61cb3ea252e2a35e8919kd2r2","source_id":"b08d62bd22133278c810","product_type":"didi","lng":lng,"lat":lat,"token":token,"uid":"","phone":""}
+    tijiao = requests.post(url=youhui, json=data).json()
+    if tijiao['errmsg'] == 'success':
+        for yh in tijiao['data']['rewards']:
+            myprint(f"获取到{yh['coupon']['max_benefit_capacity']['value']}{yh['coupon']['max_benefit_capacity']['unit']} {yh['coupon']['name']} {yh['coupon']['remark']}")
+    else:
+        myprint(tijiao['errmsg'])
+
+def didish(uid,token):
+    myprint('--------领取滴滴送货优惠券--------')
+    data = {"xbiz":"240101","prod_key":"ut-dunion-freight","xpsid":"8288fd529cd5477da142540d10bb8118","dchn":"b8Ml9nz","xoid":"e8e2f046-aea0-4424-bd88-3d7c5f6dadf7","xenv":"h5","xspm_from":"","xpsid_root":"8288fd529cd5477da142540d10bb8118","xpsid_from":"","xpsid_share":"","env":{"dchn":"b8Ml9nz","newTicket":token,"latitude":lat,"longitude":lng,"cityId":"33","userAgent":"","fromChannel":"8","newAppid":"30004","isHitButton":False,"isOpenWeb":True,"timeCost":9479},"req_env":"h5","dsi":"cc89fc2474673c8f979db1121d02b4db410sd2eu","source_id":"4a871f6eb9e4ee5568f0","product_type":"didi","lng":lng,"lat":lat,"token":token,"phone":"","uid":"","city_id":33}
     tijiao = requests.post(url=youhui, json=data).json()
     if tijiao['errmsg'] == 'success':
         for yh in tijiao['data']['rewards']:
