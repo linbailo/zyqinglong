@@ -60,7 +60,7 @@ def send_notification_message(title):
 #初始化
 print('============📣初始化📣============')
 #版本
-banappversion = '1.2.3'
+banappversion = '1.2.4'
 try:
     m = requests.get('https://gitee.com/guadu6464/test/raw/master/banbeng.json').json()
     if banappversion == m['didi']:
@@ -498,6 +498,17 @@ def didish(uid,token):
             myprint(f"获取到{yh['coupon']['max_benefit_capacity']['value']}{yh['coupon']['max_benefit_capacity']['unit']} {yh['coupon']['name']} {yh['coupon']['remark']}")
     else:
         myprint(tijiao['errmsg'])
+    myprint('----------------')
+    data = {"xbiz":"240401","prod_key":"ut-dunion-freight","xpsid":"9bf3ea7efa894b8d9d97a382f508d040","dchn":"Yo7XkgO","xoid":"9dc3aa13-62b9-40ed-9e5a-d891f7cf5a87","xenv":"wxmp","xspm_from":"none.none.none.none","xpsid_root":"9bf3ea7efa894b8d9d97a382f508d040","xpsid_from":"","xpsid_share":"","env":{"dchn":"Yo7XkgO","newTicket":token,"latitude":lat,"longitude":lng,"cityId":"161","userAgent":"","fromChannel":"2","newAppid":"30012","openId":"","openIdType":"1","isHitButton":False,"isOpenWeb":True,"timeCost":20628},"req_env":"wx","dsi":"d275d5d5b45f23310d537a7b15aa1c094109ys40","source_id":"4a871f6eb9e4ee5568f0","product_type":"didi","lng":lng,"lat":lat,"token":token,"uid":"","phone":"","city_id":161}
+    tijiao = requests.post(url=youhui, json=data).json()
+    #print(tijiao)
+    if tijiao['errmsg'] == 'success':
+        for yh in tijiao['data']['rewards']:
+            myprint(f"获取到{yh['coupon']['max_benefit_capacity']['value']}{yh['coupon']['max_benefit_capacity']['unit']} {yh['coupon']['name']} {yh['coupon']['remark']}")
+    else:
+        myprint(tijiao['errmsg'])
+    
+
 
 def yq(uid,token):
     headers = {'content-type':'application/json'}
@@ -585,7 +596,7 @@ def bdfulijing(uid,token):
 
 if __name__ == '__main__':
     uid = 1
-    token = ""
+    token = "YPMiJtJviame4AXE4ljXe9WyMZ0zdOj1lEZwpnLuNUokzDmOwlAMgOG7_LUV2W9JbLfTzx1mCUvzkEBUUe6OAu1XfBtDSeqkkyIMI00Yhayq2oRRSVt6lFCzpYXNwmikCqOTfH0j_JAg_JLF29w9Yu69NFfh_x2u5Mbj9rz_rWTfhdOx6uJhHkU4k5j7ASVqQbh8yiup-ysAAP__"
     if 'ddgyToken' in os.environ:
         fen = os.environ.get("ddgyToken").split("@")
         myprint(f'查找到{len(fen)}个账号')
