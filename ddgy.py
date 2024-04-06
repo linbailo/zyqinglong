@@ -87,7 +87,7 @@ def gscnlsd(uid,token):
         data = {"xbiz":"240301","prod_key":"didi-orchard","xpsid":"b7b5ec0727fb4c8ea230ed1243c61c79","dchn":"078Je67","xoid":"ce8cef18-738a-4a72-b1e2-63727ff0ad3f","xenv":"wxmp","xspm_from":"welfare-center.none.c1324.none","xpsid_root":"8a334bb6264f4360ba8a917f65520d3b","xpsid_from":"f1bd01f08f3b42c682d3f1058ba838a8","xpsid_share":"","platform":1,"token":token,"game_id":23}
         tijiao = requests.post(url='https://game.xiaojukeji.com/api/game/cow/goal',json=data).json()
         if tijiao['errmsg'] == 'success':
-            print(f"吹牛成功目前有水滴：{tijiao['data']['water_wallet']}")
+            print(f"吹牛成功目前有水滴：{tijiao['data']['water_wallet']['cur']}")
         else:
             data = {"xbiz":"240301","prod_key":"didi-orchard","xpsid":"73fbe801e5844806a448836ca6eab7bd","dchn":"078Je67","xoid":"ce8cef18-738a-4a72-b1e2-63727ff0ad3f","xenv":"wxmp","xspm_from":"welfare-center.none.c1324.none","xpsid_root":"8a334bb6264f4360ba8a917f65520d3b","xpsid_from":"57cac99225a3488da3bcf1c305e85b31","xpsid_share":"","platform":1,"token":token,"game_id":23}
             tijiao1 = requests.post(url='https://game.xiaojukeji.com/api/game/cow/award',json=data).json()
@@ -150,7 +150,7 @@ def cxguosju(uid,token):
 
 if __name__ == '__main__':
     uid = 1
-    token = "99ssxgDiBSw3L0mANfTFL8a7trIBhDV2lDD_EgndEV4kzDmuwzAMQMG7vJowSEqyTN7mL87SKECCVIbvHjiuppuNoSRl0kkRhpEmDCdLUw1hFNJ6C597i6LVVRiVPGgkCD8nv6QvVnszV_UWXoT_b7eSG6_H-_m3kk1VYxcux2teLWo34Upii_ce0WefEW5neyd1_wQAAP__"
+    token = ""
     if 'ddgyToken' in os.environ:
         fen = os.environ.get("ddgyToken").split("@")
         print(f'查找到{len(fen)}个账号')
