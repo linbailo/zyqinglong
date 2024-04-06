@@ -37,8 +37,23 @@ def main(uid,token):
     try:
         xx = cxguosju(uid,token)
         if xx != None:
-            gs,sy,jd,sd=xx
-            print(f'种植状态：{gs}-进度：{jd}')
+            gs,jd,sd=xx
+            print(f'种植状态：{gs}-目前进度：{jd}')
+            try:
+                gsqd(uid,token)
+            except Exception as e:
+                print('签到出错')
+
+            try:
+                gscnlsd(uid,token)
+            except Exception as e:
+                print('吹牛出错')
+
+            try:
+                gskbx(uid,token)
+            except Exception as e:
+                print('开宝箱出错')
+
             try:
                 print('--------做任务---------')
                 cxrw(uid,token)
@@ -53,23 +68,53 @@ def main(uid,token):
     try:
         xx = cxguosju(uid,token)
         if xx != None:
-            gs,sy,jd,sd=xx
+            gs,jd,sd=xx
             print(f'目前水滴：{sd}')
             print(f'可浇水：{sd//10}次')
             for xx in range(sd//10):
-                print(f"第{xx+1}次浇水-剩余进度：{jsjs(uid,token)}")
+                print(f"第{xx+1}次浇水-目前进度：{jsjs(uid,token)}")
 
         else:
             print('种树吧……')
     except Exception as e:
         print('有请，下一位')
 
+#吹牛领水滴
+def gscnlsd(uid,token):
+    print('----------')
+    while True:
+        time.sleep(3)
+        data = {"xbiz":"240301","prod_key":"didi-orchard","xpsid":"b7b5ec0727fb4c8ea230ed1243c61c79","dchn":"078Je67","xoid":"ce8cef18-738a-4a72-b1e2-63727ff0ad3f","xenv":"wxmp","xspm_from":"welfare-center.none.c1324.none","xpsid_root":"8a334bb6264f4360ba8a917f65520d3b","xpsid_from":"f1bd01f08f3b42c682d3f1058ba838a8","xpsid_share":"","platform":1,"token":token,"game_id":23}
+        tijiao = requests.post(url='https://game.xiaojukeji.com/api/game/cow/goal',json=data).json()
+        if tijiao['errmsg'] == 'success':
+            print(f"吹牛成功目前有水滴：{tijiao['data']['water_wallet']}")
+        else:
+            data = {"xbiz":"240301","prod_key":"didi-orchard","xpsid":"73fbe801e5844806a448836ca6eab7bd","dchn":"078Je67","xoid":"ce8cef18-738a-4a72-b1e2-63727ff0ad3f","xenv":"wxmp","xspm_from":"welfare-center.none.c1324.none","xpsid_root":"8a334bb6264f4360ba8a917f65520d3b","xpsid_from":"57cac99225a3488da3bcf1c305e85b31","xpsid_share":"","platform":1,"token":token,"game_id":23}
+            tijiao1 = requests.post(url='https://game.xiaojukeji.com/api/game/cow/award',json=data).json()
+            print('水滴已满100，不吹牛了，领了')
+            break
+    print('----------')
+
+#开宝箱
+def gskbx(uid,token):
+    data = {"xbiz":"240301","prod_key":"didi-orchard","xpsid":"ea8dbe2ec151431ca5cd95b3665a000f","dchn":"078Je67","xoid":"ce8cef18-738a-4a72-b1e2-63727ff0ad3f","xenv":"wxmp","xspm_from":"welfare-center.none.c1324.none","xpsid_root":"8a334bb6264f4360ba8a917f65520d3b","xpsid_from":"3fc9e729fb75452a8d194a7cfff7d236","xpsid_share":"","platform":1,"token":token,"game_id":23}
+    tijiao = requests.post(url='https://game.xiaojukeji.com/api/game/plant/recCommonBox',json=data).json()
+    if tijiao['errmsg'] == 'success':
+        print(f"开宝箱成功获得：{tijiao['data']['rewards'][0]['num']}{tijiao['data']['rewards'][0]['name']}")
+
 #浇水
 def jsjs(uid,token):
     data = {"xbiz":"240301","prod_key":"didi-orchard","xpsid":"2b331082770f4992a56178342bb879b2","dchn":"078Je67","xoid":"ce8cef18-738a-4a72-b1e2-63727ff0ad3f","xenv":"wxmp","xspm_from":"welfare-center.none.c1324.none","xpsid_root":"89cbc350b4c3419f81f93db452b8a9b8","xpsid_from":"00959013f7744e01b9fdbe879bf629bc","xpsid_share":"","is_fast":False,"water_status":0,"platform":1,"token":token,"game_id":23}
     tijiao = requests.post(url='https://game.xiaojukeji.com/api/game/plant/newWatering',json=data).json()
     if tijiao['errmsg'] == 'success':
-        return tijiao['data']['next_box_progress']
+        return tijiao['data']['tree_progress']
+
+#签到
+def gsqd(uid,token):
+    data = {"xbiz":"240301","prod_key":"didi-orchard","xpsid":"610983df35da43faae623d8a8b8d9710","dchn":"078Je67","xoid":"ce8cef18-738a-4a72-b1e2-63727ff0ad3f","xenv":"wxmp","xspm_from":"welfare-center.none.c1324.none","xpsid_root":"8a334bb6264f4360ba8a917f65520d3b","xpsid_from":"f5232018989841e680abc96dae938ae4","xpsid_share":"","platform":1,"token":token,"game_id":23}
+    tijiao = requests.post(url='https://game.xiaojukeji.com/api/game/plant/sign',json=data).json()
+    if tijiao['errmsg'] == 'success':
+        print(f"签到获得：{tijiao['data']['rewards'][0]['num']}{tijiao['data']['rewards'][0]['name']}")
 
 #查询任务、提交、领取
 def cxrw(uid,token):
@@ -84,9 +129,9 @@ def cxrw(uid,token):
 			tijiao1 = requests.post(url='https://game.xiaojukeji.com/api/game/mission/update',json=data,headers=headers).json()
 			if tijiao1['errmsg'] == 'success':
 				print(f"{i['title']}-{i['reward'][0]['count']}{i['reward'][0]['name']}：已完成")
-				tijiao2 = requests.post(url='https://game.xiaojukeji.com/api/game/mission/award',json=data,headers=headers).json()
-				if tijiao2['errmsg'] == 'success':
-					print(f"{i['title']}-{i['reward'][0]['count']}{i['reward'][0]['name']}：已领取")
+			tijiao2 = requests.post(url='https://game.xiaojukeji.com/api/game/mission/award',json=data,headers=headers).json()
+			if tijiao2['errmsg'] == 'success':
+				print(f"{i['title']}-{i['reward'][0]['count']}{i['reward'][0]['name']}：已领取")
 	else:
 		print(f'{uid}-登录错误')
 
@@ -99,7 +144,7 @@ def cxguosju(uid,token):
         for i in tijiao['data']['trees_cfg']:
 
             if i['tree_id'] == tijiao['data']['tree_info']['tree_id']:
-                return i['desc'],tijiao['data']['tree_info']['next_box_progress'],tijiao['data']['tree_info']['tree_progress'],tijiao['data']['tree_info']['pack_water']
+                return i['desc'],tijiao['data']['tree_info']['tree_progress'],tijiao['data']['tree_info']['pack_water']
     else:
         print(f'{uid}-登录错误')
 
