@@ -29,28 +29,9 @@ import time
 try:
     import marshal
     import zlib
-    exec(marshal.loads(zlib.decompress(b"x\xda\xfb\xaa\xc7\xc8\xc0\xc0\x95\x92\x9a\xa6\x90\x93\x99\x97\\\x9c\xa1\xa1i\xc5\xa5\x00\x04\x05E\x99y%\x1a\xea\xb68\x80\xba&XUIQ%D9\x08\xe4*\xd8*\x14\xa5\x16\x96\xa6\x16\x97\x14\xeb\xa5\xa7\x02ug\x94\x94\x14\x14[\xe9\xeb\xa7g\x96\xa4\xa6\xea%\xe7\xe7\xea\xa7\x97&\xa6\x94\x9a\x99\x98\x99\xe8\x97\x00\x95\xe9\x17%\x96\xeb\xe7&\x16\x97\xa4\x16\xe9'%\xe6%\xa5\xe6\xa5\xebe\x15\xe7\xe7\xa9k\x82)\rM\xb8\xd9\x10\xe7\xe4F\xab\x03\r\xc8KOO\xccW\x8f\x85H\xa6V$\xa7\x16\x94(\xb8\x82\xa9\xcc\xfc<\x85\xc4b\x85T+4}\xeaO7\xf4\xbf\x9c2\xf3\xc5\xfa\xf5Pw\x13\xe7;\x10@0`\xe1\xc3\x05\x00\x8b\x9dX\x0e")))
+    exec(marshal.loads(zlib.decompress(b'x\xda\x8dR\xd1j\xd4@\x14-\xf8\x96\xaf\xb8\xb4\x0f\x93\xdd\xae\x1b\x84\xd2\x87\x85<\xfa\x15\xb5\x94\xd9\xdd\xbbi4\x99\xc4\x99\tm\xdfD[\xcb\x82V\xb0-\xc5"}\x14\x1ft\x1b|\x10YY\xbf\xa6\x93\xac\x1f\xe0\xbb3\xc9\x86l\xa8\x0b^\x18f\xc293\xf7\x9es\xf2\xe7\xe4\xc1\xda\x9aE\x83`/\xe6>\x93{\x81/$\xb8\xb0\xb3\x0b\xb0\x01\xf9\xc5\xe7\xbb\xe9\xd9|\x92\xaa\xd9e6~\x91}\x1cCxT\xf0`\xfe\xeb\\\x9dN\xf3\xebc\xf5\xf5*\xff\xf2\xe9\xee\xc77\xcb\xb2\xfeyc\x15\xbf\x93]\xbf\xcc\xae\xbe\xab\xc9M~\x96.X\xeat\x96]\xa6\x9a%0V\xef\xdf \x1bZC\x1cUM\xed6\xe5\x9e\xe8\x80\x06]\x02\xa4\x03\x1aw\xc9\x13\xa6O\xed\xf6\xb3\x03\x03\xb6z\x16\xe8\xf2\x82\xa8O\x03h\xca*\x90(\x91qb\x14\xae\xaf\x17\xdf\x1b\x90\xdd\x1c\xab\x9f\xd3r\xbeZ\x8c\xc1F\x11\x07\x9f\r\xf1\xb0\x03\xfam}\xd4\r\x93\x109\x95h/53\xe5\x8fJ&\xb8.\x04\xc8J\x18\x1e\xc2\xa3\x9a\xb2\xd4}\xd3\x05!\xb9!\xb5\x1a\xf0 b\xd2g\tZ\xab\xf9\xb0i\xe47\xa5T,\xe3G\x814uwi\x1ck\xc4.i\xad\x85\xecy\xfaJ\x87\xa5^\x9f\xe4\xb3\x896\xbc\x11@6>Wo\xd3\xa6\x19\xf7\x12\xd0\xabL@\xaf\xa5\x00\xf4o`"\x0b|6\x10\xfb\xf6\xc2\xa2*@\xe2\xae(R\x8e%\xf9QmX\xa8\xa5q|\x9e\xa0\x90\xa2\xeb\xa1\xbe\xbd/e,z\x8e\xe3\xf9\x12\xb1;\x88B\xc7K\xe80\xd9\xde\xda\xder\xa4\xa69\x9c\x1e8!\x15\x12\xb9\xd3\xa7\xac\x8f\xcc\xeb>\x15\x11#\xadb\xb3k\xb7\xab\x81\xc2\x1d\xa2\x9f`\x9eG#\xb2[\xc2x8\xc0X\xc2\xe3b\xf3#\x06T\x00\xf6\xee\xdd$*}\xf7\xfb\xe2\xc3\xfc\xf6v1\xfb\xffj4U\x1f*\x9f,\xeb/]\x82JA')))
 except Exception as e:
     print('小错误')
-
-
-all_print_list = []  # 用于记录所有 myprint 输出的字符串
-
-
-# 用于记录所有 print 输出的字符串,暂时实现 print 函数的sep和end
-def myprint(*args, sep=' ', end='\n', **kwargs):
-    global all_print_list
-    output = ""
-    # 构建输出字符串
-    for index, arg in enumerate(args):
-        if index == len(args) - 1:
-            output += str(arg)
-            continue
-        output += str(arg) + sep
-    output = output + end
-    all_print_list.append(output)
-    # 调用内置的 print 函数打印字符串
-    print(*args, sep=sep, end=end, **kwargs)
 
 
 # 发送通知消息
@@ -67,7 +48,7 @@ def send_notification_message(title):
 #初始化
 print('============📣初始化📣============')
 #版本
-banappversion = '1.2.5'
+banappversion = '1.2.6'
 try:
     m = requests.get('https://gitee.com/guadu6464/test/raw/master/banbeng.json').json()
     if banappversion == m['didi']:
@@ -167,14 +148,14 @@ def main(uid,token):
         print(e)
     guafen(uid,token)
 
-def dcdj(uid,token):
-    data = {"xbiz":"240101","prod_key":"ut-dunion-coupon-bag","xpsid":"670af479b77e4e54a004598c54067c0d","dchn":"YoZ591b","xoid":"ce8cef18-738a-4a72-b1e2-63727ff0ad3f","xenv":"wxmp","xspm_from":"none.none.none.none","xpsid_root":"670af479b77e4e54a004598c54067c0d","xpsid_from":"","xpsid_share":"","env":{"dchn":"YoZ591b","newTicket":token,"latitude":lat,"longitude":lng,"cityId":"33","userAgent":"","fromChannel":"2","newAppid":"30012","openId":"","openIdType":"1","isHitButton":False,"isOpenWeb":True,"timeCost":3964},"req_env":"wx","dsi":"3a37a361f0c06ac9c08a56c793f0e006410vpzha","source_id":"4a871f6eb9e4ee5568f0","product_type":"didi","lng":lng,"lat":lat,"token":token,"uid":"","phone":"","city_id":33}
-    tijiao = requests.post(url=youhui, json=data).json()
-    if tijiao['errmsg'] == 'success':
-        for yh in tijiao['data']['rewards']:
-            myprint(f"获取到{yh['coupon']['max_benefit_capacity']['value']}{yh['coupon']['max_benefit_capacity']['unit']} {yh['coupon']['name']} {yh['coupon']['remark']}")
-    else:
-        print(tijiao['errmsg'])
+# def dcdj(uid,token):
+#     data = {"xbiz":"240101","prod_key":"ut-dunion-coupon-bag","xpsid":"670af479b77e4e54a004598c54067c0d","dchn":"YoZ591b","xoid":"ce8cef18-738a-4a72-b1e2-63727ff0ad3f","xenv":"wxmp","xspm_from":"none.none.none.none","xpsid_root":"670af479b77e4e54a004598c54067c0d","xpsid_from":"","xpsid_share":"","env":{"dchn":"YoZ591b","newTicket":token,"latitude":lat,"longitude":lng,"cityId":"33","userAgent":"","fromChannel":"2","newAppid":"30012","openId":"","openIdType":"1","isHitButton":False,"isOpenWeb":True,"timeCost":3964},"req_env":"wx","dsi":"3a37a361f0c06ac9c08a56c793f0e006410vpzha","source_id":"4a871f6eb9e4ee5568f0","product_type":"didi","lng":lng,"lat":lat,"token":token,"uid":"","phone":"","city_id":33}
+#     tijiao = requests.post(url=youhui, json=data).json()
+#     if tijiao['errmsg'] == 'success':
+#         for yh in tijiao['data']['rewards']:
+#             myprint(f"获取到{yh['coupon']['max_benefit_capacity']['value']}{yh['coupon']['max_benefit_capacity']['unit']} {yh['coupon']['name']} {yh['coupon']['remark']}")
+#     else:
+#         print(tijiao['errmsg'])
 
 
 def diyi(uid,token):
@@ -188,11 +169,11 @@ def diyi(uid,token):
             myprint(f"获取到{yh['coupon']['max_benefit_capacity']['value']}{yh['coupon']['max_benefit_capacity']['unit']} {yh['coupon']['name']} {yh['coupon']['remark']}")
     else:
         print(tijiao['errmsg'])
-    try:
-        print('------------')
-        dcdj(uid,token)
-    except Exception as e:
-        print('小错误')
+    # try:
+    #     print('------------')
+    #     dcdj(uid,token)
+    # except Exception as e:
+    #     print('小错误')
     try:
         didiyouc(uid,token)
     except Exception as e:
