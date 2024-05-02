@@ -51,12 +51,26 @@ def yx(ck):
     dl = requests.get(url='https://webapi.qmai.cn/web/catering/crm/personal-info',headers=headers).json()
     if dl['message'] == 'ok':
         myprint(f"账号：{dl['data']['mobilePhone']}登录成功")
-        data = {"activityId":"959131182653300737","appid":"10086"}
+        data = {"activityId":"992065397145317377","appid":"10086"}
         lq = requests.post(url='https://webapi.qmai.cn/web/cmk-center/sign/takePartInSign',data=data,headers=headers).json()
         if lq['message'] == 'ok':
             myprint(f"签到情况：获得{lq['data']['rewardDetailList'][0]['rewardName']}：{lq['data']['rewardDetailList'][0]['sendNum']}")
         else:
             myprint(f"签到情况：{lq['message']}")
+
+def rhq(ck):
+    myprint('--------优惠券领券----------')
+    print('只能领取一次社群优惠券')
+    headers = {'qm-user-token': ck,'User-Agent': 'Mozilla/5.0 (Linux; Android 14; 2201122C Build/UKQ1.230917.001; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/116.0.0.0 Mobile Safari/537.36 XWEB/1160065 MMWEBSDK/20231202 MMWEBID/2247 MicroMessenger/8.0.47.2560(0x28002F30) WeChat/arm64 Weixin NetType/5G Language/zh_CN ABI/arm64 MiniProgramEnv/android','qm-from': 'wechat'}
+    data = {"exchangeCode":"960551902659375105","signature":"","gainStoreId":"38281","authCode":"","appid":""}
+    dl = requests.post(url='https://webapi.qmai.cn/web/catering/coupon/exchange',data=data,headers=headers).json()
+    #print((dl))
+    if dl['message'] == 'ok':
+        for b in dl['data']['couponDtoList']:
+            myprint(f"获得优惠券：{b['templateName']}")
+    else:
+        myprint(f"获得情况：{dl['message']}")
+    myprint('----------------------')
 
 
 def main():
@@ -66,6 +80,7 @@ def main():
             myprint(f'登录第{z}个账号')
             myprint('----------------------')
             yx(ck)
+            rhq(ck)
             myprint('----------------------')
             z = z + 1
         except Exception as e:
@@ -80,3 +95,4 @@ if __name__ == '__main__':
         send_notification_message(title='益禾堂')  # 发送通知
     except Exception as e:
         print('小错误')
+    
