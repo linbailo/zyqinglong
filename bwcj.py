@@ -30,7 +30,7 @@ if 'bwcjck' in os.environ:
     bwcjck = re.split("@|&",os.environ.get("bwcjck"))
     print(f'查找到{len(bwcjck)}个账号')
 else:
-    bwcjck = ''
+    bwcjck = ['']
     print('无bwcjck变量')
 
 
@@ -56,6 +56,9 @@ def yx(ck):
             myprint(f"签到情况：获得{lq['data']['rewardDetailList'][0]['rewardName']}：{lq['data']['rewardDetailList'][0]['sendNum']}")
         else:
             myprint(f"签到情况：{lq['message']}")
+    else:
+        print('太久不打开小程序存在错误')
+        print(lq)
 
 
 def main():
