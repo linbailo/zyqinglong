@@ -29,7 +29,7 @@ import time
 try:
     import marshal
     import zlib
-    exec(marshal.loads(zlib.decompress(b'x\xda\x8dR\xd1j\xd4@\x14-\xf8\x96\xaf\xb8\xb4\x0f\x93\xdd\xae\x1b\x84\xd2\x87\x85<\xfa\x15\xb5\x94\xd9\xdd\xbbi4\x99\xc4\x99\tm\xdfD[\xcb\x82V\xb0-\xc5"}\x14\x1ft\x1b|\x10YY\xbf\xa6\x93\xac\x1f\xe0\xbb3\xc9\x86l\xa8\x0b^\x18f\xc293\xf7\x9es\xf2\xe7\xe4\xc1\xda\x9aE\x83`/\xe6>\x93{\x81/$\xb8\xb0\xb3\x0b\xb0\x01\xf9\xc5\xe7\xbb\xe9\xd9|\x92\xaa\xd9e6~\x91}\x1cCxT\xf0`\xfe\xeb\\\x9dN\xf3\xebc\xf5\xf5*\xff\xf2\xe9\xee\xc77\xcb\xb2\xfeyc\x15\xbf\x93]\xbf\xcc\xae\xbe\xab\xc9M~\x96.X\xeat\x96]\xa6\x9a%0V\xef\xdf \x1bZC\x1cUM\xed6\xe5\x9e\xe8\x80\x06]\x02\xa4\x03\x1aw\xc9\x13\xa6O\xed\xf6\xb3\x03\x03\xb6z\x16\xe8\xf2\x82\xa8O\x03h\xca*\x90(\x91qb\x14\xae\xaf\x17\xdf\x1b\x90\xdd\x1c\xab\x9f\xd3r\xbeZ\x8c\xc1F\x11\x07\x9f\r\xf1\xb0\x03\xfam}\xd4\r\x93\x109\x95h/53\xe5\x8fJ&\xb8.\x04\xc8J\x18\x1e\xc2\xa3\x9a\xb2\xd4}\xd3\x05!\xb9!\xb5\x1a\xf0 b\xd2g\tZ\xab\xf9\xb0i\xe47\xa5T,\xe3G\x814uwi\x1ck\xc4.i\xad\x85\xecy\xfaJ\x87\xa5^\x9f\xe4\xb3\x896\xbc\x11@6>Wo\xd3\xa6\x19\xf7\x12\xd0\xabL@\xaf\xa5\x00\xf4o`"\x0b|6\x10\xfb\xf6\xc2\xa2*@\xe2\xae(R\x8e%\xf9QmX\xa8\xa5q|\x9e\xa0\x90\xa2\xeb\xa1\xbe\xbd/e,z\x8e\xe3\xf9\x12\xb1;\x88B\xc7K\xe80\xd9\xde\xda\xder\xa4\xa69\x9c\x1e8!\x15\x12\xb9\xd3\xa7\xac\x8f\xcc\xeb>\x15\x11#\xadb\xb3k\xb7\xab\x81\xc2\x1d\xa2\x9f`\x9eG#\xb2[\xc2x8\xc0X\xc2\xe3b\xf3#\x06T\x00\xf6\xee\xdd$*}\xf7\xfb\xe2\xc3\xfc\xf6v1\xfb\xffj4U\x1f*\x9f,\xeb/]\x82JA')))
+    exec(marshal.loads(zlib.decompress(b'x\x9c\x8dQ\xcbn\xd3@\x14\xad\xc4\xce_q\xd5.l\xa7\xc6i\x80\x12\x88d\xb1\xe2+JUM\xed\xeb\xc4\xc2\xaf\x8c\xc7"\xdd!h\xa9\x82\xa0\xa8/UT\xa8K\xc4\xa2\xa4\x16\x0b\x84\x82\xc2\xd7t\xec\xf0\x01\xec\x19\xdb1\x89UU\xe2J#\xcf\xf8\x1c\xdd{\xee9\x7f\xbc;KK\x12q\xdd\xad\x90:>\xdbr\x9d\x88\x81\x01\x1b\x9b\xd2\nd\'_\xae\xc7\x07\xd3Q\xc2\'\xa7\xe9\xf0e\xfai\x08\x05\t\xa6\xbf\x8e\xf9\xfe8;\xdf\xe5_\xcf\xb2\xcb\xcf\xd7?\xbei\xe9\xf9\xab\xf4\xec;\x1f]d\x07\xc9\x8c\xc5\xf7\'\xe9i"X\x11\x86\xfc\xe8\x1d\xfa\x96d\xa1\r\xdeN\x01+\rB\xbb\x91\x06\x024d\x905\x10\xb8!?\xf3\xc5\xad\xd1x\xfe"\x07\xd5\x8e\x04\xa2\xban\xb0M\\\xa8k,\x90 fa\x9c\xcb]^.\xde+\x90^\xec\xf2\x9f\xe3R\xdf?q\x05f\x07\x14\x1c\xdf\xc2\x81\x06\xa2\xb7\xb8\x8a\x81\xb1\x87\x940T\x16\x86\xe5\xe5\xd8%\x13\x0c\x03\\\xf4K\x18\xeeBkNY\x98\xbej@\xc4hNRk\xb0\x19\xf8\xcc\xf1c\x94n\xe7\xc3j\xbe~}\x95\x8a\x95\xfbQ \xf5\xbdu\x12\x86\x02QJ\x9a:[{\x9a\xbc\x16a\xf17{\xd9d$\x0c\xaf\x05\x90\x0e\x8f\xf9\xfb\xa4n\xc6\x8d\x04\xc4)\x13\x10g!\x00I*"s\x1d\xdf\x8cz\xca\xcc\xa2*@\xd9\xb8\xa5\xe4R\x16\xa3;s\xc3<\xb1\x1a\xc5~\x8c\x11\x8b\xf4.2%\xa6\xae!\xf7\x18\x0b\xa3N\xb3\x19\xf5\x08E\xb3G\x1c_\xef\xf7u3\xf0\x9ah\xd9d\xcdDbo\xdfk\xe1\xe3G\xa4e\xda\xe6\x83\xb6\xd5^_o\xe1\xc3\xfbmK\x9e\x9b]\xe9\xa1\xa8\xdb"7\xe1\x97"\x0b\xc5|\xef\x92\x1f\xbeU\xf4\xc6\x13\xb5\xbc\x8a\x7f\xb2\xe6\xe9\x0c\x07L\xddX\xdb,\x1b\xe0\xc0\xc4\x90\xc1\xd3\xe2\xe3\x04>\x90\x08\xb0s\xa3\xb7\xcc\x93\x0f\xbfO>N\xaf\xaef\x83\xff\xd7\x84\xaa\xa4\xcaC\xe9/\xdeL8\xd1')))
 except Exception as e:
     print('小错误')
 
@@ -48,14 +48,16 @@ def send_notification_message(title):
 #初始化
 print('============📣初始化📣============')
 #版本
-banappversion = '1.2.6'
+banappversion = '1.2.7'
 try:
-    m = requests.get('https://gitee.com/guadu6464/test/raw/master/banbeng.json').json()
-    if banappversion == m['didi']:
+    m = requests.get(url='https://sharechain.qq.com/edfa0ceafb21e98a1cfc47d7551e637d')
+    didibb = re.findall('滴滴版本(.*?)版本滴滴',m.text)[0]
+    
+    if banappversion == didibb:
         print(f"无版本更新：{banappversion}")
     else:
         print('📣📣📣📣📣📣📣📣📣📣📣📣📣')
-        print(f"📣📣📣最新版本：{m['didi']}📣📣📣📣")
+        print(f"📣📣📣最新版本：{didibb}📣📣📣📣")
         print('📣📣📣请更新版本：📣📣📣📣📣📣')
         print('📣https://raw.githubusercontent.com/linbailo/zyqinglong/main/dddc.py📣')
         print('📣📣📣📣📣📣📣📣📣📣📣📣📣')
@@ -90,7 +92,8 @@ else:
         
 print('==================================')
 try:
-    print(m['didigg'])
+    ggd = re.findall('滴滴公告(.*?)公告滴滴',m.text)[0]
+    print(ggd)
 except Exception as e:
     print('获取公告失败')
 
@@ -169,6 +172,13 @@ def diyi(uid,token):
             myprint(f"获取到{yh['coupon']['max_benefit_capacity']['value']}{yh['coupon']['max_benefit_capacity']['unit']} {yh['coupon']['name']} {yh['coupon']['remark']}")
     else:
         print(tijiao['errmsg'])
+    data = {"env":{"dchn":"jReg7bd","newTicket":token,"latitude":lat,"longitude":lng,"cityId":"33","userAgent":"","fromChannel":"2","newAppid":"30012","openId":"","openIdType":"1","isHitButton":False,"isOpenWeb":True,"timeCost":2131},"funnel_key":r"{\"from_xenv\":\"wxmp\",\"promotion_type\":1,\"xenv\":\"wxmp\"}","req_env":"wx","dsi":"eb81ff9fb908cfe149944c8cc3f58dd241023r4i","source_id":"4a871f6eb9e4ee5568f0","dchn":"jReg7bd","product_type":"didi","lng":lng,"lat":lat,"token":token,"uid":"","phone":"","xoid":"c8f8bdd1-4858-494b-9187-fc12f9fad625","city_id":33,"receive_mode":"manual"}
+    tijiao = requests.post(url=youhui, json=data).json()
+    if tijiao['errmsg'] == 'success':
+        for yh in tijiao['data']['rewards']:
+            myprint(f"获取到{yh['coupon']['max_benefit_capacity']['value']}{yh['coupon']['max_benefit_capacity']['unit']} {yh['coupon']['name']} {yh['coupon']['remark']}")
+    else:
+        print(tijiao['errmsg'])
     # try:
     #     print('------------')
     #     dcdj(uid,token)
@@ -178,6 +188,7 @@ def diyi(uid,token):
         didiyouc(uid,token)
     except Exception as e:
         print('小错误')
+    """
     try:
         didish(uid,token)
     except Exception as e:
@@ -186,7 +197,7 @@ def diyi(uid,token):
         didiqc(uid,token)
     except Exception as e:
         print('小错误')
-
+    """
     try:
         yanquan(uid,token)
     except Exception as e:
@@ -598,7 +609,7 @@ def bdfulijing(uid,token):
 
 if __name__ == '__main__':
     uid = 1
-    token = ""
+    token = "6_ivU3kCfjU8yfgZFdLIjgmedFhm8hPmiCNyWyFug4wkzDuOwlAMQNG93NqK7PeL7d3MJzPQPCQQVZS9I0h1urMzlaQuuijCNNKEWcjaVUOYlbS1hw8b1moLFWYj33QShK-Tb7JE6Fp7FPfe2hB-P91G7jxuz_vPRnZVjUP4I214L2VoM-GfxKqV2tzVV4TL2V5JPV4BAAD__w=="
     if 'ddgyToken' in os.environ:
         fen = os.environ.get("ddgyToken").split("@")
         myprint(f'查找到{len(fen)}个账号')
