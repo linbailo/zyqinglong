@@ -31,7 +31,7 @@ print('============📣初始化📣============')
 #版本
 banappversion = '1.2.8'
 github_file_name = 'dddc.py'
-sjgx = '2024-09-20T21:30:11.000+08:00'
+sjgx = '2024-11-24T21:30:11.000+08:00'
 try:
     import marshal
     import zlib
