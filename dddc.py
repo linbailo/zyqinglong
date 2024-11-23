@@ -43,7 +43,7 @@ except Exception as e:
 # 发送通知消息
 def send_notification_message(title):
     try:
-        from sendNotify import send
+        from notify import send
 
         send(title, ''.join(all_print_list))
     except Exception as e:
@@ -86,7 +86,7 @@ else:
     didifl = 'true'
     print('未设置青龙变量\n福利金抵扣： 默认开启')
 
-        
+
 
 #设置api
 fuli ='https://ut.xiaojukeji.com/ut/welfare/api/action/dailySign'
@@ -217,7 +217,7 @@ def diyi(uid,token):
         myprint(f"签到成功：获得 {tijiao['data']['subsidy_state']['subsidy_amount']} 福利金")
     else:
         myprint(tijiao['errmsg'])
-        
+
     try:
         fuliwei(uid,token)
     except Exception as e:
@@ -242,7 +242,7 @@ def diyi(uid,token):
         myprint(f"获取id成功：{tijiao['data']['activity_id']}，{tijiao['data']['instance_id']}")
     else:
         myprint(tijiao['errmsg'])
-    
+
     #myprint(tijiao)
     data = {
     'lang' : 'zh-CN',
@@ -264,7 +264,7 @@ def diyi(uid,token):
         myprint(f"天天领券签到：{tijiao['errmsg']}")
     else:
         myprint(tijiao['errmsg'])
-        
+
    #天天领券限时抢
     myprint('----领点券使使----')
     data = {"lang":"zh-CN","access_key_id":9,"appversion":appversion,"channel":1100000002,"_ds":"","xpsid":"28a361bf9f2e456f9867be3cad4877e4","xpsid_root":"0fa1ac9f38d24e43a4a2616319942c88","root_xpsid":"0fa1ac9f38d24e43a4a2616319942c88","f_xpsid":"41345c97bc744b27a30c0dda8fbdfcba","xbiz":"240000","prod_key":"ut-coupon-center","dchn":"wE7poOA","xoid":"26243a0a-b1b9-44d3-b2ed-046016031b38","xenv":"wxmp","xpsid_from":"2e5ded46d7114ac4b0cf490619f5592d","xpsid_share":"","xspm_from":"ut-aggre-homepage.none.c460.none","xpos_from":{"pk":"ut-aggre-homepage"},"args":[{"dchn":"kkXgpzO","prod_key":"ut-limited-seckill","runtime_args":{"token":token,"lat":lat,"lng":lng,"env":{"dchn":"wE7poOA","newTicket":token,"model":"2201122C","fromChannel":"2","newAppid":"35009","openId":"","openIdType":"1","sceneId":"1089","isHitButton":False,"isOpenWeb":False,"timeCost":70665,"latitude":lat,"longitude":lng,"cityId":"","fromPage":"ut-coupon-center/views/index/index","xAxes":"","yAxes":""},"content-type":"application/json","Didi-Ticket":token,"ptf":"mp","city_id":33,"platform":"mp","x_test_user":{"key":281475120025923}}},{"dchn":"gL3E8qZ","prod_key":"ut-support-coupon","runtime_args":{"token":token,"lat":lat,"lng":lng,"env":{"dchn":"wE7poOA","newTicket":token,"model":"2201122C","fromChannel":"2","newAppid":"35009","openId":"","openIdType":"1","sceneId":"1089","isHitButton":False,"isOpenWeb":False,"timeCost":70666,"latitude":lat,"longitude":lng,"cityId":"","fromPage":"ut-coupon-center/views/index/index","xAxes":"","yAxes":""},"content-type":"application/json","Didi-Ticket":token,"ptf":"mp","city_id":33,"platform":"mp","x_test_user":{"key": 281475120025923}}}]}
@@ -278,7 +278,7 @@ def diyi(uid,token):
                 coupon_conf_id = xu['coupon_conf_id']
                 data = {"lang":"zh-CN","token":token,"access_key_id":9,"appversion":appversion,"channel":1100000002,"_ds":"","xpsid":"d51af08a62ef4b43b1eb41deaae30379","xpsid_root":"0fa1ac9f38d24e43a4a2616319942c88","activity_id":activity_id,"group_id":group_id,"group_date":group_date,"coupon_conf_id":coupon_conf_id,"dchn":"wE7poOA","platform":"mp","city_id":33,"env":{"isHitButton":True,"newAppid":35009,"userAgent":"","openId":"","model":"2201122C","wifi":2,"timeCost":""}}
                 ju = requests.post(url="https://ut.xiaojukeji.com/ut/janitor/api/action/coupon/bind", json=data, headers=headers).json()
-                
+
                 if ju['errmsg'] == 'success':
                     myprint(f"{xu['name']}（{xu['threshold_desc']}）：{ju['errmsg']}")
                 elif ju['errmsg'] == '领券失败请重试':
@@ -287,7 +287,7 @@ def diyi(uid,token):
                     print(f"{xu['name']}（{xu['threshold_desc']}）：{ju['errmsg']}")
                 time.sleep(1)
     myprint('------------------')
-    
+
 def guafen(uid,token):
     myprint('--------瓜瓜乐打卡--------')
     headers = {'didi-ticket': token,'content-type':'application/json'}
@@ -351,7 +351,7 @@ def guafen(uid,token):
     else:
         myprint(tijiao['errmsg'])
     #参加瓜分
-    
+
     activity_id = shuju['data']['divide_data']['divide'][rqi[0]]['activity_id']
     task_id = shuju['data']['divide_data']['divide'][rqi[0]]['task_id']
     myprint(f'获取到日期数据：{rqi}\n需要的日期：{rqi[0]}\n参加瓜分activity_id数据：{activity_id}')
@@ -403,8 +403,8 @@ def guafen(uid,token):
     else:
         myprint(f"参加明日瓜分状态：失败")
     myprint('------')
-    
-    
+
+
 def chaxun(uid,token):
     myprint('--------福利金查询--------')
     cx = requests.get(url=f'https://rewards.xiaojukeji.com/loyalty_credit/bonus/getWelfareUsage4Wallet?token={token}&city_id=0').json()
@@ -509,7 +509,7 @@ def didish(uid,token):
             myprint(f"获取到{yh['coupon']['max_benefit_capacity']['value']}{yh['coupon']['max_benefit_capacity']['unit']} {yh['coupon']['name']} {yh['coupon']['remark']}")
     else:
         myprint(tijiao['errmsg'])
-    
+
 
 
 def yq(uid,token):
