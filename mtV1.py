@@ -31,7 +31,7 @@ else:
 
 def send_notification_message(title):
     try:
-        from sendNotify import send
+        from send import send
 
         send(title, ''.join(all_print_list))
     except Exception as e:
