@@ -108,6 +108,6 @@ if __name__ == '__main__':
     except Exception as e:
         print('未知错误')
     try:
-        send_notification_message(title='')  # 发送通知
+        send_notification_message(title='美团外卖')  # 发送通知
     except Exception as e:
         print('小错误')
