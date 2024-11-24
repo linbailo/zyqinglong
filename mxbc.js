@@ -5,11 +5,11 @@
  * ========= 青龙--配置文件 ===========
  * # 项目名称
  * export mxbc_data='token @ token'
- * 
+ *
  * 多账号用 换行 或 @ 分割
  * 抓包 mxsa.mxbc.net/api , 找到 Access-Token 即可
  * ====================================
- *   
+ *
  */
 
 
@@ -290,8 +290,8 @@ async function SendMsg(message) {
     if (!message) return;
     if (Notify > 0) {
         if ($.isNode()) {
-            var notify = require("./sendNotify");
-            await notify.sendNotify($.name, message)
+            var notify = require("./notify");
+            await notify.notify($.name, message)
         } else {
             $.msg($.name, '', message)
         }
