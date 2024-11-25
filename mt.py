@@ -5,7 +5,7 @@ mt论坛自动签到
 添加变量mtluntan
 账号密码用&隔开
 多用户用@隔开
-例如账号1：10086 密码：1001 
+例如账号1：10086 密码：1001
 账号1：1234 密码：1234
 则变量为10086&1001@1234&1234
 export mtluntan=""
@@ -34,7 +34,7 @@ except Exception as e:
 # 发送通知消息
 def send_notification_message(title):
     try:
-        from sendNotify import send
+        from notify import send
 
         send(title, ''.join(all_print_list))
     except Exception as e:
@@ -61,7 +61,7 @@ session = requests.session()
 def pdwl():
     #获取ip
     ipdi = requests.get('http://ifconfig.me/ip', timeout=6).text.strip()
-    
+
     print(ipdi)
     #判断国内外地址
     dizhi = f'http://ip-api.com/json/{ipdi}?lang=zh-CN'
@@ -94,7 +94,7 @@ def main(username,password):
     denurl = f'https://bbs.binmt.cc/member.php?mod=logging&action=login&loginsubmit=yes&handlekey=login&loginhash={loginhash}&inajax=1'
     data = {'formhash': formhash,'referer': 'https://bbs.binmt.cc/forum.php','loginfield': 'username','username': username,'password': password,'questionid': '0','answer': '',}
     denlu = session.post(headers=headers, url=denurl, data=data).text
-    
+
     if '欢迎您回来' in denlu:
         #获取分组、名字
         fzmz = re.findall('欢迎您回来，(.*?)，现在', denlu)[0]
