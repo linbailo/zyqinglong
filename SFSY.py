@@ -1639,13 +1639,22 @@ class RUN:
             # self.DRAGONBOAT_2024_Game_init()
             self.DRAGONBOAT_2024_coinStatus(True)
 
-        self.sendMsg()
+        # self.sendMsg()
+        self.send_notification_message('顺丰速运')
         return True
 
-    def sendMsg(self, help=False):
-        if self.send_UID:
-            push_res = CHERWIN_TOOLS.wxpusher(self.send_UID, one_msg, APP_NAME, help)
-            print(push_res)
+    # def sendMsg(self, help=False):
+    #     if self.send_UID:
+    #         push_res = CHERWIN_TOOLS.wxpusher(self.send_UID, one_msg, APP_NAME, help)
+    #         print(push_res)
+    def send_notification_message(self,title):
+        try:
+            from notify import send
+
+            send(title, ''.join(send_msg))
+        except Exception as e:
+            if e:
+                print(f'发送通知消息失败！{e}')
 
 
 def get_quarter_end_date():
@@ -1716,7 +1725,7 @@ if __name__ == '__main__':
       点击“积分”，以下几种url之一：
         https://mcs-mimp-web.sf-express.com/mcs-mimp/share/weChat/shareGiftReceiveRedirect
         https://mcs-mimp-web.sf-express.com/mcs-mimp/share/app/shareRedirect
-    多账号#、@、换行分割 
+    多账号#、@、换行分割
 ✨ 设置青龙变量：
 export {ENV_NAME}='url'多账号#分割
 
@@ -1734,11 +1743,10 @@ export {ENV_NAME}='url'多账号#分割
         print(f'无{ENV_NAME}变量')
         #exit()
     local_version = '2024.06.02'
-   
+
     # print(tokens)
     if len(tokens) > 0:
         print(f"\n>>>>>>>>>>共获取到{len(tokens)}个账号<<<<<<<<<<")
         for index, infos in enumerate(tokens):
             run_result = RUN(infos, index).main()
             if not run_result: continue
-    

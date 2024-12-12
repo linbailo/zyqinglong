@@ -24,9 +24,9 @@ import re
 import os
 import time
 
-#初始化
+# 初始化
 print('============📣初始化📣============')
-#版本
+# 版本
 github_file_name = 'T3cx.py'
 sjgx = '2024-11-24T21:30:11.000+08:00'
 grayversion = 'P_i_2.0.4'
@@ -41,12 +41,13 @@ except Exception as e:
 # 发送通知消息
 def send_notification_message(title):
     try:
-        from sendNotify import send
+        from notify import send
 
         send(title, ''.join(all_print_list))
     except Exception as e:
         if e:
             print('发送通知消息失败！')
+
 
 try:
     if didibb == True:
@@ -60,33 +61,29 @@ except Exception as e:
     print('无法检查版本更新')
 
 
-
-
 if 'didijw' in os.environ:
-    lng,lat = os.environ.get("didijw").split("&")
+    lng, lat = os.environ.get("didijw").split("&")
     print('已经填写经纬度')
 else:
     print('使用内置经纬度')
-    lat = '39.852399823026097'  #纬度
-    lng = '116.32055410011579'   #经度
+    lat = '39.852399823026097'  # 纬度
+    lng = '116.32055410011579'  # 经度
 print(f'经纬度默认设置：{lat},{lng}')
 
 
-
-
-def main(uid,token):
+def main(uid, token):
     myprint(f'正在执行账号：{uid}')
-    
+
     try:
-        qd(uid,token)
+        qd(uid, token)
     except Exception as e:
         print(e)
     try:
-        yhq(uid,token)
+        yhq(uid, token)
     except Exception as e:
         print(e)
     try:
-        sqzx(uid,token)
+        sqzx(uid, token)
     except Exception as e:
         print(e)
 
@@ -100,69 +97,82 @@ def main(uid,token):
 #         print(tijiao['errmsg'])
 
 
-#签到
-def qd(uid,token):
+# 签到
+def qd(uid, token):
     myprint('--------签到状态--------')
-    n = requests.get(url='https://dingxiang.t3go.cn:8663/udid/c1',headers={'Param': 'j10086'}).json()
+    n = requests.get(url='https://dingxiang.t3go.cn:8663/udid/c1',
+                     headers={'Param': 'j10086'}).json()
     riskdevicetoken = n['data']
-    data = {"cityCode":"450110","lat":lat,"lng":lng,"source":"4"}
-    headers = {'token':token,'grayversion':grayversion,'riskdevicetoken':riskdevicetoken}
-    qd = requests.post(url='https://passenger.t3go.cn/member-app-api/api/v1/sign/signIn',json=data,headers=headers).json()
+    data = {"cityCode": "450110", "lat": lat, "lng": lng, "source": "4"}
+    headers = {'token': token, 'grayversion': grayversion,
+               'riskdevicetoken': riskdevicetoken}
+    qd = requests.post(url='https://passenger.t3go.cn/member-app-api/api/v1/sign/signIn',
+                       json=data, headers=headers).json()
     if qd['success'] == True:
-        myprint(f"{qd['data'][0]['signDate']}-签到成功获取到：{qd['data'][0]['rewardNum']}福气\n连续签到：{qd['data'][0]['signDays']}天")
+        myprint(
+            f"{qd['data'][0]['signDate']}-签到成功获取到：{qd['data'][0]['rewardNum']}福气\n连续签到：{qd['data'][0]['signDays']}天")
     else:
         myprint(f"签到状态：{qd['msg']}")
 
 
-#领优惠券
-def yhq(uid,token):
+# 领优惠券
+def yhq(uid, token):
     myprint('--------领取优惠券--------')
-    data = {"activityId":"d75c7b77d3c642d9b084f1052347d2a3","originTerminal":"wx","landingPageType":"LM","extParam":{"participationWay":"RECALL","sourceId":"4a871f6eb9e4ee5568f0","originTerminal":"wx","cityCode":"450110","lat":lat,"lng":lng}}
-    headers = {'token':token,'grayversion':grayversion}
-    yq = requests.post(url='https://passenger.t3go.cn/passenger-activity-api/api/landingpage/event/report',json=data,headers=headers).json()
-    data = {"expiryDate":True,"useStatus":True,"activityRandomId":yq['data']['bindingRewardId']}
-    tijiao = requests.post(url='https://passenger.t3go.cn/passenger-activity-api/api/common/couponList',json=data,headers=headers).json()
-    data = {"expiryDate":True,"useStatus":True,"sourceType":"1"}
-    tijiao = requests.post(url='https://passenger.t3go.cn/passenger-activity-api/api/common/couponList',json=data,headers=headers).json()
-    
+    data = {"activityId": "d75c7b77d3c642d9b084f1052347d2a3", "originTerminal": "wx", "landingPageType": "LM", "extParam": {
+        "participationWay": "RECALL", "sourceId": "4a871f6eb9e4ee5568f0", "originTerminal": "wx", "cityCode": "450110", "lat": lat, "lng": lng}}
+    headers = {'token': token, 'grayversion': grayversion}
+    yq = requests.post(url='https://passenger.t3go.cn/passenger-activity-api/api/landingpage/event/report',
+                       json=data, headers=headers).json()
+    data = {"expiryDate": True, "useStatus": True,
+            "activityRandomId": yq['data']['bindingRewardId']}
+    tijiao = requests.post(
+        url='https://passenger.t3go.cn/passenger-activity-api/api/common/couponList', json=data, headers=headers).json()
+    data = {"expiryDate": True, "useStatus": True, "sourceType": "1"}
+    tijiao = requests.post(
+        url='https://passenger.t3go.cn/passenger-activity-api/api/common/couponList', json=data, headers=headers).json()
+
     if tijiao['data'] != []:
         for i in tijiao['data']:
-            myprint(f"获取到：{i['couponName']}-{i['discount']}折-最多抵扣{i['highestMoney']}元")
+            myprint(
+                f"获取到：{i['couponName']}-{i['discount']}折-最多抵扣{i['highestMoney']}元")
     else:
         myprint('今日已领取')
         print(tijiao['data'])
 
-    
 
-#省钱中心
-def sqzx(uid,token):
-    #查询任务
+# 省钱中心
+def sqzx(uid, token):
+    # 查询任务
     myprint('--------做任务--------')
-    data = {"areaCode":"450110"}
-    headers = {'token':token,'grayversion':grayversion}
-    tijiao = requests.post(url='https://passenger.t3go.cn/member-app-api/api/v1/sm/v3/pageCfg',data=data,headers=headers).json()
+    data = {"areaCode": "450110"}
+    headers = {'token': token, 'grayversion': grayversion}
+    tijiao = requests.post(
+        url='https://passenger.t3go.cn/member-app-api/api/v1/sm/v3/pageCfg', data=data, headers=headers).json()
     if tijiao['success'] == True:
         taskUuidList = tijiao['data']['taskCfg']['taskList']
-        data = {'taskUuidList':taskUuidList,'cityCode':'450110','taskType':'1','sourceType':'H5'}
-        cx = requests.post(url='https://passenger.t3go.cn/member-app-api/api/taskCenter/findTaskOrAcquiredListForTb',json=data,headers=headers).json()
+        data = {'taskUuidList': taskUuidList, 'cityCode': '450110',
+                'taskType': '1', 'sourceType': 'H5'}
+        cx = requests.post(
+            url='https://passenger.t3go.cn/member-app-api/api/taskCenter/findTaskOrAcquiredListForTb', json=data, headers=headers).json()
         for i in cx['data']:
-            #名字
+            # 名字
             taskName = i['taskName']
             taskSubType = i['subTaskList'][0]['taskSubType']
             taskUuid = i['taskUuid']
-            #领任务
-            data = {"receiveType":"TASK_PACKAGE","taskUuid":taskUuid,"cityCode":"450110"}
-            lrw = requests.post(url='https://passenger.t3go.cn/member-app-api/api/taskCenter/receive',json=data,headers=headers).json()
+            # 领任务
+            data = {"receiveType": "TASK_PACKAGE",
+                    "taskUuid": taskUuid, "cityCode": "450110"}
+            lrw = requests.post(
+                url='https://passenger.t3go.cn/member-app-api/api/taskCenter/receive', json=data, headers=headers).json()
             if lrw['data']['tips'] != '网络异常':
                 myprint(f"任务：{taskName}-{lrw['data']['tips']}")
-                data = {"eventType":taskSubType,"eventTime":int(time.time() * 1000),"taskUuid":taskUuid}
-                ljl = requests.post(url='https://passenger.t3go.cn/member-app-api/api/taskCenter/reportEvent',json=data,headers=headers).json()
+                data = {"eventType": taskSubType, "eventTime": int(
+                    time.time() * 1000), "taskUuid": taskUuid}
+                ljl = requests.post(
+                    url='https://passenger.t3go.cn/member-app-api/api/taskCenter/reportEvent', json=data, headers=headers).json()
                 if ljl['success'] == True:
                     myprint(f"任务：{taskName}-已完成")
         myprint(f"今日所有任务已完成")
-
-
-
 
 
 if __name__ == '__main__':
@@ -174,9 +184,9 @@ if __name__ == '__main__':
         myprint('==================================')
         for duo in fen:
             time.sleep(6)
-            uid,token = duo.split("&")
+            uid, token = duo.split("&")
             try:
-                main(uid,token)
+                main(uid, token)
                 myprint('============📣结束📣============')
             except Exception as e:
                 myprint('小错误')
@@ -187,7 +197,7 @@ if __name__ == '__main__':
             exit()
         else:
             try:
-                main(uid,token)
+                main(uid, token)
             except Exception as e:
                 myprint('小错误')
     try:

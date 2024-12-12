@@ -28,9 +28,19 @@ else:
     meituanCookie = ['']
     print('无meituanCookie变量')
 
+
+def send_notification_message(title):
+    try:
+        from notify import send
+
+        send(title, ''.join(all_print_list))
+    except Exception as e:
+        if e:
+            print('发送通知消息失败！')
+
 #外卖
 def waim(ck):
-    
+
     cookie = f"token={ck};"
     headers = {"Cookie": cookie,
     "X-Requested-With":"com.tencent.mm",
@@ -45,11 +55,11 @@ def waim(ck):
     print(f"获得{len(b['data']['allCoupons'])}张优惠券")
     for sj in b['data']['allCoupons']:
         print(f"{sj['couponName']}-{sj['amountLimit']}-{sj['couponAmount']}元-{sj['amountLimit']}-{sj['etime']}")
-    
+
 
 #团购
 def tuangou(ck):
-    
+
     cookie = f"token={ck};"
     headers = {"Cookie": cookie,
     "X-Requested-With":"com.tencent.mm",
@@ -64,7 +74,7 @@ def tuangou(ck):
     print(f"获得{len(b['data']['allCoupons'])}张优惠券")
     for sj in b['data']['allCoupons']:
         print(f"{sj['couponName']}-{sj['amountLimit']}-{sj['couponAmount']}元-{sj['amountLimit']}-{sj['etime']}")
-    
+
 
 
 def main():
@@ -86,7 +96,7 @@ def main():
                 print('-------------')
             except Exception as e:
                 print('错误')
-            
+
             print('----------------------')
             z = z + 1
         except Exception as e:
@@ -97,7 +107,7 @@ if __name__ == '__main__':
         main()
     except Exception as e:
         print('未知错误')
-    # try:
-    #     send_notification_message(title='')  # 发送通知
-    # except Exception as e:
-    #     print('小错误')
+    try:
+        send_notification_message(title='美团外卖')  # 发送通知
+    except Exception as e:
+        print('小错误')
