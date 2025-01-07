@@ -33,8 +33,8 @@ except Exception as e:
 
 IS_DEV = False
 
-if os.path.isfile('notify.py'):
-    from notify import send
+if os.path.isfile('sendNotify.py'):
+    from sendNotify import send
 
     print("加载通知服务成功！")
 else:
@@ -107,6 +107,7 @@ class RUN:
         return result
 
     def login(self, sfurl):
+        global one_msg
         ress = self.s.get(sfurl, headers=self.headers)
         # print(ress.text)
         self.user_id = self.s.cookies.get_dict().get('_login_user_id_', '')
@@ -114,6 +115,7 @@ class RUN:
         self.mobile = self.phone[:3] + "*" * 4 + self.phone[7:]
         if self.phone != '':
             Log(f'用户:【{self.mobile}】登陆成功')
+            one_msg += f'用户:【{self.mobile}】\n'
             return True
         else:
             Log(f'获取用户信息失败')
@@ -293,8 +295,10 @@ class RUN:
         response = self.do_request(url, data=json_data)
         if response.get('success') == True:
             print(f'>领券成功！')
+            return True
         else:
             print(f'>领券失败！原因：{response.get("errorMessage")}')
+            return  False
 
     def get_coupom_list(self):
         print('>>>获取生活权益券列表')
@@ -309,15 +313,27 @@ class RUN:
         url = 'https://mcs-mimp-web.sf-express.com/mcs-mimp/commonPost/~memberGoods~mallGoodsLifeService~list'
         response = self.do_request(url, data=json_data)
         # print(response)
+        success_get = False
+        goodsList_choice = 0
         if response.get('success') == True:
-            goodsList = response["obj"][0]["goodsList"]
-            for goods in goodsList:
-                exchangeTimesLimit = goods['exchangeTimesLimit']
-                if exchangeTimesLimit >= 7:
+            while True:
+                if success_get:
+                    break
+                goodsList = response["obj"][goodsList_choice]["goodsList"]
+                for goods in goodsList:
                     self.goodsNo = goods['goodsNo']
                     print(f'当前选择券号：{self.goodsNo}')
-                    self.get_coupom()
-                    break
+                    if self.get_coupom():
+                        success_get = True
+                        break
+                    else:
+                            continue
+                else:
+                    goodsList_choice += 1
+                    if goodsList_choice >= len(response["obj"]):
+                        print('没有可领取的券')
+                        break
+                
         else:
             print(f'>领券失败！原因：{response.get("errorMessage")}')
 
@@ -1597,7 +1613,6 @@ class RUN:
         global one_msg
         wait_time = random.randint(1000, 3000) / 1000.0  # 转换为秒
         time.sleep(wait_time)  # 等待
-        one_msg = ''
         if not self.login_res: return False
         # 执行签到任务
         self.sign()
@@ -1638,15 +1653,14 @@ class RUN:
             self.DRAGONBOAT_2024_taskList()
             # self.DRAGONBOAT_2024_Game_init()
             self.DRAGONBOAT_2024_coinStatus(True)
+        else:
+            print('龙舟活动已结束')
 
         self.sendMsg()
         return True
 
     def sendMsg(self, help=False):
-        if self.send_UID:
-            push_res = CHERWIN_TOOLS.wxpusher(self.send_UID, one_msg, APP_NAME, help)
-            print(push_res)
-
+        send(title=APP_NAME,content=one_msg)
 
 def get_quarter_end_date():
     current_date = datetime.now()
