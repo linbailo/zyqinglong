@@ -61,7 +61,7 @@ if 'tsthbck' in os.environ:
     tsthbck = re.split("@|&",os.environ.get("tsthbck"))
     print(f'查找到{len(tsthbck)}个账号')
 else:
-    tsthbck =['sss5a4e6358-d54c-49df-aa06-84005264ef79']
+    tsthbck =['']
     print('无tsthbck变量')
 
 
