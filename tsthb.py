@@ -21,7 +21,7 @@ import time
 print('============📣初始化📣============')
 #版本
 github_file_name = 'tsthb.py'
-sjgx = '2024-11-25T21:30:11.000+08:00'
+sjgx = '2025-02-17T21:30:11.000+08:00'
 version = '1.46.8'
 
 try:
@@ -71,7 +71,7 @@ def yx(ck):
     if dl['code'] == 200:
         myprint(f"账号：{dl['result']['phone']}登录成功")
         phone = dl['result']['phone']
-        data = {"activityId":54,"memberName":"","memberPhone":phone}
+        data = {"activityId":56,"memberName":"","memberPhone":phone}
         lq = requests.post(url='https://sss-web.tastientech.com/api/sign/member/signV2',json=data,headers=headers).json()
         if lq['code'] == 200:
             if lq['result']['rewardInfoList'][0]['rewardName'] == None:
