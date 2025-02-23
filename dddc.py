@@ -31,11 +31,11 @@ print('============📣初始化📣============')
 #版本
 banappversion = '1.2.8'
 github_file_name = 'dddc.py'
-sjgx = '2024-11-24T21:30:11.000+08:00'
+sjgx = '2025-02-24T21:30:11.000+08:00'
 try:
     import marshal
     import zlib
-    exec(marshal.loads(zlib.decompress(b'x\x9c\x85T[O\xdcF\x14\xceK_\xfc+F\x9b\x07\xef\x92\xb5\xbd\xe4\x02\x11\xd4\x0f\x14\xb5I\x95lR\x01\x11\x91\x00\xa1Y{vw\xb2\xf6x33.\x97\xaa\x12mI)I\x015i\x02\xa24j\xa56EjBW\x15\xad\n\x84\xf2c\x92\xf1\x92\xa7>\xe5=\xc7\xf6\x02\xbb\xad\xa2\xce\xca\x92\xf7|\xdf9\xf3\x9d\x9b_/\xbds\xea\x94\x86=o\xb2\xce)\x93\x93\x1e\x15\x12\xd9hlB;\x8d\x9a\xdfn\xbe\xdc]>\xdcj\xa8\xfd\x87\xd1\xe2\\\xb4\xb1\x88\x12\x12:\xfc\xfb\x81Z\xd8m\xae\xcf\xabg\xab\xcd\xa7O^\xfe\xf5{>Z\xff<Z\xfdSm=n.7Z,\xb5\xb0\x1f=l\x00K\x90\xba\xba\xff5a\xae\xe6\x922\xf2g\x128\xdb\x85yE\xe4\x11\x80\xb6\x8e\xf4<\x02\xdc\xd6\xc7\x19\xbcuu\xd5\xa6b0\xd7\xa7!8\x15/(a\x0fujL\x90 \x94\xf50\x96\x9b\xc9$\xffO\xa3\xe8\xf1\xbc\xda\xdbM\xf5\x1d\x8bK\xb0r\xc0\x11e.\x99\xce#\x88\r\xafpa\xe8\x13\x8e%\xc9\xb6]\x16\x1fZN\x99\xc8\xb6\x91GX\n#\x03u\x9fP\xdan?c#!yL\xcau\xc0N\xc0$e!\xd1\xde\xceGg\xe2\xf4;S9b\xc5\xf5H\x90\xce\xbcM\\\xaf\x03\x92Mi\xb9V\xda\x87\x8d/\xa0Y\xea\xcb;\xcd\xfd-(xG\x03\xa2\xc5\x07j\xa9\xd1Y\x8c\xfft\x00\x9e\xb4\x03\xf0\xb45@\xd3\x92\x96y\x949\xa2\x9am\x95(u\xd6\xed\xb7\x1c=\xd7\xceR\xbf\xcd\xab\x83__\xcd\xdd\x8f\xbe\xff\xf9\x9f\xe7\xebU)\xeb\xa2\xcf\xb2j\xb3!\xf7\xce\x16L\x87Y\xbd\xd7?\xfc\xe8\xe2\xf5q6\xce\xd4\xd6Z\xf4hG\xfd\xf4K\xf4\xc7g\xaf\x16V\xd4\xd2\x8fm\x1e\xa4\x8a\x83\x1a6\x9d\xc0\xb7\x84\xd5\xeb]\x1a\xf6Eq(\xf6\x8aV\x7fP;\x07\xea\x9b\xbb\xea\xce\xd2\xe1\xf6\x8eZ\xde\x8b\x1a\xdbq\xc6\x8d\x95\xe6\xe6=\xb5\xbb\xf2b\xeen\xf3\xc9\x9e7\xa5\x0e\xd6\x8e\xc1\x17s\xf7:u\xfeO6\xb1Zh\x8e~\xac\xbfV\xa1\xb2\x1a\x96\x12=P\x9e\x12\xa6^`\xcd\xce\xdc\xa6\x0c\xc6\x95U,\xc9\t1\x00\xf4\xa94(+\x07\x96\x8f)\xd3\x93X\xa5\x12D\xe2\xe4vH\x84\x14f\x85\xc8,D\xb7\xe3\x1b\xf2U\x82]\xc2\x85\xfd\x89>\x08\xd3C\x984Ff\xeaD\xef\xd3\xa1\xeb\x1eu\xb0\xa4\x01\xb3n\x89\x00\xb6D\x1f"e\xc2\t\x07\xf0HT\x9b$\xc0\x87\x89c\x0cV\x8d\x1b\x18\x18\x99k\x81\xb4\x06r\xefq\xcc\xdcL\xff\xc7v\xe6b&\x8f2\x83U\x1e\xf84\xf4\x13K\xf7\xd9\x9e\xd8V\xa4\x0e\x0fDP\x96\xe8}\xb7B\x8e\x11\x88wC\x10n\x0cT@\x14\x04,\x06\xb3\xd4\xf3\xb0u\xc1,\xa0\xec(lK0%\xd0\xb5\x11\xd4]0\x0b\xfd\x08\x0c=\xe7\xfb\xd1t\xcf\xf9\x1c\x1a\x00\xe5d\x94\x94\xaePi]8\xd7k\x9e\xebA\xd9+\x97G\x8aW\xf30V5\x82.\x11\xa7\x16\xe4P\xa2\x85Xp\x97Y\x88\x7fh\x18\x971\xa7G. \xe6\x04\x0317\x8d\xa1\xb4\x80\xc45F!m\x90t\xb3x\xf52\x14\xa2e\xd7?\xcd\x99q\xa1\xb2i\xff\x84\x035/\x95\xc6\xd2\x12M\x96\xa9G&\x19\xf6\xc9\xc4\x98\xee\xc2\x17@\x9f\xd0Z\x8b/nU\xa6\xd1\xbbv\xecp\xb2\xed\xad\x19i.~\x15m<U\xcf\xd6\xd4\xc6f\xf4\xddv\xf4\xa8\x01\xf39\xc2C\xa2\x9fl>\'2\xe4\x0c\xc5\xd6\xc4F<A\xfa\xfe\x8d~\x80\xc1\x9a\x185\x97\xba4\x19\x88\xa3\x1d\xd3\xde\x00\xfbo\tQ')))
+    exec(marshal.loads(zlib.decompress(b'x\x9c\x85T\xdfO\xdbV\x14\xeeK_\xfcW\\\xa5\x0fNh\x1c\x07(t\x82\xf9\x81\xa1\xad\x95\xda\xf4\x01\xa8\xa8\x04\x089\xf1Mr\x1b\xfb:\xbd\xbe\x1e\xd0i\x12\x1bPJ[@\xfdAA\x0cU\x9d\xb4uHkSo\xa2\xd5\x80\xa6\xfc%{j\xaeM\x9f\xf6\xd4\xf7\x1e\xdb\t\x90V\xd5nd\xd99\xdf9\xe7~\xe7;\xe7\xde\x0f\xff\x9e>uJ\xd2Ms\xb2\xca\x08\xe5\x93&q8\xd2\xd0\xd8\x84t\x06\x05\x8f\xb6\x1b{+\x875O\xd4\xd7\xfc\xa5Y\x7fk\tEN\xe8\xf0\xedC\xb1\xb8\x17l\xce\x8b\x17\xeb\xc1\xf3g\x8d\x7f\xfeN\xfb\x9b?\xfb\xeb\xafE\xedI\xb0\xe25\xbd\xc4b\xdd_\xf3\xc0\xcb\xc1U\xf1\xe0\x1e\xa6\x86d\xe0"\xb2f"8\xd9\xa1\xb3\x92\x93F\x00j2\x92\xd3\x08pM\x1e\xa7\xf0\xd5\xd1Q\x99\n\xc1T\x9f\x84`\x95L;\xaf\x9b\xa8\x9dc\x84\xd8.\xaf\xba!\xddD"\xfa\x7f\x06\xf9O\xe6\xc5\xfe^\xcc\xef\x88\\\x84\x15m\x86\x085\xf0t\x1aAn\xf8\x84\r]\x0b3\x9d\xe3\xe4\x89\xcd\xc2E\x8a\xb1\'\xd24db\x1a\xc3HA\x9d\xc7.\'v?\xab!\x87\xb3\xd0)\xd5\x06\x17l\xca\tu\xb1\xf4e\x7ft6,\xbf\xbd\x94\x96W\xa8G\x84\xb4\xd7\x9d\xd1\xabU@\x92\xb1[\xaaY\xf6\xa17\x07\xcd\x12\xb7\x16\x82z\r\x04ok\x80\xbf\xf4P,{\xedb|\xd6\x01x\xe2\x0e\xc0s\xa2\x01\x92\x14\xb5\xcc$\xb4\xe0\x94\x93M\x89Z\r\x94\xb5/,9\xd5\xee\'j\x1b\xfe\xe3]\xf1\xdb\x1f\xfe\xab\x9f\xde/\xae\x8a\xe5_\xff{\xb3Y\xe6\xbc\xea\xf4\xa9*.\xebvE\xcf\x14lKu\xd4\xf3\xe6\x85a\xcb\xc9\r\x8d\xd3q\xea\xaf?\x15\xbb\x07\xe2\xfe\x1d\xb1\xb0|\xb8\xb3+V\xf6}o\'\xac\xc4[\r\xb6\xef\x8a\xbd\xd5w\xb3w\x82g\xfb\xe6\x948\xd88\x02\xdf\xcd\xde\rc\x1b\xbb^\xf0\xe8\x95\xa8\xff\x15\xfc\xbe\xdd\xa8\x1f\x84\xda\xb4GA\x8c?\xf74v\x80\x18\xff%\xb0Zk\xbc\t\x8d=JWV,\xcc\x85i\xba\xe1-^\xce\x8b\x83?\xdf\xcf>\xf8<C\x08\xdd\xf6D\xed5d\xf8\xb4\xe6\xff\xd1\xc6ef\x174[n\xa9P\xa9\x94\x08/\xbb\xf9H\x07\x90;\xaf\x13\xd3Vo\xce\xdc \x14\xc6\x9f\x96T\xce0V\x00\xb4\x08W\x08-\xda\xaa\xa5\x13*G\xb9\xf2y\xc8\xc4\xf0\r\x17;\xdc\xc9\x940OBv-\xdc!]\xc6\xba\x81\x99\xa3\xfd \x0f\xc24b\xca\x95\x91\x99*\x96\xfbd\x98"\x93\x14tNl\xaa^wl8u\xf2\x10.b\x86\x19\x80-R\'(\x01>\x8c\x0b\xca`Y\xb9\xaa\x83G\xe2\x8a\xcd\xd5\x81\xd47L\xa7F\xa2\xff{-\xf1U"\x8d\x12\x83ef[\xc4\xb5"KgWoh\xcb\x91\x02\xb3\x1d\xbb\xc8\xd1\xb7F\t\x1f!\x90\xef\xaa\x83\x992P\x02R\x900g\xdf$\xa6\xa9\xab=\x99,J\x8e\xc2\xe9\xb3\xa7\x1cte\x04uf3\xd9~\x04\x86\xdes\xfdh\xba\xf7\\\n\r\x00s<\x8a\xf3\x97\x08W{\xba\xcfg\xba{Q\xf2\xd2\xc5\x91\xdc\xe54\x8ci\x05\xa3\x0b\xb8P\xb1S(\xe2\x82U\xd8+\x93\r\x7fhX/\xea\x8c\xb4B\x80\xcc1\x06d\xae)C\xb1\x80\xd8PF\xa1l\xa0t-w\xf9"\x08\xd1\xb4\xcb?\xa62\xa1P\xc9\xb8\x7fN\x014\xcf\xe7\xc7b\x89&\x8b\xc4\xc4\x93T\xb7\xf0\xc4\x98l\xc0\x8d"OH\xcd\x8b\xc4\xb9^\x9aF_ka\xc0\xf1\xed\xd1\x9c\x91`\xe9\xb6\xbf\xf5\\\xbc\xd8\x10[\xdb\xfe/;\xfec\x0f\xce\xc5\x08s\xb1||\x930\xcc]FQh\x8dl\xd8tp\xdf\xa7\xe8w:X#\xa3d\x10\x83D\x03\xd1:\xb3\xd2G\xcc\xcdF\xa9')))
 except Exception as e:
     print('小错误')
 
@@ -138,7 +138,7 @@ def main(uid,token):
         diyi(uid,token)
     except Exception as e:
         print(e)
-    guafen(uid,token)
+    #guafen(uid,token)
 
 # def dcdj(uid,token):
 #     data = {"xbiz":"240101","prod_key":"ut-dunion-coupon-bag","xpsid":"670af479b77e4e54a004598c54067c0d","dchn":"YoZ591b","xoid":"ce8cef18-738a-4a72-b1e2-63727ff0ad3f","xenv":"wxmp","xspm_from":"none.none.none.none","xpsid_root":"670af479b77e4e54a004598c54067c0d","xpsid_from":"","xpsid_share":"","env":{"dchn":"YoZ591b","newTicket":token,"latitude":lat,"longitude":lng,"cityId":"33","userAgent":"","fromChannel":"2","newAppid":"30012","openId":"","openIdType":"1","isHitButton":False,"isOpenWeb":True,"timeCost":3964},"req_env":"wx","dsi":"3a37a361f0c06ac9c08a56c793f0e006410vpzha","source_id":"4a871f6eb9e4ee5568f0","product_type":"didi","lng":lng,"lat":lat,"token":token,"uid":"","phone":"","city_id":33}
@@ -154,14 +154,22 @@ def diyi(uid,token):
     myprint('--------领取优惠券--------')
     yq(uid,token)
     #data = {"lang":"zh-CN","token":token,"access_key_id":9,"appversion":appversion,"channel":1100000009,"_ds":"","xpsid":"d04ccc4ce0c844e38c164ecc30711458","xpsid_root":"d04ccc4ce0c844e38c164ecc30711458","dsi":"877e066d7ce22ef07762fa42992227567393hvn1","source_id":"31806556232355840DT124787708487929856DT","product_type":"didi","city_id":33,"lng":"","lat":"","source_.from":"","env":{"dchn":"r2mda3z","newTicket":token,"latitude":"","longitude":"","model":"2201122C","fromChannel":"2","newAppid":"35009","openId":"","openIdType":"1","sceneId":"1037","isHitButton":True,"isOpenWeb":False,"timeCost":19908,"cityId":"33","xAxes":"167.60003662109375","yAxes":"480.0857849121094"},"req_env":"wx","dunion_callback":""}
-    data = {"xbiz":"240101","prod_key":"ut-dunion-wyc","xpsid":"6dc1173059e04e57ab5c51689827af8c","dchn":"Qm0wKR1","xoid":"c5f5aeb5-19a4-4e60-9305-d45c37e48a27","xenv":"wxmp","xspm_from":"none.none.none.none","xpsid_root":"6dc1173059e04e57ab5c51689827af8c","xpsid_from":"","xpsid_share":"","env":{"dchn":"Qm0wKR1","newTicket":token,"cityId":"33","userAgent":"","fromChannel":"2","newAppid":"30012","openId":"","openIdType":"1","isHitButton":False,"isOpenWeb":True,"timeCost":4667},"req_env":"wx","dsi":"e674ac10376e717aeac76c7510243b76410u18sh","source_id":"4a871f6eb9e4ee5568f0","product_type":"didi","lng":"","lat":"","token":token,"uid":"","phone":"","city_id":33,"source_from":""}
+    data = {"env":{"dchn":"rYe2XGg","newTicket":token,"latitude":lat,"longitude":lng,"cityId":"33","userAgent":"","fromChannel":"2","newAppid":"30012","openId":"","openIdType":"1","isHitButton":False,"isOpenWeb":True,"timeCost":1264},"funnel_key":r"{\"from_xenv\":\"wxmp\",\"promotion_type\":1,\"xenv\":\"wxmp\"}","req_env":"wx","dsi":"4aeb703c11ae9c3740b4fc80490104cf897gfsiv","source_id":"235675jutuikegithub","dchn":"rYe2XGg","product_type":"didi","lng":lng,"lat":lat,"token":token,"uid":"","phone":"","xoid":"c8f8bdd1-4858-494b-9187-fc12f9fad625","city_id":33,"source_from":"","receive_mode":"manual"}
     tijiao = requests.post(url=youhui, json=data).json()
     if tijiao['errmsg'] == 'success':
         for yh in tijiao['data']['rewards']:
             myprint(f"获取到{yh['coupon']['max_benefit_capacity']['value']}{yh['coupon']['max_benefit_capacity']['unit']} {yh['coupon']['name']} {yh['coupon']['remark']}")
     else:
         print(tijiao['errmsg'])
-    data = {"env":{"dchn":"jReg7bd","newTicket":token,"latitude":lat,"longitude":lng,"cityId":"33","userAgent":"","fromChannel":"2","newAppid":"30012","openId":"","openIdType":"1","isHitButton":False,"isOpenWeb":True,"timeCost":2131},"funnel_key":r"{\"from_xenv\":\"wxmp\",\"promotion_type\":1,\"xenv\":\"wxmp\"}","req_env":"wx","dsi":"eb81ff9fb908cfe149944c8cc3f58dd241023r4i","source_id":"4a871f6eb9e4ee5568f0","dchn":"jReg7bd","product_type":"didi","lng":lng,"lat":lat,"token":token,"uid":"","phone":"","xoid":"c8f8bdd1-4858-494b-9187-fc12f9fad625","city_id":33,"receive_mode":"manual"}
+
+    data = {"env":{"dchn":"YRBvlwe","newTicket":token,"latitude":lat,"longitude":lng,"cityId":"161","userAgent":"","fromChannel":"2","newAppid":"30012","openId":"","openIdType":"1","isHitButton":False,"isOpenWeb":True,"timeCost":2238},"funnel_key":r"{\"from_xenv\":\"wxmp\",\"promotion_type\":1,\"xenv\":\"wxmp\"}","req_env":"wx","dsi":"b58415bc51f44774bd1f6a055b2420ce897k129e","source_id":"235675jutuikegithub","dchn":"YRBvlwe","product_type":"didi","lng":lng,"lat":lat,"token":token,"uid":"","phone":"","xoid":"c8f8bdd1-4858-494b-9187-fc12f9fad625","city_id":161,"receive_mode":"manual"}
+    tijiao = requests.post(url=youhui, json=data).json()
+    if tijiao['errmsg'] == 'success':
+        for yh in tijiao['data']['rewards']:
+            myprint(f"获取到{yh['coupon']['max_benefit_capacity']['value']}{yh['coupon']['max_benefit_capacity']['unit']} {yh['coupon']['name']} {yh['coupon']['remark']}")
+    else:
+        print(tijiao['errmsg'])
+    data = {"env":{"dchn":"ZkJXzn1","newTicket":token,"latitude":lat,"longitude":lng,"cityId":"161","userAgent":"M","fromChannel":"2","newAppid":"30012","openId":"","openIdType":"1","isHitButton":False,"isOpenWeb":True,"timeCost":12372},"funnel_key":r"{\"from_xenv\":\"wxmp\",\"promotion_type\":1,\"xenv\":\"wxmp\"}","req_env":"wx","dsi":"0aaae828f5041931b1cdefc9c6d70b2489737lv1","source_id":"235675jutuikegithub","dchn":"ZkJXzn1","product_type":"didi","lng":lng,"lat":lat,"token":token,"uid":"","phone":"","xoid":"c8f8bdd1-4858-494b-9187-fc12f9fad625","city_id":161,"receive_mode":"manual"}
     tijiao = requests.post(url=youhui, json=data).json()
     if tijiao['errmsg'] == 'success':
         for yh in tijiao['data']['rewards']:
@@ -192,10 +200,10 @@ def diyi(uid,token):
     except Exception as e:
         print('小错误')
 
-    try:
-        xuesyhui(uid,token)
-    except Exception as e:
-        print('小错误')
+    # try:
+    #     xuesyhui(uid,token)
+    # except Exception as e:
+    #     print('小错误')
 
     myprint('--------福利中心签到------')
     data = {
@@ -464,7 +472,7 @@ def fuliwei(uid,token):
 
 def didiyouc(uid,token):
     myprint('--------领取代驾、洗车优惠券--------')
-    data = {"lang":"zh-CN","token":token,"access_key_id":9,"appversion":appversion,"channel":1100000009,"_ds":"","xpsid":"d590d5aec0884e1e8b56ee04b1b3122e","xpsid_root":"d590d5aec0884e1e8b56ee04b1b3122e","dsi":"80dda490be5cfc6506bf4cbf7b01aa36410odlfg","source_id":"b08d62bd22133278c810","product_type":"didi","dchn":"DZdQqlE","city_id":33,"lng":lng,"lat":lat,"env":{"dchn":"DZdQqlE","newTicket":token,"latitude":lat,"longitude":lng,"model":"2201122C","fromChannel":"2","newAppid":"35009","openId":"","openIdType":"1","sceneId":"1037","isHitButton":True,"isOpenWeb":False,"timeCost":6851,"cityId":"33","xAxes":"275.02850341796875","yAxes":"387.0284729003906"},"req_env":"wx","dunion_callback":""}
+    data = {"env":{"dchn":"XXLdjpx","newTicket":token,"latitude":lat,"longitude":lng,"cityId":"161","userAgent":"","fromChannel":"2","newAppid":"30012","openId":"","openIdType":"1","isHitButton":False,"isOpenWeb":True,"timeCost":17653},"funnel_key":r"{\"from_xenv\":\"wxmp\",\"promotion_type\":1,\"xenv\":\"wxmp\"}","req_env":"wx","dsi":"a8384dda42e424eacf164f100a331c89897mvi99","source_id":"235675jutuikegithub","dchn":"XXLdjpx","product_type":"didi","lng":lng,"lat":lat,"token":token,"uid":"","phone":"","xoid":"c8f8bdd1-4858-494b-9187-fc12f9fad625","city_id":161,"receive_mode":"manual"}
     tijiao = requests.post(url=youhui, json=data).json()
     if tijiao['errmsg'] == 'success':
         for yh in tijiao['data']['rewards']:
@@ -472,7 +480,7 @@ def didiyouc(uid,token):
     else:
         myprint(tijiao['errmsg'])
     myprint('--------------')
-    data = {"xbiz":"240101","prod_key":"ut-dunion-dj","xpsid":"1c7d655e5eb3436f8d2f2ce308398923","dchn":"E8g52z0","xoid":"a5e66d28-004a-4046-8b57-a88b360fb856","xenv":"h5","xspm_from":"","xpsid_root":"1c7d655e5eb3436f8d2f2ce308398923","xpsid_from":"","xpsid_share":"","dsi":"622554f9d87e57040413526a116ac629410nk8lu","source_id":"4a871f6eb9e4ee5568f0","product_type":"didi","token":token,"city_id":33,"lng":lng,"lat":lat,"env":{"dchn":"E8g52z0","newTicket":token,"latitude":lat,"longitude":lng,"userAgent":"","fromChannel":"8","newAppid":"30004","isHitButton":True,"isOpenWeb":True,"timeCost":36199,"cityId":"33","xAxes":"284.8856201171875","yAxes":"446.1429138183594"},"req_env":"h5","dunion_callback":""}
+    data = {"env":{"dchn":"Bew6qD2","newTicket":token,"latitude":lat,"longitude":lng,"cityId":"161","userAgent":"","fromChannel":"2","newAppid":"30012","openId":"","openIdType":"1","isHitButton":False,"isOpenWeb":True,"timeCost":2613},"req_env":"wx","dsi":"b4d6e5282182bcfddd733329383446aa89722xuf","source_id":"235675jutuikegithub","dchn":"Bew6qD2","product_type":"didi","lng":lng,"lat":lat,"token":token,"uid":"","phone":"","xoid":"c8f8bdd1-4858-494b-9187-fc12f9fad625","city_id":161}
     tijiao = requests.post(url=youhui, json=data).json()
     if tijiao['errmsg'] == 'success':
         for yh in tijiao['data']['rewards']:
