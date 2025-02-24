@@ -31,7 +31,7 @@ print('============📣初始化📣============')
 #版本
 banappversion = '1.2.8'
 github_file_name = 'dddc.py'
-sjgx = '2025-02-24T21:30:11.000+08:00'
+sjgx = '2025-02-25T21:30:11.000+08:00'
 try:
     import marshal
     import zlib
@@ -169,7 +169,7 @@ def diyi(uid,token):
             myprint(f"获取到{yh['coupon']['max_benefit_capacity']['value']}{yh['coupon']['max_benefit_capacity']['unit']} {yh['coupon']['name']} {yh['coupon']['remark']}")
     else:
         print(tijiao['errmsg'])
-    data = {"env":{"dchn":"ZkJXzn1","newTicket":token,"latitude":lat,"longitude":lng,"cityId":"161","userAgent":"M","fromChannel":"2","newAppid":"30012","openId":"","openIdType":"1","isHitButton":False,"isOpenWeb":True,"timeCost":12372},"funnel_key":r"{\"from_xenv\":\"wxmp\",\"promotion_type\":1,\"xenv\":\"wxmp\"}","req_env":"wx","dsi":"0aaae828f5041931b1cdefc9c6d70b2489737lv1","source_id":"235675jutuikegithub","dchn":"ZkJXzn1","product_type":"didi","lng":lng,"lat":lat,"token":token,"uid":"","phone":"","xoid":"c8f8bdd1-4858-494b-9187-fc12f9fad625","city_id":161,"receive_mode":"manual"}
+    data = {"env":{"dchn":"ZkJXzn1","newTicket":token,"latitude":lat,"longitude":lng,"cityId":"161","userAgent":"","fromChannel":"2","newAppid":"30012","openId":"","openIdType":"1","isHitButton":False,"isOpenWeb":True,"timeCost":12372},"funnel_key":r"{\"from_xenv\":\"wxmp\",\"promotion_type\":1,\"xenv\":\"wxmp\"}","req_env":"wx","dsi":"0aaae828f5041931b1cdefc9c6d70b2489737lv1","source_id":"235675jutuikegithub","dchn":"ZkJXzn1","product_type":"didi","lng":lng,"lat":lat,"token":token,"uid":"","phone":"","xoid":"c8f8bdd1-4858-494b-9187-fc12f9fad625","city_id":161,"receive_mode":"manual"}
     tijiao = requests.post(url=youhui, json=data).json()
     if tijiao['errmsg'] == 'success':
         for yh in tijiao['data']['rewards']:
