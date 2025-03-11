@@ -17,7 +17,7 @@ https://linhua.lanzoup.com/iCOcD0yqavmj
 
 - [x] 目前有
 
-  - [x] tsthb：塔斯汀汉堡签到积分可以兑换优惠券---测试中
+  - [x] tsthb：塔斯汀汉堡签到积分7天一个小汉堡！！
   - [x] T3cx：T3出行签到-领优惠券，积分可以兑换10元无门槛优惠券
   - [x] bwcj：霸王茶姬签到领积分[大佬的库](https://raw.githubusercontent.com/checkToke/yangtai/master/bwcj.js)
   - [x] sfsyV2: 顺丰快递领优惠券做积分任务[大佬的库](https://raw.githubusercontent.com/leafTheFish/DeathNote/main/sfsyV2.js)
