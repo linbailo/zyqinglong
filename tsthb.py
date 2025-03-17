@@ -73,7 +73,9 @@ def qdsj(ck):
     for i in dl['result']:
         if i['bannerName'] == '每日签到':
             qd = i['jumpPara']
-            activityId = json.loads(qd)['activityId']
+            activityId = re.findall('activityId%2522%253A(.*?)%257D',qd)[0]
+            print(f"获取到本月签到代码：{activityId}")
+            #activityId = json.loads(qd)['activityId']
     return activityId
 
 
@@ -85,7 +87,7 @@ def yx(ck):
     except Exception as e:
         activityId = ''
     if activityId == '':
-        activityId = 56
+        activityId = 57
     headers = {'user-token':ck,'version':version,'channel':'1'}
     dl = requests.get(url='https://sss-web.tastientech.com/api/intelligence/member/getMemberDetail',headers=headers).json()
     if dl['code'] == 200:
