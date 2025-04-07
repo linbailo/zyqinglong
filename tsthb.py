@@ -22,7 +22,7 @@ import json
 print('============📣初始化📣============')
 #版本
 github_file_name = 'tsthb.py'
-sjgx = '2025-02-17T21:30:11.000+08:00'
+sjgx = '2025-04-17T21:30:11.000+08:00'
 version = '1.46.8'
 
 try:
@@ -70,10 +70,13 @@ def qdsj(ck):
     data = {"shopId":"","birthday":"","gender": 0,"nickName":None,"phone":""}
     dl = requests.post(url='https://sss-web.tastientech.com/api/minic/shop/intelligence/banner/c/list',json=data,headers=headers).json()
     activityId = ''
+    # print(dl)
     for i in dl['result']:
-        if i['bannerName'] == '每日签到':
+        if '每日签到' in i['bannerName']:
+            # print(i)
             qd = i['jumpPara']
-            activityId = re.findall('activityId%2522%253A(.*?)%257D',qd)[0]
+            activityId = json.loads(qd)['activityId']
+            # activityId = re.findall('activityId%2522%253A(.*?)%257D',qd)[0]
             print(f"获取到本月签到代码：{activityId}")
             #activityId = json.loads(qd)['activityId']
     return activityId
