@@ -13,6 +13,7 @@ import json
 import os
 import random
 import time
+import re
 from datetime import datetime, timedelta
 from sys import exit
 import requests
@@ -1046,12 +1047,16 @@ if __name__ == '__main__':
     CK_NAME = 'url'
     local_script_name = os.path.basename(__file__)
     local_version = '2025.01.06'
-    token = os.getenv(ENV_NAME)
+    
+    #token = os.getenv(ENV_NAME)
     # 将分隔符从\n改为&
-    tokens = token.split('&')
+    #tokens = token.split('\n')
+    tokens = re.split("\n|&",os.getenv(ENV_NAME))
+    from urllib.parse import quote
     # print(tokens)
     if len(tokens) > 0:
         print(f"==================================\n🚚 共获取到{len(tokens)}个账号\n😣 修改By:呆呆呆呆\n==================================")
         for index, infos in enumerate(tokens):
-            run_result = RUN(infos, index).main()
+            print(quote(infos))
+            run_result = RUN(quote(infos), index).main()
             if not run_result: continue
