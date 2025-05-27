@@ -1051,12 +1051,12 @@ if __name__ == '__main__':
     #token = os.getenv(ENV_NAME)
     # 将分隔符从\n改为&
     #tokens = token.split('\n')
-    tokens = re.split("\n|&",os.getenv(ENV_NAME))
+    tokens = re.split("\n",os.getenv(ENV_NAME))
     from urllib.parse import quote
     # print(tokens)
     if len(tokens) > 0:
         print(f"==================================\n🚚 共获取到{len(tokens)}个账号\n😣 修改By:呆呆呆呆\n==================================")
         for index, infos in enumerate(tokens):
-            print(quote(infos))
+            #print(quote(infos))
             run_result = RUN(quote(infos), index).main()
             if not run_result: continue
