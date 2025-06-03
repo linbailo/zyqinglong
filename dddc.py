@@ -29,9 +29,9 @@ import time
 #初始化
 print('============📣初始化📣============')
 #版本
-banappversion = '1.2.8'
+banappversion = '1.2.9'
 github_file_name = 'dddc.py'
-sjgx = '2025-02-25T21:30:11.000+08:00'
+sjgx = '2025-06-04T21:30:11.000+08:00'
 try:
     import marshal
     import zlib
@@ -154,7 +154,8 @@ def diyi(uid,token):
     myprint('--------领取优惠券--------')
     yq(uid,token)
     #data = {"lang":"zh-CN","token":token,"access_key_id":9,"appversion":appversion,"channel":1100000009,"_ds":"","xpsid":"d04ccc4ce0c844e38c164ecc30711458","xpsid_root":"d04ccc4ce0c844e38c164ecc30711458","dsi":"877e066d7ce22ef07762fa42992227567393hvn1","source_id":"31806556232355840DT124787708487929856DT","product_type":"didi","city_id":33,"lng":"","lat":"","source_.from":"","env":{"dchn":"r2mda3z","newTicket":token,"latitude":"","longitude":"","model":"2201122C","fromChannel":"2","newAppid":"35009","openId":"","openIdType":"1","sceneId":"1037","isHitButton":True,"isOpenWeb":False,"timeCost":19908,"cityId":"33","xAxes":"167.60003662109375","yAxes":"480.0857849121094"},"req_env":"wx","dunion_callback":""}
-    data = {"env":{"dchn":"rYe2XGg","newTicket":token,"latitude":lat,"longitude":lng,"cityId":"33","userAgent":"","fromChannel":"2","newAppid":"30012","openId":"","openIdType":"1","isHitButton":False,"isOpenWeb":True,"timeCost":1264},"funnel_key":r"{\"from_xenv\":\"wxmp\",\"promotion_type\":1,\"xenv\":\"wxmp\"}","req_env":"wx","dsi":"4aeb703c11ae9c3740b4fc80490104cf897gfsiv","source_id":"235675jutuikegithub","dchn":"rYe2XGg","product_type":"didi","lng":lng,"lat":lat,"token":token,"uid":"","phone":"","xoid":"c8f8bdd1-4858-494b-9187-fc12f9fad625","city_id":33,"source_from":"","receive_mode":"manual"}
+    data = {"env":{"dchn":"YQwoRwR","newTicket":token,"latitude":lat,"longitude":lng,"cityId":"33","userAgent":"","fromChannel":"2","newAppid":"30012","openId":"","openIdType":"1","isHitButton":False,"isOpenWeb":True,"timeCost":1645},"funnel_key":r"{\"from_xenv\":\"wxmp\",\"promotion_type\":1,\"xenv\":\"wxmp\"}","req_env":"wx","dsi":"3c08f7474e087aa3ee2874d9065f41f2897t73wy","source_id":"235675jutuike202563","dchn":"YQwoRwR","product_type":"didi","lng":lng,"lat":lat,"lang":"zh-CN","token":token,"uid":"","phone":"","xoid":"348d1abb-70ca-466e-80ca-a1f540b7563b","city_id":33,"receive_mode":"manual"}
+    # data = {"env":{"dchn":"rYe2XGg","newTicket":token,"latitude":lat,"longitude":lng,"cityId":"33","userAgent":"","fromChannel":"2","newAppid":"30012","openId":"","openIdType":"1","isHitButton":False,"isOpenWeb":True,"timeCost":1264},"funnel_key":r"{\"from_xenv\":\"wxmp\",\"promotion_type\":1,\"xenv\":\"wxmp\"}","req_env":"wx","dsi":"4aeb703c11ae9c3740b4fc80490104cf897gfsiv","source_id":"235675jutuikegithub","dchn":"rYe2XGg","product_type":"didi","lng":lng,"lat":lat,"token":token,"uid":"","phone":"","xoid":"c8f8bdd1-4858-494b-9187-fc12f9fad625","city_id":33,"source_from":"","receive_mode":"manual"}
     tijiao = requests.post(url=youhui, json=data).json()
     if tijiao['errmsg'] == 'success':
         for yh in tijiao['data']['rewards']:
@@ -162,20 +163,28 @@ def diyi(uid,token):
     else:
         print(tijiao['errmsg'])
 
-    data = {"env":{"dchn":"YRBvlwe","newTicket":token,"latitude":lat,"longitude":lng,"cityId":"161","userAgent":"","fromChannel":"2","newAppid":"30012","openId":"","openIdType":"1","isHitButton":False,"isOpenWeb":True,"timeCost":2238},"funnel_key":r"{\"from_xenv\":\"wxmp\",\"promotion_type\":1,\"xenv\":\"wxmp\"}","req_env":"wx","dsi":"b58415bc51f44774bd1f6a055b2420ce897k129e","source_id":"235675jutuikegithub","dchn":"YRBvlwe","product_type":"didi","lng":lng,"lat":lat,"token":token,"uid":"","phone":"","xoid":"c8f8bdd1-4858-494b-9187-fc12f9fad625","city_id":161,"receive_mode":"manual"}
+    data = {"env":{"dchn":"onX67WR","newTicket":token,"latitude":lat,"longitude":lng,"cityId":"33","userAgent":"","fromChannel":"2","newAppid":"30012","openId":"","openIdType":"1","isHitButton":False,"isOpenWeb":True,"timeCost":1986},"funnel_key":r"{\"from_xenv\":\"wxmp\",\"promotion_type\":1,\"xenv\":\"wxmp\"}","req_env":"wx","dsi":"df719d5bd8b863bd0ef58cb5fcf6d307897xgpbw","source_id":"235675jutuike202563","dchn":"onX67WR","product_type":"didi","lng":lng,"lat":lat,"lang":"zh-CN","token":token,"uid":"","phone":"","xoid":"348d1abb-70ca-466e-80ca-a1f540b7563b","city_id":33,"receive_mode":"manual"}
     tijiao = requests.post(url=youhui, json=data).json()
     if tijiao['errmsg'] == 'success':
         for yh in tijiao['data']['rewards']:
             myprint(f"获取到{yh['coupon']['max_benefit_capacity']['value']}{yh['coupon']['max_benefit_capacity']['unit']} {yh['coupon']['name']} {yh['coupon']['remark']}")
     else:
         print(tijiao['errmsg'])
-    data = {"env":{"dchn":"ZkJXzn1","newTicket":token,"latitude":lat,"longitude":lng,"cityId":"161","userAgent":"","fromChannel":"2","newAppid":"30012","openId":"","openIdType":"1","isHitButton":False,"isOpenWeb":True,"timeCost":12372},"funnel_key":r"{\"from_xenv\":\"wxmp\",\"promotion_type\":1,\"xenv\":\"wxmp\"}","req_env":"wx","dsi":"0aaae828f5041931b1cdefc9c6d70b2489737lv1","source_id":"235675jutuikegithub","dchn":"ZkJXzn1","product_type":"didi","lng":lng,"lat":lat,"token":token,"uid":"","phone":"","xoid":"c8f8bdd1-4858-494b-9187-fc12f9fad625","city_id":161,"receive_mode":"manual"}
+        
+    data = {"env":{"dchn":"YRBvlwe","newTicket":token,"latitude":lat,"longitude":lng,"cityId":"33","userAgent":"","fromChannel":"2","newAppid":"30012","openId":"","openIdType":"1","isHitButton":False,"isOpenWeb":True,"timeCost":12237},"funnel_key":r"{\"from_xenv\":\"wxmp\",\"promotion_type\":1,\"xenv\":\"wxmp\"}","req_env":"wx","dsi":"b58415bc51f44774bd1f6a055b2420ce897k129e","source_id":"235675jutuike202563","dchn":"YRBvlwe","product_type":"didi","lng":lng,"lat":lat,"lang":"zh-CN","token":token,"uid":"","phone":"","xoid":"348d1abb-70ca-466e-80ca-a1f540b7563b","city_id":33,"receive_mode":"manual"}
     tijiao = requests.post(url=youhui, json=data).json()
     if tijiao['errmsg'] == 'success':
         for yh in tijiao['data']['rewards']:
             myprint(f"获取到{yh['coupon']['max_benefit_capacity']['value']}{yh['coupon']['max_benefit_capacity']['unit']} {yh['coupon']['name']} {yh['coupon']['remark']}")
     else:
         print(tijiao['errmsg'])
+    data = {"env":{"dchn":"ZkJXzn1","newTicket":token,"latitude":lat,"longitude":lng,"cityId":"33","userAgent":"","fromChannel":"2","newAppid":"30012","openId":"","openIdType":"1","isHitButton":False,"isOpenWeb":True,"timeCost":4263},"funnel_key":r"{\"from_xenv\":\"wxmp\",\"promotion_type\":1,\"xenv\":\"wxmp\"}","req_env":"wx","dsi":"0aaae828f5041931b1cdefc9c6d70b2489737lv1","source_id":"235675jutuike202563","dchn":"ZkJXzn1","product_type":"didi","lng":lng,"lat":lat,"lang":"zh-CN","token":token,"uid":"","phone":"","xoid":"348d1abb-70ca-466e-80ca-a1f540b7563b","city_id":33,"receive_mode":"manual"}
+    tijiao = requests.post(url=youhui, json=data).json()
+    if tijiao['errmsg'] == 'success':
+        for yh in tijiao['data']['rewards']:
+            myprint(f"获取到{yh['coupon']['max_benefit_capacity']['value']}{yh['coupon']['max_benefit_capacity']['unit']} {yh['coupon']['name']} {yh['coupon']['remark']}")
+    else:
+        print(tijiao['errmsg'])    
     # try:
     #     print('------------')
     #     dcdj(uid,token)
@@ -472,7 +481,7 @@ def fuliwei(uid,token):
 
 def didiyouc(uid,token):
     myprint('--------领取代驾、洗车优惠券--------')
-    data = {"env":{"dchn":"XXLdjpx","newTicket":token,"latitude":lat,"longitude":lng,"cityId":"161","userAgent":"","fromChannel":"2","newAppid":"30012","openId":"","openIdType":"1","isHitButton":False,"isOpenWeb":True,"timeCost":17653},"funnel_key":r"{\"from_xenv\":\"wxmp\",\"promotion_type\":1,\"xenv\":\"wxmp\"}","req_env":"wx","dsi":"a8384dda42e424eacf164f100a331c89897mvi99","source_id":"235675jutuikegithub","dchn":"XXLdjpx","product_type":"didi","lng":lng,"lat":lat,"token":token,"uid":"","phone":"","xoid":"c8f8bdd1-4858-494b-9187-fc12f9fad625","city_id":161,"receive_mode":"manual"}
+    data = {"env":{"dchn":"YRBvlwe","newTicket":token,"latitude":lat,"longitude":lng,"cityId":"33","userAgent":"","fromChannel":"2","newAppid":"30012","openId":"","openIdType":"1","isHitButton":False,"isOpenWeb":True,"timeCost":5508},"funnel_key":r"{\"from_xenv\":\"wxmp\",\"promotion_type\":1,\"xenv\":\"wxmp\"}","req_env":"wx","dsi":"b58415bc51f44774bd1f6a055b2420ce897k129e","source_id":"235675jutuike202563","dchn":"YRBvlwe","product_type":"didi","lng":lng,"lat":lat,"lang":"zh-CN","token":token,"uid":"","phone":"","xoid":"348d1abb-70ca-466e-80ca-a1f540b7563b","city_id":33,"receive_mode":"manual"}
     tijiao = requests.post(url=youhui, json=data).json()
     if tijiao['errmsg'] == 'success':
         for yh in tijiao['data']['rewards']:
@@ -480,7 +489,7 @@ def didiyouc(uid,token):
     else:
         myprint(tijiao['errmsg'])
     myprint('--------------')
-    data = {"env":{"dchn":"Bew6qD2","newTicket":token,"latitude":lat,"longitude":lng,"cityId":"161","userAgent":"","fromChannel":"2","newAppid":"30012","openId":"","openIdType":"1","isHitButton":False,"isOpenWeb":True,"timeCost":2613},"req_env":"wx","dsi":"b4d6e5282182bcfddd733329383446aa89722xuf","source_id":"235675jutuikegithub","dchn":"Bew6qD2","product_type":"didi","lng":lng,"lat":lat,"token":token,"uid":"","phone":"","xoid":"c8f8bdd1-4858-494b-9187-fc12f9fad625","city_id":161}
+    data = {"env":{"dchn":"Bew6qD2","newTicket":token,"latitude":lat,"longitude":lng,"cityId":"33","userAgent":"","fromChannel":"2","newAppid":"30012","openId":"","openIdType":"1","isHitButton":False,"isOpenWeb":True,"timeCost":1452},"req_env":"wx","dsi":"b4d6e5282182bcfddd733329383446aa89722xuf","source_id":"235675jutuike202563","dchn":"Bew6qD2","product_type":"didi","lng":lng,"lat":lat,"token":token,"uid":"","phone":"","xoid":"348d1abb-70ca-466e-80ca-a1f540b7563b","city_id":33}
     tijiao = requests.post(url=youhui, json=data).json()
     if tijiao['errmsg'] == 'success':
         for yh in tijiao['data']['rewards']:
